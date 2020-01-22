@@ -1,4 +1,6 @@
-
+// modoJuego1.cpp
+// Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
+// Descripcion: Implementacion de la clase modoJuego clase que valida los movimientos jugador vs jugador
 
 #include "modoJuego1.h"
 
