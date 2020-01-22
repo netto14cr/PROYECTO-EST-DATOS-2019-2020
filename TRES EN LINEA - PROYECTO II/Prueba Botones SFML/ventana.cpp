@@ -1,12 +1,14 @@
 
-
+// ventana.cpp
+// Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
+// Descripcion: Implementacion de la clase ventana
 
 #include "ventana.h"
 #include "gato.h"
 #include "menu.h"
 //#include "modoJuego1.h"
 
-
+ 
 
 
 // Se define una nueva ventana que contendra el juego gato con un tamaaño establecido y titulo.
@@ -134,7 +136,7 @@ void ventana::manejoEventosTeclado(sf::RenderWindow& window) {
 
 		 // <<<<<<<<	AQUI VAN LOS CONDISIONALES CON LOS METODOS QUE ACTUALIZAN LA PANTALLA EN MODO JUGADOR VS CPU
 
-
+		 
 
 
 		 //	>>		FIN MODO JUGADOR VS CPU		>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
