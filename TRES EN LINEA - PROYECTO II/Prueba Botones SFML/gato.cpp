@@ -79,59 +79,16 @@ void gato::cargaDeTexturasJuego() {
 
 
 
-// Metodo que dibuja 9 botones en pantalla que representan una matriz en pantalla para que los 
-// jugadores presiones y jueguen.
-void gato::dibujarBotonesGato(sf::RenderWindow& window) {
-
-
-	dibujarImagenEspecifica(window, 9);
-	// --------------	MATRIZ BOTONES   -----------------
-	// -------------------- FILA 1  ----------------------
-	boton1Image.setTexture(espacioVacio);
-	boton1Image.setPosition(317.0f, 200.0f);
-	window.draw(boton1Image);
-	boton2Image.setTexture(espacioVacio);
-	boton2Image.setPosition(450.0f, 200.0f);
-	window.draw(boton2Image);
-	boton3Image.setTexture(espacioVacio);
-	boton3Image.setPosition(583.0f, 200.0f);
-
-	// -------------------- FILA 2  ----------------------
-	window.draw(boton3Image);
-	boton4Image.setTexture(espacioVacio);
-	boton4Image.setPosition(317.0f, 333.0f);
-	window.draw(boton4Image);
-	boton5Image.setTexture(espacioVacio);
-	boton5Image.setPosition(450.0f, 333.0f);
-	window.draw(boton5Image);
-	boton6Image.setTexture(espacioVacio);
-	boton6Image.setPosition(583.0f, 333.0f);
-	window.draw(boton6Image);
-
-	// -------------------- FILA 3  ----------------------
-
-	boton7Image.setTexture(espacioVacio);
-	boton7Image.setPosition(317.0f, 466.0f);
-	window.draw(boton7Image);
-	boton8Image.setTexture(espacioVacio);
-	boton8Image.setPosition(450.0f, 466.0f);
-	window.draw(boton8Image);
-	boton9Image.setTexture(espacioVacio);
-	boton9Image.setPosition(583.0f, 466.0f);
-	window.draw(boton9Image);
-	window.display();
-}
-
-
-
 // Metodo que obtiene los valores del vector de matriz de juego y lee uno por uno su contenido y
 // asi determina la textura de cada boton del juego mostrado en pantalla
 void gato::dibujarBotonesMatriz(vector<string> vectorAux, sf::RenderWindow& window)
 {
-	
+
 	for (unsigned int i = 0; i < vectorAux.size(); i++) {
-				actualizaImgBoton(i, window, determinarImagenTextura(vectorAux.at(i)));
+
+		actualizaImgBoton(i, window, determinarImagenTextura(vectorAux.at(i)));
 	}
+
 	window.display();
 }
 
@@ -396,11 +353,12 @@ void gato::accionSeleccionarBoton(sf::RenderWindow& window, unsigned int numeroJ
 
 
 
+// Metodo que actualiza la matriz mostrada en pantalla de modo jugador vs jugador
+void gato::actualizaMatrizMod1(sf::RenderWindow& window)
+{
+	dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
 
-// Metodo que verifica si se puede realizar una jugada por parte de cualquiera de los dos jugadores y se 
-// verdad cambiara el estado de las imagenes de los botones y cambiaria el turno asignado a falso del jugador que realizo 
-// la jugada.
-
+}
 
 // Este metodo tambine valida que cambie los eventos graficos y de validacion si no hay todavia un ganador o empate
 // de lo contrario avisara que ya la jugada no puede ser realizada.

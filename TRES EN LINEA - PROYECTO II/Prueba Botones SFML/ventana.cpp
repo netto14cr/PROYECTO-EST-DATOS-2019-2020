@@ -60,19 +60,20 @@ void ventana::manejoEventosTeclado(sf::RenderWindow& window) {
 			// Si jugador 1 realiza una jugada valida actualiza la vista en modo juego jugador vs jugador!
 			// Actualiza la pantalla de juego siempre y cuando existe un cambio en el juego.
 			if (juegoModo1Empezo && !ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()
-				) {
+				/*&& realizoCambioEnJuego*/) {
 				window.clear();
 				actualizaEstadoImgJugador();
+				ga.actualizaMatrizMod1(window);
 				// Se resetea el valor para que este este a la espera de un nuevo cambio..
 				realizoCambioEnJuego = false;
-				
 			}
 
 			// Falso si es el turno de jugador 1 y empezo el juego y no hay ningun gane o empate en el juego
 			else if (turnoJugador1 && juegoModo1Empezo && !ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
 				window.clear();
 				actualizaEstadoImgJugador();
-				window.display();
+				ga.actualizaMatrizMod1(window);
+				// window.display();
 			}
 
 
@@ -82,7 +83,7 @@ void ventana::manejoEventosTeclado(sf::RenderWindow& window) {
 				!ga.GetNoGanadorFinal()) {
 				window.clear();
 				actualizaEstadoImgJugador();
-				ga.dibujarBotonesGato(window);
+				ga.actualizaMatrizMod1(window);
 			}
 
 			// Falso si el jugador 1 gano y el juego jugador vs jugador continua activo

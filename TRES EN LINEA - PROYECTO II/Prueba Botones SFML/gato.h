@@ -80,9 +80,6 @@ public:
 	void cargaDeTexturasJuego();
 
 
-	// Delcaracion de los 9 botones en blanco pantalla
-	void dibujarBotonesGato(sf::RenderWindow& window);
-
 
 
 	void cargarSonidos();
@@ -94,15 +91,16 @@ public:
 
 	void dibujarImagenEspecifica(sf::RenderWindow& window, int tipoImg);
 
+
 	int GetBotonPresionado() { return botonSeleccionado; }
 	bool GetRealizoJugada() { return jugadaRealizada; }
 	bool GetGanadorJ1() { return ganadorJugador1; }
 	bool GetGanadorJ2() { return ganadorJugador2; }
 	bool GetNoGanadorFinal() { return noGanadorFinal; }
 
-	string GetMatrizModoJuego1() {}
-	string matrizJuegoAux;
 
+
+	void actualizaMatrizMod1(sf::RenderWindow& window);
 
 	bool verificarPosibleJugadaModo1(unsigned int nunerBoton, unsigned int numeroJugador, string letraJugador, sf::RenderWindow& window);
 
