@@ -41,9 +41,9 @@ public:
 		turnoJugador2 = false;
 		estaJugando = false;
 		comenzoJuego = false;
-		jugador1Eligio=false;
-		jugador2Eligio=false;
-		juegoEnPausa =true;
+		jugador1Eligio = false;
+		jugador2Eligio = false;
+		juegoEnPausa = true;
 		juegoModo1Empezo = false;
 		realizoCambioEnJuego = false;
 		juegoFinalizo = false;
@@ -55,7 +55,7 @@ public:
 		letraSeleccionadaJugador2 = "";
 
 	}
-		
+
 	~ventana() {} // Destructor de la clase
 	void iniciarPrograma();
 

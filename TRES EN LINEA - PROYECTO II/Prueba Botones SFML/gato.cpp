@@ -33,47 +33,47 @@ void gato::cargaDeTexturasJuego() {
 		cout << "\nError al cargar img boton salir \n";
 	}
 
-	if (!tituloJuego.loadFromFile(DIR_TITULO)){
+	if (!tituloJuego.loadFromFile(DIR_TITULO)) {
 		//Error en caso de cargar la img de titulo del juego.
 		cout << "\nError al cargar img de titulo de juego \n";
 	}
 
-   if (!turnoSeleccion1.loadFromFile(DIR_TURNOSELECCION1)) {
-	   //Error en caso de cargar la img de turno selecion jugador 1.
-	   cout << "\nError al cargar img de turno selecion jugador 1 \n";
+	if (!turnoSeleccion1.loadFromFile(DIR_TURNOSELECCION1)) {
+		//Error en caso de cargar la img de turno selecion jugador 1.
+		cout << "\nError al cargar img de turno selecion jugador 1 \n";
 	}
 
-   if (!turnoSeleccion2.loadFromFile(DIR_TURNOSELECCION2)) {
-	   //Error en caso de cargar la img de turno selecion jugador 2.
-	   cout << "\nError al cargar img de turno selecion jugador 2 \n";
-   }
+	if (!turnoSeleccion2.loadFromFile(DIR_TURNOSELECCION2)) {
+		//Error en caso de cargar la img de turno selecion jugador 2.
+		cout << "\nError al cargar img de turno selecion jugador 2 \n";
+	}
 
 
-   if (!jugadorE1.loadFromFile(DIR_TURNOJ1)) {
-	   //Error en caso de cargar la img de nombre jugador 1.
-	   cout << "\nError al cargar img de nombre jugador 1 \n";
-   }
+	if (!jugadorE1.loadFromFile(DIR_TURNOJ1)) {
+		//Error en caso de cargar la img de nombre jugador 1.
+		cout << "\nError al cargar img de nombre jugador 1 \n";
+	}
 
-   if (!jugadorE2.loadFromFile(DIR_TURNOJ2)) {
-	   //Error en caso de cargar la img de nombre jugador 2.
-	   cout << "\nError al cargar img de nombre jugador 2 \n";
-   }
+	if (!jugadorE2.loadFromFile(DIR_TURNOJ2)) {
+		//Error en caso de cargar la img de nombre jugador 2.
+		cout << "\nError al cargar img de nombre jugador 2 \n";
+	}
 
-   if (!jugadorGano1.loadFromFile(DIR_GANO1)) {
-	   //Error en caso de cargar la img de ganador jugador 1.
-	   cout << "\nError al cargar img de ganador jugador 1 \n";
-   }
+	if (!jugadorGano1.loadFromFile(DIR_GANO1)) {
+		//Error en caso de cargar la img de ganador jugador 1.
+		cout << "\nError al cargar img de ganador jugador 1 \n";
+	}
 
-   if (!jugadorGano2.loadFromFile(DIR_GANO2)) {
-	   //Error en caso de cargar la img de ganador jugador 2.
-	   cout << "\nError al cargar img de ganador jugador 2 \n";
-   }
+	if (!jugadorGano2.loadFromFile(DIR_GANO2)) {
+		//Error en caso de cargar la img de ganador jugador 2.
+		cout << "\nError al cargar img de ganador jugador 2 \n";
+	}
 
 
-   if (!empate.loadFromFile(DIR_EMPATE)) {
-	   //Error en caso de cargar la img de empate.
-	   cout << "\nError al cargar img de empate \n";
-   }
+	if (!empate.loadFromFile(DIR_EMPATE)) {
+		//Error en caso de cargar la img de empate.
+		cout << "\nError al cargar img de empate \n";
+	}
 
 }
 
@@ -82,7 +82,7 @@ void gato::cargaDeTexturasJuego() {
 // Metodo que dibuja 9 botones en pantalla que representan una matriz en pantalla para que los 
 // jugadores presiones y jueguen.
 void gato::dibujarBotonesGato(sf::RenderWindow& window) {
-	
+
 
 	dibujarImagenEspecifica(window, 9);
 	// --------------	MATRIZ BOTONES   -----------------
@@ -104,7 +104,7 @@ void gato::dibujarBotonesGato(sf::RenderWindow& window) {
 	boton5Image.setTexture(espacioVacio);
 	boton5Image.setPosition(450.0f, 333.0f);
 	window.draw(boton5Image);
-	boton6Image.setTexture(espacioVacio); 
+	boton6Image.setTexture(espacioVacio);
 	boton6Image.setPosition(583.0f, 333.0f);
 	window.draw(boton6Image);
 
@@ -123,170 +123,88 @@ void gato::dibujarBotonesGato(sf::RenderWindow& window) {
 }
 
 
-// Metodo que actualiza la imagen del boton mostrado en el juego de acuerdo a la jugada realizada por los juegadores o maquina
-void gato::pintarBotonEspecifico(sf::RenderWindow& window , unsigned int nBoton) {
-	actualizaBoton(nBoton, window);
-}
 
-
-void gato::mostrarBotonesActualizados(sf::RenderWindow& window) {
-	actualizaBoton1(window);
-	actualizaBoton2(window);
-	actualizaBoton3(window);
-	actualizaBoton4(window);
-	actualizaBoton5(window);
-	actualizaBoton6(window);
-	actualizaBoton7(window);
-	actualizaBoton8(window);
-	actualizaBoton9(window);
-}
-
-// Metodos que actualizan los botones del 1 al 9 en el matriz que se muestra en pantalla.
-
-void gato::actualizaBoton1(sf::RenderWindow& window) {
-
-	sf::Texture aux;
-	if (soloUnaVezB1 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB1++;
+// Metodo que obtiene los valores del vector de matriz de juego y lee uno por uno su contenido y
+// asi determina la textura de cada boton del juego mostrado en pantalla
+void gato::dibujarBotonesMatriz(vector<string> vectorAux, sf::RenderWindow& window)
+{
+	
+	for (unsigned int i = 0; i < vectorAux.size(); i++) {
+				actualizaImgBoton(i, window, determinarImagenTextura(vectorAux.at(i)));
 	}
-	boton1Image.setTexture(aux);
-	boton1Image.setPosition(317.0f, 200.0f);
-	window.draw(boton1Image);
-}
-
-void gato::actualizaBoton2(sf::RenderWindow& window) {
-	sf::Texture aux;
-	if (soloUnaVezB2 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB2++;
-	}
-	boton2Image.setTexture(aux);
-	boton2Image.setPosition(450.0f, 200.0f);
-	window.draw(boton2Image);
-}
-
-void gato::actualizaBoton3( sf::RenderWindow& window) {
-
-	sf::Texture aux;
-	if (soloUnaVezB3 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB3++;
-	}
-	boton3Image.setTexture(aux);
-	boton3Image.setPosition(583.0f, 200.0f);
-	window.draw(boton3Image);
-}
-
-void gato::actualizaBoton4( sf::RenderWindow& window) {
-	sf::Texture aux;
-	if (soloUnaVezB4 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB4++;
-	}
-	boton4Image.setTexture(aux);
-	boton4Image.setPosition(317.0f, 333.0f);
-	window.draw(boton4Image);
-}
-
-void gato::actualizaBoton5( sf::RenderWindow& window) {
-	sf::Texture aux;
-	if (soloUnaVezB5 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB5++;
-	}
-	boton5Image.setTexture(aux);
-	boton5Image.setPosition(450.0f, 333.0f);
-	window.draw(boton5Image);
-}
-
-void gato::actualizaBoton6( sf::RenderWindow& window) {
-	sf::Texture aux;
-	if (soloUnaVezB6 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB6++;
-	}
-	boton6Image.setTexture(aux);
-	boton6Image.setPosition(583.0f, 333.0f);
-	window.draw(boton6Image);
-}
-
-void gato::actualizaBoton7(sf::RenderWindow& window) {
-	sf::Texture aux;
-	if (soloUnaVezB7 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB7++;
-	}
-	boton1Image.setTexture(aux);
-	boton7Image.setPosition(317.0f, 466.0f);
-	window.draw(boton7Image);
-}
-
-void gato::actualizaBoton8(sf::RenderWindow& window) {
-	sf::Texture aux;
-	if (soloUnaVezB8 <=0) {
-		aux = actualizaImagenAux;
-	}
-	soloUnaVezB8++;
-	boton8Image.setTexture(aux);
-	boton8Image.setPosition(450.0f, 466.0f);
-	window.draw(boton8Image);
-}
-
-void gato::actualizaBoton9( sf::RenderWindow& window) {
-	sf::Texture aux;
-	if (soloUnaVezB9 <= 0) {
-		aux = actualizaImagenAux;
-		soloUnaVezB9++;
-	}
-	boton9Image.setTexture(aux);
-	boton9Image.setPosition(583.0f, 466.0f);
-	window.draw(boton9Image);
+	window.display();
 }
 
 
-
-void gato::actualizaBoton(unsigned int nBoton, sf::RenderWindow& window) {
+// Metodo que actualiza la img de cada boton segun la eleccion o no de cada jugador que se mostraran
+// en la matriz de botones que se dibujara en pantalla. 
+void gato::actualizaImgBoton(unsigned int nBoton, sf::RenderWindow& window, sf::Texture aux) {
 	// Switch determina el numero de boton a actualizar con la nueva imagen
 	switch (nBoton)
 	{
 	case 0:
-		actualizaBoton1(window);
+		boton1Image.setTexture(aux);
+		boton1Image.setPosition(317.0f, 200.0f);
+		window.draw(boton1Image);
+
 		break;
 
 	case 1:
-		actualizaBoton2(window);
+		boton2Image.setTexture(aux);
+		boton2Image.setPosition(450.0f, 200.0f);
+		window.draw(boton2Image);
+
 		break;
 
 	case 2:
-		actualizaBoton3(window);
+		boton3Image.setTexture(aux);
+		boton3Image.setPosition(583.0f, 200.0f);
+		window.draw(boton3Image);
+
 		break;
 
 	case 3:
-		actualizaBoton4( window);
+		boton4Image.setTexture(aux);
+		boton4Image.setPosition(317.0f, 333.0f);
+		window.draw(boton4Image);
+
 		break;
 
 	case 4:
-		actualizaBoton5( window);
+		boton5Image.setTexture(aux);
+		boton5Image.setPosition(450.0f, 333.0f);
+		window.draw(boton5Image);
+
 		break;
 
 	case 5:
-		actualizaBoton6(window);
+		boton6Image.setTexture(aux);
+		boton6Image.setPosition(583.0f, 333.0f);
+		window.draw(boton6Image);
+
 		break;
 
 	case 6:
-		actualizaBoton7( window);
+		boton7Image.setTexture(aux);
+		boton7Image.setPosition(317.0f, 466.0f);
+		window.draw(boton7Image);
+
 		break;
 
 	case 7:
-		actualizaBoton8( window);
+		boton8Image.setTexture(aux);
+		boton8Image.setPosition(450.0f, 466.0f);
+		window.draw(boton8Image);
+
 		break;
 
 	case 8:
-		actualizaBoton9(window);
+		boton9Image.setTexture(aux);
+		boton9Image.setPosition(583.0f, 466.0f);
+		window.draw(boton9Image);
+
 		break;
 	}
-	window.display();
 
 
 }
@@ -490,25 +408,30 @@ bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int nu
 {
 	if (mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) && !ganadorJugador1
 		&& !ganadorJugador2 && !noGanadorFinal) {
-	
+
 		jugadaRealizada = true;
 		contarMoviRealizados++;
 		cambioLetrasJugadores(letraJugador, numeroJugador);
-		asignarImagenDeJuegadaRelizada(numeroBoton, window, numeroJugador);
-		if (mod1.verificaGanadorJugador1() && contarMoviRealizados <=9 && numeroJugador==1 ) {
+
+
+		// Dibuja los cambios de los botones mediante un vector que contiene los valores de matriz de movimientos 
+		// efectuados por los juegador de la clase modoJuego1
+		dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+		if (mod1.verificaGanadorJugador1() && contarMoviRealizados <= 9 && numeroJugador == 1) {
 			cout << "\n JUGADOR 1 GANO EL GATO!!\n";
 
 			ganadorJugador1 = true;
 		}
-		else if (mod1.verificaGanadorJugador2() && contarMoviRealizados <=9 && numeroJugador==2) {
+		else if (mod1.verificaGanadorJugador2() && contarMoviRealizados <= 9 && numeroJugador == 2) {
 			cout << "\n JUGADOR 2 GANO EL GATO!!\n";
 			ganadorJugador2 = true;
 		}
-		else if (!mod1.verificaGanadorJugador1() && !mod1.verificaGanadorJugador2() && contarMoviRealizados >=9){
+		else if (!mod1.verificaGanadorJugador1() && !mod1.verificaGanadorJugador2() && contarMoviRealizados >= 9) {
 			cout << "\n JUEGO TERMINO EN EMPATE!!\n";
 			noGanadorFinal = true;
-}
-		
+		}
+
 	}
 	else {
 		jugadaRealizada = false; // por defecto se resetea la vaciable de jugada realizada
@@ -536,36 +459,28 @@ void gato::cambioLetrasJugadores(string letraJugador, unsigned int numeroJugador
 
 // Metodo que evalua a  que nuero de boton a a asignar la letra correspondiente de jugador sea jugador uno o dos
 // la letra con la que juega al incio del juego.
-void gato::asignarImagenDeJuegadaRelizada(unsigned int nBoton, sf::RenderWindow& window, unsigned int nJugador) {
-	
+sf::Texture gato::determinarImagenTextura(string letraJuegador) {
+
 	sf::Texture auxImagenAPoner;
 
-	// Si la letra del jugador 1 es X pone una X
-	if (letraJugador1=="letraX" && nJugador == 1) {
+	if (letraJuegador == "jugadorX") {
 		auxImagenAPoner = jugadorX;
-		cout << "\npone una x --- jugaodr 1\n";
+	}
+	else if (letraJuegador == "jugadorO") {
+		auxImagenAPoner = jugadorO;
+	}
+	else if (letraJuegador == "espacioVacio") {
+		auxImagenAPoner = espacioVacio;
 	}
 
-	// Falso Si la letra del jugador 1 es O pone una O
-	else if (letraJugador1 == "letraO" && nJugador==1) {
-		auxImagenAPoner = jugadorO;
-		cout << "\npone una o --- jugaodr 1\n";
-	}
-	// Falso si la letra del jugador 2 es X pone una X
-	else if (letraJugador2 == "letraX" && nJugador == 2){
-		auxImagenAPoner = jugadorX;
-		cout << "\npone una x  --- jugador 2\n";
-
-	}
-	// Falso si la letra del jugador 2 es X pone una O
-	else if (letraJugador2 == "letraO" && nJugador == 2) {
-		auxImagenAPoner = jugadorO;
-		cout << "\npone una o  --- jugador 2\n";
-	}
-	// Se lla al metodo para actualizar la iamgen del boton seleccionado en la pantalla del juego
 	actualizaImagenAux = auxImagenAPoner;
-	pintarBotonEspecifico(window, nBoton);
+	return actualizaImagenAux;
+	//pintarBotonEspecifico(window, nBoton);
 }
+
+
+
+
 
 
 
@@ -583,7 +498,7 @@ void gato::dibujarImagenEspecifica(sf::RenderWindow& window, int tipoImg) {
 		obj.setPosition(75.0f, 50.0f);
 	}
 	// Falso si se pide el 2 dibujara la img de la X
-	else if (tipoImg==2) {
+	else if (tipoImg == 2) {
 		obj.setTexture(jugadorX);
 		obj.setPosition(650.0f, 290.0f);
 	}
@@ -595,12 +510,12 @@ void gato::dibujarImagenEspecifica(sf::RenderWindow& window, int tipoImg) {
 	}
 
 	// Falso si se pide el 4 dibujara el turno de seleccion jugador 1
-	else if (tipoImg==4) {
+	else if (tipoImg == 4) {
 		obj.setTexture(turnoSeleccion1);
 		obj.setPosition(200.0f, 200.0f);
 	}
 	// Falso si se pide el 5 dibujara el turno de seleccion jugador 2
-	else if (tipoImg==5) {
+	else if (tipoImg == 5) {
 		obj.setTexture(turnoSeleccion2);
 		obj.setPosition(200.0f, 200.0f);
 	}

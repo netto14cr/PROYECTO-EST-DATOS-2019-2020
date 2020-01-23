@@ -1,25 +1,26 @@
 
 // ventana.cpp
 // Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
-// Descripcion: Implementacion de la clase ventana
+// Descripcion: Implementacion de la clase ventana que contiene los metodos que controlan los 
+// eventos del juego.
 
 #include "ventana.h"
 #include "gato.h"
 #include "menu.h"
 //#include "modoJuego1.h"
 
- 
+
 
 
 // Se define una nueva ventana que contendra el juego gato con un tamaaño establecido y titulo.
-sf::RenderWindow window(sf::VideoMode(1024.0f, 622.0f), "Tres en linea ", sf::Style::Default);
+sf::RenderWindow window(sf::VideoMode(1024, 622), "Tres en linea ", sf::Style::Default);
 
 
-Menu m(window.getSize().x, window.getSize().y);
+Menu m(1024.0f, 622.0f);
 gato ga;
 
 
-void ventana::iniciarPrograma() 
+void ventana::iniciarPrograma()
 {
 	window.setFramerateLimit(30);
 	manejoEventosTeclado(window);
@@ -32,9 +33,11 @@ void ventana::iniciarPrograma()
 void ventana::actualizaEstadoImgJugador() {
 	if (turnoJugador1) {
 
+		// Dibuja en pantalla img de jugador 1 y titulo enposicion mas arriba una 
 		ga.dibujarImagenEspecifica(window, 7);
 		ga.dibujarImagenEspecifica(window, 9);
 	}
+	// Dibuja en pantalla img de jugador 2 y titulo enposicion mas arriba una 
 	else if (turnoJugador2) {
 		ga.dibujarImagenEspecifica(window, 8);
 		ga.dibujarImagenEspecifica(window, 9);
@@ -44,107 +47,99 @@ void ventana::actualizaEstadoImgJugador() {
 
 //  Metodo que escucha todo lo que sucede y se ejecuta mientras la nueva ventana o el juego este en ejecucion
 void ventana::manejoEventosTeclado(sf::RenderWindow& window) {
-	
+
 	while (window.isOpen())
-	{		
+	{
 		// Llamado al metodo que controlo los eventos del juego
-		determinarTipoEvento(window); 
+		determinarTipoEvento(window);
 
 		// Si ya comenzo el juego y juego no se encuntra en pausa actualiza en pantalla los objetos del juego
 		// en modo JUGADOR VS JUGADOR.
-		 if (comenzoJuego && juegoEnPausa==false && tipoJuego == "JugadorVsJugador") {
-			
-			
-			 
+		if (comenzoJuego && juegoEnPausa == false && tipoJuego == "JugadorVsJugador") {
 
-			 // ---------------------------- AQUI HAY UN PROBLEMA CON LA ACTUALIZACION BOTONES GRAFICAMENTE---------------
-
-
-			 // Si jugador 1 realiza una jugada valida actualiza la vista en modo juego jugador vs jugador!
-			 // Actualiza la pantalla de juego siempre y cuando existe un cambio en el juego.
-			  if (juegoModo1Empezo && !ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal() 
-				 /*&& realizoCambioEnJuego*/) {
-					actualizaEstadoImgJugador();
-					//ga.mostrarBotonesActualizados(window);
-					 window.display();
-					 // Se resetea el valor para que este este a la espera de un nuevo cambio..
-					 realizoCambioEnJuego = false;
+			// Si jugador 1 realiza una jugada valida actualiza la vista en modo juego jugador vs jugador!
+			// Actualiza la pantalla de juego siempre y cuando existe un cambio en el juego.
+			if (juegoModo1Empezo && !ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()
+				) {
+				window.clear();
+				actualizaEstadoImgJugador();
+				// Se resetea el valor para que este este a la espera de un nuevo cambio..
+				realizoCambioEnJuego = false;
 				
-			 }
+			}
 
-			  // Falso si es el turno de jugador 1 y empezo el juego y no hay ningun gane o empate en el juego
+			// Falso si es el turno de jugador 1 y empezo el juego y no hay ningun gane o empate en el juego
 			else if (turnoJugador1 && juegoModo1Empezo && !ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
-			 //window.clear();
-			 actualizaEstadoImgJugador();
-			// ga.mostrarBotonesActualizados(window);
-			 window.display();
-		 }
+				window.clear();
+				actualizaEstadoImgJugador();
+				window.display();
+			}
+
+
+			// si jugador 1 no ha realizado ningun movimento ,indica que el juego no ha empezado
+			// muestra los botones en blanco por defecto!
+			else if (!juegoModo1Empezo && !ga.GetGanadorJ1() && !ga.GetGanadorJ2() &&
+				!ga.GetNoGanadorFinal()) {
+				window.clear();
+				actualizaEstadoImgJugador();
+				ga.dibujarBotonesGato(window);
+			}
+
+			// Falso si el jugador 1 gano y el juego jugador vs jugador continua activo
+			// actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
+			// el jugador q ha ganado y pausa el juego.
+			else if (ga.GetGanadorJ1() && !juegoEnPausa) {
+				window.clear();
+				ga.dibujarImagenEspecifica(window, 9);
+
+				// Dibuja en pantalla ganador jugador 1
+				ga.dibujarImagenEspecifica(window, 10);
+				window.display();
+				juegoEnPausa = true;
+			}
+
+			// Falso si el jugador 2 gano y el juego jugador vs jugador continua activo
+			// actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
+			// el jugador q ha ganado y pausa el juego.
+			else if (ga.GetGanadorJ2() && !juegoEnPausa) {
+				window.clear();
+				ga.dibujarImagenEspecifica(window, 9);
+				// Dibuja en pantalla ganador jugador 2
+				ga.dibujarImagenEspecifica(window, 11);
+				window.display();
+				juegoEnPausa = true;
+			}
+
+			// Falso si se llego a la conclusion que ningun jugador gano en modo de juego jugador vs jugador y este continua 
+			// continua activo actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
+			// el jugador q ha ganado y pausa el juego.
+			else if (ga.GetNoGanadorFinal() && !juegoEnPausa) {
+				window.clear();
+				ga.dibujarImagenEspecifica(window, 9);
+
+				// Dibuja en pantalla que no hubo ganador , muestra img de empate
+				ga.dibujarImagenEspecifica(window, 12);
+				window.display();
+				juegoEnPausa = true;
+			}
+
+
+		}
 
 
 
 
-
-			 // si jugador 1 no ha realizado ningun movimento ,indica que el juego no ha empezado
-			 // muestra los botones en blanco por defecto!
-			 else if (!juegoModo1Empezo && !ga.GetGanadorJ1() && !ga.GetGanadorJ2() && 
-				 !ga.GetNoGanadorFinal()) {
-					window.clear();
-					actualizaEstadoImgJugador();
-					ga.dibujarBotonesGato(window);
-			 }
-
-			 // Falso si el jugador 1 gano y el juego jugador vs jugador continua activo
-			 // actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
-			 // el jugador q ha ganado y pausa el juego.
-			 else if (ga.GetGanadorJ1() && !juegoEnPausa ) {
-					window.clear();
-					ga.dibujarImagenEspecifica(window, 9);
-					ga.dibujarImagenEspecifica(window, 10);
-					window.display();
-					juegoEnPausa = true;
-			 }
-
-			 // Falso si el jugador 2 gano y el juego jugador vs jugador continua activo
-			 // actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
-			 // el jugador q ha ganado y pausa el juego.
-			 else if (ga.GetGanadorJ2() && !juegoEnPausa) {
-				 window.clear();
-				 ga.dibujarImagenEspecifica(window, 9);
-				 ga.dibujarImagenEspecifica(window, 11);
-				 window.display();
-				 juegoEnPausa = true;
-			 }
-
-			 // Falso si se llego a la conclusion que ningun jugador gano en modo de juego jugador vs jugador y este continua 
-			 // continua activo actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
-			 // el jugador q ha ganado y pausa el juego.
-			 else if (ga.GetNoGanadorFinal() && !juegoEnPausa) {
-				 window.clear();
-				 ga.dibujarImagenEspecifica(window, 9);
-				 ga.dibujarImagenEspecifica(window, 12);
-				 window.display();
-				 juegoEnPausa = true;
-			 }
-			 // -------------------------------------------	FIN ERROR GRAFICAMENTE BOTONES ------------------------------------
-
-
-
-		 }
+		// <<<<<<<<	AQUI VAN LOS CONDISIONALES CON LOS METODOS QUE ACTUALIZAN LA PANTALLA EN MODO JUGADOR VS CPU
 
 
 
 
-		 // <<<<<<<<	AQUI VAN LOS CONDISIONALES CON LOS METODOS QUE ACTUALIZAN LA PANTALLA EN MODO JUGADOR VS CPU
-
-		 
+		//	>>		FIN MODO JUGADOR VS CPU		>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-		 //	>>		FIN MODO JUGADOR VS CPU		>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		
-
-		// Falso si ya se eligio un tipo de juego pero no ha comenzado el juego se mostrara el menu 
-		// para que el jugador 1 seleccionen el tipo de letra para jugar.
-		else if (menuInicioActivo == false && comenzoJuego == false && jugador1Eligio==false && tipoJuego=="JugadorVsJugador") {
+	   // Falso si ya se eligio un tipo de juego pero no ha comenzado el juego se mostrara el menu 
+	   // para que el jugador 1 seleccionen el tipo de letra para jugar.
+		else if (menuInicioActivo == false && comenzoJuego == false && jugador1Eligio == false && tipoJuego == "JugadorVsJugador") {
 
 			window.clear();
 			ga.dibujarImagenEspecifica(window, 1);
@@ -161,10 +156,10 @@ void ventana::manejoEventosTeclado(sf::RenderWindow& window) {
 
 			window.clear();
 			ga.dibujarImagenEspecifica(window, 1);
-			if (letraSeleccionadaJugador2 == "letraO"){
+			if (letraSeleccionadaJugador2 == "jugadorO") {
 				ga.dibujarImagenEspecifica(window, 6);
 			}
-			else if (letraSeleccionadaJugador2 == "letraX") {
+			else if (letraSeleccionadaJugador2 == "jugadorX") {
 				ga.dibujarImagenEspecifica(window, 2);
 			}
 			ga.dibujarImagenEspecifica(window, 5);
@@ -198,7 +193,7 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 		switch (event.type)
 		{
 
-		// Valida el evento del boton de cerrar si el usuario cierra la ventana del juego
+			// Valida el evento del boton de cerrar si el usuario cierra la ventana del juego
 		case sf::Event::Closed:
 			window.close();
 			cout << "\nCerro ventana de juego!\n";
@@ -207,7 +202,7 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 			break;
 
 			// Valida de caso para evento de mouse encima de un boton si estan jugando
-			if (comenzoJuego && juegoEnPausa==false) {
+			if (comenzoJuego && juegoEnPausa == false) {
 		case sf::Event::MouseMoved:
 
 			// Llama al metodo que comprueba si el mause se encuntra encima de un boton del juego.
@@ -225,7 +220,7 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 
 
 			}
-		// Validacion del evento por teclado presionadas por el usuario
+			// Validacion del evento por teclado presionadas por el usuario
 		case sf::Event::KeyReleased:
 			switch (event.key.code)
 			{
@@ -243,22 +238,22 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 
 				// Falso si ya se elegio un tipo de juego pero no se ha seleccionado las letras de los jugadores
 				// ha utilizar en el juego navegan entre el menu de eleccion de letra para jugar.
-				else if (menuInicioActivo==false && comenzoJuego==false) {
-					
+				else if (menuInicioActivo == false && comenzoJuego == false) {
+
 
 					// Si el juegador 1 no ha escogido el tipo de letra para jugar
 					// Navega con la fecha de arriba entre menu del jugador 1
-					if (jugador1Eligio==false) {
+					if (jugador1Eligio == false) {
 
 						m.moveUpSeleccionJugador(1);
 					}
 
 					// Si el juegador 2 no ha escogido el tipo de letra para jugar y jugador 1 ya elegio
 					// Navega con la fecha de arriba entre menu del jugador 1
-					else if (jugador2Eligio==false && jugador1Eligio) {
+					else if (jugador2Eligio == false && jugador1Eligio) {
 						m.moveUpSeleccionJugador(2);
 					}
-					
+
 				}
 				break;
 
@@ -295,14 +290,14 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 
 
 			case sf::Keyboard::Return:
-				if (juegoEnPausa==true) {
+				if (juegoEnPausa == true) {
 					opcionesMenuJuego(window);
 				}
 				// Condisional Si comenzo el juego y el tipo de juego es el primero se llama 
 				// al metodo que se encarga de escuchar los eventos que suceden el juego de jugador vs jugador 
 
 
-				else if (comenzoJuego && juegoEnPausa==false && tipoJuego=="JugadorVsJugador") {
+				else if (comenzoJuego && juegoEnPausa == false && tipoJuego == "JugadorVsJugador") {
 					opcionesBotonesJuegoModo1(window);
 				}
 				else if (comenzoJuego && juegoEnPausa == false && tipoJuego == "JugadorVsCPU") {
@@ -342,10 +337,10 @@ void ventana::opcionesBotonesJuegoModo1(sf::RenderWindow& window) {
 
 				// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
 				cout << "\n CAMBIO TURNOS AHORA LE TOCA JUGADOR 2222!!\n";
-					turnoJugador1 = false;
-					turnoJugador2 = true;
+				turnoJugador1 = false;
+				turnoJugador2 = true;
 
-					realizoCambioEnJuego = true;// Si jugador modifica el area de juego realizo un cambio correctamente y actualiza
+				realizoCambioEnJuego = true;// Si jugador modifica el area de juego realizo un cambio correctamente y actualiza
 
 			}
 		}
@@ -366,11 +361,11 @@ void ventana::opcionesBotonesJuegoModo1(sf::RenderWindow& window) {
 		}
 
 	}
-		else {
-			// No ha presinado un boton valido!
-		}
+	else {
+		// No ha presinado un boton valido!
+	}
 
-	 
+
 
 
 }
@@ -419,11 +414,11 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 		else if (menuInicioActivo == false && comenzoJuego == false && jugador1Eligio == false) {
 
 			// Se guarda el valor de tipo de letra de jugador 1 y su estado de eleccion pasa a verdadero
-			letraSeleccionadaJugador1 = "letraX";
+			letraSeleccionadaJugador1 = "jugadorX";
 			jugador1Eligio = true;
 			// Por defecto si jugador 1 escoge la letra X, la letra de ljugador 2 va hacer la letra "O"
-			m.mostrarMenuSeleccionImgJugador2(window.getSize().x, window.getSize().y, 2);
-			letraSeleccionadaJugador2 = "letraO";
+			m.mostrarMenuSeleccionImgJugador2(1024.0f, 622.0f, 2);
+			letraSeleccionadaJugador2 = "jugadorO";
 		}
 
 		// falso si ya se elegio el tipo de juego && jugador 1 ya elegio letra 
@@ -467,11 +462,11 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 		else if (menuInicioActivo == false && comenzoJuego == false && jugador1Eligio == false) {
 
 			// Se guarda el valor de tipo de letra de jugador 1 y su estado de eleccion pasa a verdadero
-			letraSeleccionadaJugador1 = "letraO";
+			letraSeleccionadaJugador1 = "jugadorO";
 			jugador1Eligio = true;
 			// Por defecto si jugador 1 escoge la letra O, la letra de ljugador 2 va hacer la letra "X"
-			letraSeleccionadaJugador2 = "letraX";
-			m.mostrarMenuSeleccionImgJugador2(window.getSize().x, window.getSize().y, 1);
+			letraSeleccionadaJugador2 = "jugadorX";
+			m.mostrarMenuSeleccionImgJugador2(1024.0f, 622.0f, 1);
 		}
 
 

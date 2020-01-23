@@ -66,19 +66,10 @@ public:
 		letraJugador2 = "";
 		jugadaRealizada = false;
 		contarMoviRealizados = 0;
-		ganadorJugador1=false;
+		ganadorJugador1 = false;
 		ganadorJugador2 = false;
 		noGanadorFinal = false;
 
-		soloUnaVezB1 = 0;
-		soloUnaVezB2 = 0;
-		soloUnaVezB3 = 0;
-		soloUnaVezB4 = 0;
-		soloUnaVezB5 = 0;
-		soloUnaVezB6 = 0;
-		soloUnaVezB7 = 0;
-		soloUnaVezB8 = 0;
-		soloUnaVezB9 = 0;
 
 		cargaDeTexturasJuego();
 		obtenerTamanioImgBotones();
@@ -103,18 +94,17 @@ public:
 
 	void dibujarImagenEspecifica(sf::RenderWindow& window, int tipoImg);
 
-	int GetBotonPresionado() { return botonSeleccionado;  }
+	int GetBotonPresionado() { return botonSeleccionado; }
 	bool GetRealizoJugada() { return jugadaRealizada; }
-	bool GetGanadorJ1() { return ganadorJugador1;}
+	bool GetGanadorJ1() { return ganadorJugador1; }
 	bool GetGanadorJ2() { return ganadorJugador2; }
 	bool GetNoGanadorFinal() { return noGanadorFinal; }
 
-	string GetMatrizModoJuego1(){}
+	string GetMatrizModoJuego1() {}
 	string matrizJuegoAux;
 
 
 	bool verificarPosibleJugadaModo1(unsigned int nunerBoton, unsigned int numeroJugador, string letraJugador, sf::RenderWindow& window);
-	void mostrarBotonesActualizados(sf::RenderWindow& window);
 
 private:
 
@@ -161,16 +151,16 @@ private:
 
 
 	// Delcaracion de botones del gato
-	
-	// Boton 1
-	sf::Texture boton1, boton2, boton3 , boton4, boton5, boton6, boton7, boton8, boton9;
-	sf::Sprite boton1Image, boton2Image, boton3Image, boton4Image, boton5Image, boton6Image, 
-		boton7Image, boton8Image, boton9Image, imgTitulo;
-	
 
-	float boton1Width, boton2Width, boton3Width, boton4Width, boton5Width, boton6Width, 
+	// Boton 1
+	sf::Texture boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9;
+	sf::Sprite boton1Image, boton2Image, boton3Image, boton4Image, boton5Image, boton6Image,
+		boton7Image, boton8Image, boton9Image, imgTitulo;
+
+
+	float boton1Width, boton2Width, boton3Width, boton4Width, boton5Width, boton6Width,
 		boton7Width, boton8Width, boton9Width;
-	float boton1Height, boton2Height, boton3Height, boton4Height, boton5Height, boton6Height, 
+	float boton1Height, boton2Height, boton3Height, boton4Height, boton5Height, boton6Height,
 		boton7Height, boton8Height, boton9Height;
 
 
@@ -190,34 +180,15 @@ private:
 	bool noGanadorFinal;
 
 	void obtenerTamanioImgBotones();
-	void asignarImagenDeJuegadaRelizada(unsigned int boton, sf::RenderWindow& window, unsigned int numeroJugador);
+	sf::Texture determinarImagenTextura(string letraJuegador);
 	void cambioLetrasJugadores(string letraJugador, unsigned int numeroJugador);
 
 
 
-	void pintarBotonEspecifico(sf::RenderWindow& window, unsigned int nBoton);
-	void actualizaBoton(unsigned int numeroBoton, sf::RenderWindow& window);
+	void actualizaImgBoton(unsigned int nBoton, sf::RenderWindow& window, sf::Texture imagenAux);
 
-	void actualizaBoton1(sf::RenderWindow& window);
-	void actualizaBoton2( sf::RenderWindow& window);
-	void actualizaBoton3( sf::RenderWindow& window);
-	void actualizaBoton4( sf::RenderWindow& window);
-	void actualizaBoton5( sf::RenderWindow& window);
-	void actualizaBoton6( sf::RenderWindow& window);
-	void actualizaBoton7( sf::RenderWindow& window);
-	void actualizaBoton8( sf::RenderWindow& window);
-	void actualizaBoton9( sf::RenderWindow& window);
+	void dibujarBotonesMatriz(vector<string> vectorAux, sf::RenderWindow& window);
 
-
-	unsigned int soloUnaVezB1;
-	unsigned int soloUnaVezB2;
-	unsigned int soloUnaVezB3;
-	unsigned int soloUnaVezB4;
-	unsigned int soloUnaVezB5;
-	unsigned int soloUnaVezB6;
-	unsigned int soloUnaVezB7;
-	unsigned int soloUnaVezB8;
-	unsigned int soloUnaVezB9;
 };
 
 #endif // !GATO_H

@@ -12,9 +12,11 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 using std::string;
 using std::cout;
 using std::endl;
+using std::vector;
 
 
 #define TAM_FILA 3
@@ -27,7 +29,7 @@ class modoJuego1 {
 public:
 
 	modoJuego1() {
-		
+
 		jugador1Gano = false;
 		jugador2Gano = false;
 		realizoJugada = false;
@@ -51,6 +53,8 @@ public:
 
 	void mostrarValoresEnMatriz(string matrizJuego[TAM_FILA][TAM_COLUMNA]);
 
+	vector<string> vectorGuardaMatriz();
+
 
 private:
 
@@ -67,12 +71,12 @@ private:
 	bool verificacionMovimientoHorizontal();
 	bool verificacionMovimientoVertical();
 
-	
-
-	
 	bool jugador1Gano;
 	bool jugador2Gano;
 	bool realizoJugada;
+
+	void resetGame();
+
 
 };
 
