@@ -1,6 +1,7 @@
 // main.h
 // Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
-// Descripción: Solucion proyecto II Tres en linea
+// Descripción: Solucion proyecto II Tres en linea4
+//hola
 
 #include "ventana.h" 
 
