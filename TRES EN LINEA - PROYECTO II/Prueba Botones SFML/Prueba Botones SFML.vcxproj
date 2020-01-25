@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Arbol.cpp" />
     <ClCompile Include="gato.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="ventana.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arbol.h" />
     <ClInclude Include="gato.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="modoJuego1.h" />
