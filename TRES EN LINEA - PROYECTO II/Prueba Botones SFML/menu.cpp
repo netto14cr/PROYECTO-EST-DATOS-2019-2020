@@ -30,17 +30,17 @@ void Menu::mostrarMenuInicial(float width, float height) {
 	menu[0].setFont(font);
 	menu[0].setFillColor(sf::Color::Cyan);
 	menu[0].setString("Jugador vs Jugador");
-	menu[0].setPosition(sf::Vector2f(width / 3, height / (MAXIMO_OPCIONES + 1) * 2));
+	menu[0].setPosition(sf::Vector2f(width / 3.0f, height / (MAXIMO_OPCIONES + 1) * 2.0f));
 
 	menu[1].setFont(font);
 	menu[1].setFillColor(sf::Color::White);
 	menu[1].setString("Jugador vs CPU");
-	menu[1].setPosition(sf::Vector2f(width / 3, height / (MAXIMO_OPCIONES + 1) * 2.5));
+	menu[1].setPosition(sf::Vector2f(width / 3.0f, height / (MAXIMO_OPCIONES + 1) * 2.5f));
 
 	menu[2].setFont(font);
 	menu[2].setFillColor(sf::Color::White);
 	menu[2].setString("Salir del juego");
-	menu[2].setPosition(sf::Vector2f(width / 3, height / (MAXIMO_OPCIONES + 1) * 3));
+	menu[2].setPosition(sf::Vector2f(width / 3.0f, height / (MAXIMO_OPCIONES + 1) * 3.0f));
 	selectedItemIndex = 0;
 
 }
@@ -52,12 +52,12 @@ void Menu::mostrarMenuSeleccionImgJugador1(float width, float height) {
 	menuSeleccionJugador1[0].setFont(font);
 	menuSeleccionJugador1[0].setFillColor(sf::Color::Cyan);
 	menuSeleccionJugador1[0].setString("Seleccionar letra X");
-	menuSeleccionJugador1[0].setPosition(sf::Vector2f(width / 3.5, height / (MAXIMO_OPCIONES + 1) * 2.1));
+	menuSeleccionJugador1[0].setPosition(sf::Vector2f(width / 3.5f, height / (MAXIMO_OPCIONES + 1) * 2.1f));
 
 	menuSeleccionJugador1[1].setFont(font);
 	menuSeleccionJugador1[1].setFillColor(sf::Color::White);
 	menuSeleccionJugador1[1].setString("Seleccionar letra O");
-	menuSeleccionJugador1[1].setPosition(sf::Vector2f(width / 3.5, height / (MAXIMO_OPCIONES + 1) * 3));
+	menuSeleccionJugador1[1].setPosition(sf::Vector2f(width / 3.5f, height / (MAXIMO_OPCIONES + 1) * 3.0f));
 	selectedItemIndex = 0;
 
 }
@@ -74,7 +74,7 @@ void Menu::mostrarMenuSeleccionImgJugador2(float width, float height, int selecc
 		menuSeleccionJugador2[0].setFont(font);
 		menuSeleccionJugador2[0].setFillColor(sf::Color::Cyan);
 		menuSeleccionJugador2[0].setString("Seleccionar letra X");
-		menuSeleccionJugador2[0].setPosition(sf::Vector2f(width / 3.5, height / (MAXIMO_OPCIONES + 1) * 2.1));
+		menuSeleccionJugador2[0].setPosition(sf::Vector2f(width / 3.5f, height / (MAXIMO_OPCIONES + 1) * 2.1f));
 	}
 
 	// Falso si la seleccion del jugador 1 es la letra "O"
@@ -83,7 +83,7 @@ void Menu::mostrarMenuSeleccionImgJugador2(float width, float height, int selecc
 		menuSeleccionJugador2[0].setFont(font);
 		menuSeleccionJugador2[0].setFillColor(sf::Color::Cyan);
 		menuSeleccionJugador2[0].setString("Seleccionar letra O");
-		menuSeleccionJugador2[0].setPosition(sf::Vector2f(width / 3.5, height / (MAXIMO_OPCIONES + 1) * 2.1));
+		menuSeleccionJugador2[0].setPosition(sf::Vector2f(width / 3.5f, height / (MAXIMO_OPCIONES + 1) * 2.1f));
 	}
 	selectedItemIndex = 0;
 
@@ -97,17 +97,17 @@ void Menu::mostrarSubMenuNiveles(float width, float height) {
 	menuSubNiveles[0].setFont(font);
 	menuSubNiveles[0].setFillColor(sf::Color::Cyan);
 	menuSubNiveles[0].setString("Nivel facil");
-	menuSubNiveles[0].setPosition(sf::Vector2f(width / 2.5, height / (MAXIMO_OPCIONES + 1) * 2));
+	menuSubNiveles[0].setPosition(sf::Vector2f(width / 2.5f, height / (MAXIMO_OPCIONES + 1) * 2.0f));
 
 	menuSubNiveles[1].setFont(font);
 	menuSubNiveles[1].setFillColor(sf::Color::White);
 	menuSubNiveles[1].setString("Nivel normal");
-	menuSubNiveles[1].setPosition(sf::Vector2f(width / 2.5, height / (MAXIMO_OPCIONES + 1) * 2.5));
+	menuSubNiveles[1].setPosition(sf::Vector2f(width / 2.5f, height / (MAXIMO_OPCIONES + 1) * 2.5f));
 
 	menuSubNiveles[2].setFont(font);
 	menuSubNiveles[2].setFillColor(sf::Color::White);
 	menuSubNiveles[2].setString("Nivel dificil");
-	menuSubNiveles[2].setPosition(sf::Vector2f(width / 2.5, height / (MAXIMO_OPCIONES + 1) * 3));
+	menuSubNiveles[2].setPosition(sf::Vector2f(width / 2.5f, height / (MAXIMO_OPCIONES + 1) * 3.0f));
 	selectedItemIndex = 0;
 }
 
@@ -121,17 +121,17 @@ void Menu::mostrarMenuJuego2(float width, float height) {
 	menuJuego2[0].setFont(font);
 	menuJuego2[0].setFillColor(sf::Color::Cyan);
 	menuJuego2[0].setString("Reiniciar nivel");
-	menuJuego2[0].setPosition(sf::Vector2f(width / 3, height / (MAXIMO_OPCIONES + 1) * 2));
+	menuJuego2[0].setPosition(sf::Vector2f(width / 3.0f, height / (MAXIMO_OPCIONES + 1) * 2.0f));
 
 	menuJuego2[1].setFont(font);
 	menuJuego2[1].setFillColor(sf::Color::White);
 	menuJuego2[1].setString("Volver a menu principal");
-	menuJuego2[1].setPosition(sf::Vector2f(width / 3, height / (MAXIMO_OPCIONES + 1) * 2.5));
+	menuJuego2[1].setPosition(sf::Vector2f(width / 3.0f, height / (MAXIMO_OPCIONES + 1) * 2.5f));
 
 	menuJuego2[2].setFont(font);
 	menuJuego2[2].setFillColor(sf::Color::White);
 	menuJuego2[2].setString("Salir sin terminar la partida");
-	menuJuego2[2].setPosition(sf::Vector2f(width / 3, height / (MAXIMO_OPCIONES + 1) * 3));
+	menuJuego2[2].setPosition(sf::Vector2f(width / 3.0f, height / (MAXIMO_OPCIONES + 1) * 3.0f));
 	selectedItemIndex = 0;
 }
 
