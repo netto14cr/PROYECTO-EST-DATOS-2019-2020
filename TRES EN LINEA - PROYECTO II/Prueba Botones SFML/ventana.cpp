@@ -180,12 +180,12 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 			//la eleccion jugador 1 y no se ocupa mostrar por pantalla su actualizacion de esa
 			// accion.
 			else if (!jugador2Eligio && tipoJuego == "JugadorVsJugador") {
-				if (letraSeleccionadaJugador2 == "jugadorO") {
+				if (letraSeleccionadaJugador2 == LETRA_JUGADOR_O) {
 
 					// Dibuja la letra O en una posicion diferente
 					ga.dibujarImagenEspecifica(window, 6);
 				}
-				else if (letraSeleccionadaJugador2 == "jugadorX") {
+				else if (letraSeleccionadaJugador2 == LETRA_JUGADOR_X) {
 					// Dibuja la letra X en una posicion diferente
 					ga.dibujarImagenEspecifica(window, 2);
 				}
@@ -462,7 +462,7 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				//esta escogiendo la letra X para jugar
 				if (!jugador1Eligio) {
 					// Se guarda el valor de tipo de letra de jugador 1
-					letraSeleccionadaJugador1 = "jugadorX";
+					letraSeleccionadaJugador1 = LETRA_JUGADOR_X;
 
 					// El estado de eleccion de jugador1 pasa a verdadero
 					jugador1Eligio = true;
@@ -470,7 +470,7 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 					// Por defecto si jugador 1 escoge la letra X, la letra del 
 					// jugador 2 va hacer la letra "O"
 					m.mostrarMenuSeleccionImgJugador2(1024, 622, 2);
-					letraSeleccionadaJugador2 = "jugadorO";
+					letraSeleccionadaJugador2 = LETRA_JUGADOR_O;
 
 					// Si se esta jugando contra la maquina se da por hecho que la maquina
 					// eligio ya que ella escoge siempre el tipo de letra restante despues
@@ -556,7 +556,7 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 			// esta escogiendo la letra O para jugar.
 			if (!jugador1Eligio) {
 				// Se guarda el valor de tipo de letra de jugador 1
-				letraSeleccionadaJugador1 = "jugadorO";
+				letraSeleccionadaJugador1 = LETRA_JUGADOR_O;
 
 				// El estado de eleccion de jugador1 pasa a verdadero
 				jugador1Eligio = true;
@@ -564,7 +564,7 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				// Por defecto si jugador 1 escoge la letra O, la letra del 
 				// jugador 2 va hacer la letra "X"
 				m.mostrarMenuSeleccionImgJugador2(1024, 622, 1);
-				letraSeleccionadaJugador2 = "jugadorX";
+				letraSeleccionadaJugador2 = LETRA_JUGADOR_X;
 
 				// Si se esta jugando contra la maquina se da por hecho que la maquina
 				// eligio ya que ella escoge siempre el tipo de letra restante despues

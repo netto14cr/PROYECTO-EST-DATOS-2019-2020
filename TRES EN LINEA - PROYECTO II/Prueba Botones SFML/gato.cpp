@@ -12,7 +12,7 @@ modoJuego1 mod1;
 
 // Este metodo tambine valida que cambie los eventos graficos y de validacion si no hay todavia un ganador o empate
 // de lo contrario avisara que ya la jugada no puede ser realizada.
-bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int numeroJugador, string letraJugador, sf::RenderWindow& window)
+bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
 {
 	if (mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) && !ganadorJugador1
 		&& !ganadorJugador2 && !noGanadorFinal) {
@@ -157,7 +157,7 @@ void gato::cargaDeTexturasJuego() {
 
 // Metodo que obtiene los valores del vector de matriz de juego y lee uno por uno su contenido y
 // asi determina la textura de cada boton del juego mostrado en pantalla
-void gato::dibujarBotonesMatriz(vector<string> vectorAux, sf::RenderWindow& window)
+void gato::dibujarBotonesMatriz(vector<char> vectorAux, sf::RenderWindow& window)
 {
 
 	for (unsigned int i = 0; i < vectorAux.size(); i++) {
@@ -489,7 +489,7 @@ void gato::accionSeleccionarBoton(sf::RenderWindow& window, unsigned int numeroJ
 
 // Metodo que realiza el cambio de letras segun la eleccion de tipo y numero de jugador 
 
-void gato::cambioLetrasJugadores(string letraJugador, unsigned int numeroJugador) {
+void gato::cambioLetrasJugadores(char letraJugador, unsigned int numeroJugador) {
 	// Actualiza con que letra esta realizando la jugada el jugador 
 	if (numeroJugador == 1) {
 		letraJugador1 = letraJugador;
@@ -506,17 +506,17 @@ void gato::cambioLetrasJugadores(string letraJugador, unsigned int numeroJugador
 
 // Metodo que evalua a  que nuero de boton a a asignar la letra correspondiente de jugador sea jugador uno o dos
 // la letra con la que juega al incio del juego.
-sf::Texture gato::determinarImagenTextura(string letraJuegador) {
+sf::Texture gato::determinarImagenTextura(char letraJuegador) {
 
 	sf::Texture auxImagenAPoner;
 
-	if (letraJuegador == "jugadorX") {
+	if (letraJuegador == 'X') {
 		auxImagenAPoner = jugadorX;
 	}
-	else if (letraJuegador == "jugadorO") {
+	else if (letraJuegador == 'O') {
 		auxImagenAPoner = jugadorO;
 	}
-	else if (letraJuegador == "espacioVacio") {
+	else if (letraJuegador == '-') {
 		auxImagenAPoner = espacioVacio;
 	}
 

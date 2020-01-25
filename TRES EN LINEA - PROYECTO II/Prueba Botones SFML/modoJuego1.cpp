@@ -7,7 +7,7 @@
 
 #include "modoJuego1.h"
 
-bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, string letraAAgregar) {
+bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar) {
 	cout << "\nletra a agrgar:: " << letraAAgregar << endl;
 	// Asigna un valor de ser posible en la matriz de juego y actualiza el estado de realizo jugada
 	// ademas se verifica la posibilidad de que el jugador haya ganado con ese movimiento
@@ -29,7 +29,7 @@ bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugad
 
 
 // Metodo para imprimir la matriz mostrada por consola
-void modoJuego1::mostrarValoresEnMatriz(string matrizJuego[TAM_FILA][TAM_COLUMNA]) {
+void modoJuego1::mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
 	system("cls");
 	cout << " \n :::::::::::::::::		MATRIZ MODO JUGADOR VS JUGADOR		::::::::::::::::\n\n";
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
@@ -111,12 +111,12 @@ bool modoJuego1::verificacionMovimientoDiagonalIzquierda() {
 
 
 	// Verifical la diagonal izuquierda de X
-	if (this->matrizJuego[0][0] == "jugadorX" && this->matrizJuego[0][4] == "jugadorX" && this->matrizJuego[0][8] == "jugadorX") {
+	if (matrizJuego[0][0] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][8] == 'X') {
 		auxGanaDiagonalIz = true;
 	}
 
 	// Verifical la diagonal izuquierda de O
-	else if (matrizJuego[0][0] == "jugadorO" && this->matrizJuego[0][4] == "jugadorO" && this->matrizJuego[0][8] == "jugadorO") {
+	else if (matrizJuego[0][0] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][8] == 'O') {
 		auxGanaDiagonalIz = true;
 	}
 
@@ -134,12 +134,12 @@ bool modoJuego1::verificacionMovimientoDiagonalDerecha() {
 	auxGanaDiagonalDer = false;
 
 	// Verifical la diagonal derecha de X
-	if (this->matrizJuego[0][2] == "jugadorX" && this->matrizJuego[0][4] == "jugadorX" && this->matrizJuego[0][6] == "jugadorX") {
+	if (matrizJuego[0][2] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][6] == 'X') {
 		auxGanaDiagonalDer = true;
 	}
 
 	// Verifical la diagonal derecha de O
-	else if (this->matrizJuego[0][2] == "jugadorO" && this->matrizJuego[0][4] == "jugadorO" && matrizJuego[0][6] == "jugadorO") {
+	else if (matrizJuego[0][2] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][6] == 'O') {
 		auxGanaDiagonalDer = true;
 	}
 	// Falso no hay coincidencias de gane en diagonal derecha
@@ -158,28 +158,28 @@ bool modoJuego1::verificacionMovimientoVertical() {
 	auxGanaVertical = false;
 
 	// Verifica la primera columna vertical de X
-	if (this->matrizJuego[0][0] == "jugadorX" && this->matrizJuego[0][3] == "jugadorX" && this->matrizJuego[0][6] == "jugadorX") {
+	if (matrizJuego[0][0] == 'X' && matrizJuego[0][3] == 'X' && matrizJuego[0][6] == 'X') {
 		auxGanaVertical = true;
 	}
 	// Verifica la primera columna vertical de O
-	else if (this->matrizJuego[0][0] == "jugadorO" && this->matrizJuego[0][3] == "jugadorO" && this->matrizJuego[0][6] == "jugadorO") {
+	else if (matrizJuego[0][0] == 'O' && matrizJuego[0][3] == 'O' && matrizJuego[0][6] == 'O') {
 		auxGanaVertical = true;
 	}
 	// Verifica la segunda columna vertical de X
-	else if (this->matrizJuego[0][1] == "jugadorX" && this->matrizJuego[0][4] == "jugadorX" && this->matrizJuego[0][7] == "jugadorX") {
+	else if (matrizJuego[0][1] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][7] == 'X') {
 		auxGanaVertical = true;
 	}
 	// Verifica la segunda columna vertical de O
-	else if (this->matrizJuego[0][1] == "jugadorO" && this->matrizJuego[0][4] == "jugadorO" && this->matrizJuego[0][7] == "jugadorO") {
+	else if (matrizJuego[0][1] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][7] == 'O') {
 		auxGanaVertical = true;
 	}
 
 	// Verifica la tercera columna vertical de X
-	else if (this->matrizJuego[0][2] == "jugadorX" && this->matrizJuego[0][5] == "jugadorX" && this->matrizJuego[0][8] == "jugadorX") {
+	else if (matrizJuego[0][2] == 'X' && matrizJuego[0][5] == 'X' && matrizJuego[0][8] == 'X') {
 		auxGanaVertical = true;
 	}
 	// Verifica la tercera columna vertical de O
-	else if (this->matrizJuego[0][2] == "jugadorO" && this->matrizJuego[0][5] == "jugadorO" && this->matrizJuego[0][8] == "jugadorO") {
+	else if (matrizJuego[0][2] == 'O' && matrizJuego[0][5] == 'O' && matrizJuego[0][8] == 'O') {
 		auxGanaVertical = true;
 	}
 
@@ -199,28 +199,28 @@ bool modoJuego1::verificacionMovimientoHorizontal() {
 	auxGanaHorizontal = false;
 
 	// Verifica la primera linea horizontal de X
-	if (matrizJuego[0][0] == "jugadorX" && matrizJuego[0][1] == "jugadorX" && matrizJuego[0][2] == "jugadorX") {
+	if (matrizJuego[0][0] == 'X' && matrizJuego[0][1] == 'X' && matrizJuego[0][2] == 'X') {
 		auxGanaHorizontal = true;
 	}
 	// Verifica la primera linea horizontalde O
-	else if (matrizJuego[0][0] == "jugadorO" && matrizJuego[0][1] == "jugadorO" && matrizJuego[0][2] == "jugadorO") {
+	else if (matrizJuego[0][0] == 'O' && matrizJuego[0][1] == 'O' && matrizJuego[0][2] == 'O') {
 		auxGanaHorizontal = true;
 	}
 	// Verifica la segunda linea horizontal de X
-	else if (matrizJuego[0][3] == "jugadorX" && this->matrizJuego[0][4] == "jugadorX" && this->matrizJuego[0][5] == "jugadorX") {
+	else if (matrizJuego[0][3] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][5] == 'X') {
 		auxGanaHorizontal = true;
 	}
 	// Verifica la segunda linea horizontal de O
-	else if (matrizJuego[0][3] == "jugadorO" && matrizJuego[0][4] == "jugadorO" && matrizJuego[0][5] == "jugadorO") {
+	else if (matrizJuego[0][3] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][5] == 'O') {
 		auxGanaHorizontal = true;
 	}
 
 	// Verifica la tercera linea horizontal de X
-	else if (matrizJuego[0][6] == "jugadorX" && matrizJuego[0][7] == "jugadorX" && matrizJuego[0][8] == "jugadorX") {
+	else if (matrizJuego[0][6] == 'X' && matrizJuego[0][7] == 'X' && matrizJuego[0][8] == 'X') {
 		auxGanaHorizontal = true;
 	}
 	// Verifica la tercera linea horizontal de O
-	else if (matrizJuego[0][6] == "jugadorO" && matrizJuego[0][7] == "jugadorO" && matrizJuego[0][8] == "jugadorO") {
+	else if (matrizJuego[0][6] == 'O' && matrizJuego[0][7] == 'O' && matrizJuego[0][8] == 'O') {
 		auxGanaHorizontal = true;
 	}
 
@@ -236,14 +236,14 @@ bool modoJuego1::verificacionMovimientoHorizontal() {
 
 // Vector guarda matrizJuego para pasar a la clase gato para usarla 
 // para imprimir contenido de botones del juego
-vector<string> modoJuego1::vectorGuardaMatriz()
+vector<char> modoJuego1::vectorGuardaMatriz()
 {
-	vector<string> vectorAux;
+	vector<char> vectorAux;
 
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_FILA; k++) {
 
-			vectorAux.push_back(this->matrizJuego[i][k]);
+			vectorAux.push_back(matrizJuego[i][k]);
 		}
 	}
 	return vectorAux;
@@ -261,7 +261,7 @@ void modoJuego1::resetGame()
 
 
 // Verifica que se pueda agrgar un nuevo valor a la matriz de juego
-bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, string letraAAgregar) {
+bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar) {
 
 
 	cout << "BOTON # " << nBoton << endl;
@@ -269,7 +269,7 @@ bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, string letraAAgr
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
 
-			if (matrizJuego[0][nBoton] == "espacioVacio") {
+			if (matrizJuego[0][nBoton] == '-') {
 				matrizJuego[0][nBoton] = letraAAgregar;
 				auxAsignaValor = true;
 			}
@@ -286,7 +286,7 @@ void modoJuego1::inicializarMatrizJuegoVacia() {
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
 
-			matrizJuego[i][k] = "espacioVacio";
+			matrizJuego[i][k] = '-';
 		}
 	}
 }
@@ -297,7 +297,7 @@ void modoJuego1::limpiarMatrizJuego() {
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
 
-			matrizJuego[i][k] = " ";
+			matrizJuego[i][k] = ' ';
 		}
 	}
 }

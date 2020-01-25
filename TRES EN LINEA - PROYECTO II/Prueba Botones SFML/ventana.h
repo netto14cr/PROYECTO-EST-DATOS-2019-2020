@@ -28,6 +28,9 @@ using std::string;
 
 
 
+#define LETRA_JUGADOR_X 'X'
+#define LETRA_JUGADOR_O 'O'
+
 
 class ventana {
 
@@ -57,8 +60,8 @@ public:
 		numeroJugador = 0;
 		tipoJuego = "";
 		dificultad = "";
-		letraSeleccionadaJugador1 = "";
-		letraSeleccionadaJugador2 = "";
+		letraSeleccionadaJugador1 = ' ';
+		letraSeleccionadaJugador2 = ' ';
 
 	}
 
@@ -93,8 +96,7 @@ private:
 	bool juegoModo1Empezo;
 	string tipoJuego;
 	string dificultad;
-	string letraSeleccionadaJugador1;
-	string letraSeleccionadaJugador2;
+	char letraSeleccionadaJugador1, letraSeleccionadaJugador2;
 
 	void manejoEventosJuego(sf::RenderWindow& window);
 	void determinarTipoEvento(sf::RenderWindow& window);

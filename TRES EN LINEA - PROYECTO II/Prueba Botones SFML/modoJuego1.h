@@ -39,7 +39,7 @@ public:
 
 
 
-	bool verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, string letraAAgregar);
+	bool verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar);
 	bool verificaGanadorJugador1();
 	bool verificaGanadorJugador2();
 
@@ -49,20 +49,20 @@ public:
 	bool GetJugador1Gana() { return jugador1Gano; }
 	bool GetJugador2Gana() { return jugador2Gano; }
 
-	void mostrarValoresEnMatriz(string matrizJuego[TAM_FILA][TAM_COLUMNA]);
+	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 
-	vector<string> vectorGuardaMatriz();
+	vector<char> vectorGuardaMatriz();
 
 
 private:
 
-	string matrizJuego[TAM_FILA][TAM_COLUMNA];
+	char matrizJuego[TAM_FILA][TAM_COLUMNA];
 
 	void inicializarMatrizJuegoVacia();
 	void limpiarMatrizJuego();
 
 
-	bool asignarValorEnBotonMatriz(unsigned int nBoton, string letraAAgregar);
+	bool asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar);
 	bool verificarJugadorGanador();
 	bool verificacionMovimientoDiagonalDerecha();
 	bool verificacionMovimientoDiagonalIzquierda();

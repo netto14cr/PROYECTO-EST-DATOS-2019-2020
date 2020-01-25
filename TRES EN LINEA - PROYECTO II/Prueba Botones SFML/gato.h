@@ -66,7 +66,7 @@ public:
 
 	// Declaracion de variables que devuelven un valor
 	bool verificarPosibleJugadaModo1(unsigned int nunerBoton, unsigned int numeroJugador,
-		string letraJugador, sf::RenderWindow& window);
+		char letraJugador, sf::RenderWindow& window);
 	int GetBotonPresionado() { return botonSeleccionado; }
 	bool GetRealizoJugada() { return jugadaRealizada; }
 	bool GetGanadorJ1() { return ganadorJugador1; }
@@ -136,13 +136,13 @@ private:
 	string letraJugador1, letraJugador2;
 
 	// Declaracion de metodo que obtiene segun la letra del jugador el obejto tipo de textura correcto
-	sf::Texture determinarImagenTextura(string letraJuegador);
+	sf::Texture determinarImagenTextura(char letraJuegador);
 	// Declaracion de metodo que realiza el cambio de letra de jugadores segun si es jugador 1 u 2
-	void cambioLetrasJugadores(string letraJugador, unsigned int numeroJugador);
+	void cambioLetrasJugadores(char letraJugador, unsigned int numeroJugador);
 	// Declaracion de metodo que actualiza la imagen del boton especifico y lo dibuja
 	void actualizaImgBoton(unsigned int nBoton, sf::RenderWindow& window, sf::Texture imagenAux);
 	// Declaracion de metodo que dibuja los botones de la matriz de juego
-	void dibujarBotonesMatriz(vector<string> vectorAux, sf::RenderWindow& window);
+	void dibujarBotonesMatriz(vector<char> vectorAux, sf::RenderWindow& window);
 	// Declaracion de metodo que obtiene las medidas de las imagnes usadas para simular la matriz
 	// de botones en pantalla.
 	void obtenerTamanioImgBotones();
