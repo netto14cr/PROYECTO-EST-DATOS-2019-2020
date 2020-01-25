@@ -7,8 +7,6 @@
 #ifndef MODOJUEGO1_H
 #define MODOJUEGO1_H
 
-//#include"ventana.h"
-
 
 #include <iostream>
 #include <string>

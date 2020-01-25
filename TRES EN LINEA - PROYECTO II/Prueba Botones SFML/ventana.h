@@ -14,6 +14,9 @@
 #include<iostream>
 #include <sstream>
 
+#include "gato.h"
+#include "menu.h"
+
 
 // Declaracion de funciones de la libreria STD empleadas en la clase
 using std::stringstream;
@@ -36,7 +39,9 @@ public:
 
 		menuEstaActivo = false;
 		menuInicioActivo = true;
+		subMenuNivelActivo = false;
 		menuSeleccionFiguraActivo = false;
+		juegaMaquina = false;
 		turnoJugador1 = true;
 		turnoJugador2 = false;
 		estaJugando = false;
@@ -51,6 +56,7 @@ public:
 		nivelJuegoSeleccionado = 0;
 		numeroJugador = 0;
 		tipoJuego = "";
+		dificultad = "";
 		letraSeleccionadaJugador1 = "";
 		letraSeleccionadaJugador2 = "";
 
@@ -59,11 +65,13 @@ public:
 	~ventana() {} // Destructor de la clase
 	void iniciarPrograma();
 
+
 private:
 
 	// Declaracion de variables necesarias de la clase
 	bool estaJugando;
 	bool menuEstaActivo;
+	bool subMenuNivelActivo;
 	bool comenzoJuego;
 	bool juegoEnPausa;
 
@@ -72,6 +80,7 @@ private:
 	unsigned int nivelJuegoSeleccionado;
 	bool menuInicioActivo;
 	bool menuSeleccionFiguraActivo;
+	bool juegaMaquina;
 	bool turnoJugador1;
 	bool turnoJugador2;
 
@@ -83,15 +92,18 @@ private:
 
 	bool juegoModo1Empezo;
 	string tipoJuego;
+	string dificultad;
 	string letraSeleccionadaJugador1;
 	string letraSeleccionadaJugador2;
 
-	void manejoEventosTeclado(sf::RenderWindow& window);
+	void manejoEventosJuego(sf::RenderWindow& window);
 	void determinarTipoEvento(sf::RenderWindow& window);
 	void opcionesMenuJuego(sf::RenderWindow& window);
 	void opcionesBotonesJuegoModo1(sf::RenderWindow& window);
-	//void opcionesBotonesJuegoModo2(sf::RenderWindow& window);
 	void actualizaEstadoImgJugador();
+	void verificacionJugadorLetra();
+
+	void verificaEstatusDelJuego(sf::RenderWindow& window);
 
 };
 

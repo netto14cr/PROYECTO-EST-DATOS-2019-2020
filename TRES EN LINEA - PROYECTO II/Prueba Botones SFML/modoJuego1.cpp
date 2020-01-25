@@ -1,4 +1,9 @@
-
+// modoJuego1.cpp
+// Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
+// Descripcion: Implementacion de la clase modoJeugo1 y sus metodos necesarios para la 
+// realizacion de la validacion del nivel jugador vs jugador, realizacion de jugadas y
+// la validacion de jugadas correctas y el deterninar asi en el transcurso del juego
+// si hay una ganador o el juego termina en empate.
 
 #include "modoJuego1.h"
 
@@ -7,12 +12,15 @@ bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugad
 	// Asigna un valor de ser posible en la matriz de juego y actualiza el estado de realizo jugada
 	// ademas se verifica la posibilidad de que el jugador haya ganado con ese movimiento
 	if (asignarValorEnBotonMatriz(nBoton, letraAAgregar)) {
+		// Se realiza el cambio del estado de realizo movimiento en la jugada a verdadero
 		realizoJugada = true;
+		// llamado al metodo que muestra los valores de la matriz por consola
 		mostrarValoresEnMatriz(matrizJuego);
-		cout << "\n Se pudo asignar un nuevo valor a la matriz :: " << realizoJugada << endl;
 	}
+
+	// Falso si no se puede asignar un valor a la matriz se actualiza su estado a falso
 	else if (!asignarValorEnBotonMatriz(nBoton, letraAAgregar)) {
-		cout << "\n No ee pudo asignar un valor en la matriz\n";
+		// Se realiza el cambio del estado de realizo movimiento en la jugada a falso
 		realizoJugada = false;
 	}
 
@@ -20,8 +28,22 @@ bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugad
 }
 
 
+// Metodo para imprimir la matriz mostrada por consola
+void modoJuego1::mostrarValoresEnMatriz(string matrizJuego[TAM_FILA][TAM_COLUMNA]) {
+	system("cls");
+	cout << " \n :::::::::::::::::		MATRIZ MODO JUGADOR VS JUGADOR		::::::::::::::::\n\n";
+	for (unsigned int i = 0; i < TAM_FILA; i++) {
+		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
+			cout << "[	" << matrizJuego[i][k] << "	]	";
+
+		}
+		cout << "\n";
+	}
+}
 
 
+// Metodo booleano que devuele la verificasion de verdadero o falso si el juegador 1
+// ha realizado movimientos para declararlo ganador del juego o no.
 bool modoJuego1::verificaGanadorJugador1() {
 	// Siempre y cuando los movimientos correctos por el jugador 1 podra ganar
 	if (verificarJugadorGanador()) {
@@ -35,6 +57,8 @@ bool modoJuego1::verificaGanadorJugador1() {
 }
 
 
+// Metodo booleano que devuele la verificasion de verdadero o falso si el juegador 2
+// ha realizado movimientos para declararlo ganador del juego o no.
 bool modoJuego1::verificaGanadorJugador2() {
 	// Siempre y cuando los movimientos correctos por el jugador  2 podra ganar
 	if (verificarJugadorGanador()) {
@@ -79,7 +103,8 @@ bool modoJuego1::verificarJugadorGanador() {
 	return realizoJugada;
 }
 
-
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en la diagonal izquierda.
 bool modoJuego1::verificacionMovimientoDiagonalIzquierda() {
 	bool auxGanaDiagonalIz;
 	auxGanaDiagonalIz = false;
@@ -102,6 +127,8 @@ bool modoJuego1::verificacionMovimientoDiagonalIzquierda() {
 	return auxGanaDiagonalIz;
 }
 
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en la diagonal derecha.
 bool modoJuego1::verificacionMovimientoDiagonalDerecha() {
 	bool auxGanaDiagonalDer;
 	auxGanaDiagonalDer = false;
@@ -123,7 +150,8 @@ bool modoJuego1::verificacionMovimientoDiagonalDerecha() {
 }
 
 
-
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en las posicion vectical.
 
 bool modoJuego1::verificacionMovimientoVertical() {
 	bool auxGanaVertical;
@@ -164,44 +192,8 @@ bool modoJuego1::verificacionMovimientoVertical() {
 }
 
 
-
-// Vector guarda matrizJuego para pasar a la clase gato para usarla 
-// para imprimir contenido de botones del juego
-vector<string> modoJuego1::vectorGuardaMatriz()
-
-{
-	vector<string> vectorAux;
-
-	for (unsigned int i = 0; i < TAM_FILA; i++) {
-		for (unsigned int k = 0; k < TAM_FILA; k++) {
-
-			vectorAux.push_back(this->matrizJuego[i][k]);
-		}
-	}
-	return vectorAux;
-}
-
-
-
-
-
-// Metodo que vuelve a colocar los valores de las variables modificados 
-// a su valor original para comenzar un nuevo juego.
-void modoJuego1::resetGame()
-{
-	jugador1Gano = false;
-	jugador2Gano = false;
-	realizoJugada = false;
-	inicializarMatrizJuegoVacia();
-
-
-
-}
-
-
-
-
-
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en las posicion horizontal.
 bool modoJuego1::verificacionMovimientoHorizontal() {
 	bool auxGanaHorizontal;
 	auxGanaHorizontal = false;
@@ -240,6 +232,34 @@ bool modoJuego1::verificacionMovimientoHorizontal() {
 }
 
 
+
+
+// Vector guarda matrizJuego para pasar a la clase gato para usarla 
+// para imprimir contenido de botones del juego
+vector<string> modoJuego1::vectorGuardaMatriz()
+{
+	vector<string> vectorAux;
+
+	for (unsigned int i = 0; i < TAM_FILA; i++) {
+		for (unsigned int k = 0; k < TAM_FILA; k++) {
+
+			vectorAux.push_back(this->matrizJuego[i][k]);
+		}
+	}
+	return vectorAux;
+}
+
+// Metodo que vuelve a colocar los valores de las variables modificados 
+// a su valor original para comenzar un nuevo juego.
+void modoJuego1::resetGame()
+{
+	jugador1Gano = false;
+	jugador2Gano = false;
+	realizoJugada = false;
+	inicializarMatrizJuegoVacia();
+}
+
+
 // Verifica que se pueda agrgar un nuevo valor a la matriz de juego
 bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, string letraAAgregar) {
 
@@ -258,22 +278,6 @@ bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, string letraAAgr
 
 	return auxAsignaValor;
 }
-
-
-
-// Metodo para imprimir la matriz por consola
-void modoJuego1::mostrarValoresEnMatriz(string matrizJuego[TAM_FILA][TAM_COLUMNA]) {
-	system("cls");
-	cout << " \n MOSTRANDO MATRIZ EN CONSOLA MODO JUGADOR VS JUGADOR\n\n";
-	for (unsigned int i = 0; i < TAM_FILA; i++) {
-		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
-			cout << "[ " << matrizJuego[i][k] << "] ";
-
-		}
-		cout << "\n";
-	}
-}
-
 
 
 

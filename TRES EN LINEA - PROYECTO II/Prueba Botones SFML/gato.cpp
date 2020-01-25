@@ -10,8 +10,84 @@
 
 modoJuego1 mod1;
 
-// Metodo que se en carga de cargar y verificar la s imagenes usadas en el juego.
+// Este metodo tambine valida que cambie los eventos graficos y de validacion si no hay todavia un ganador o empate
+// de lo contrario avisara que ya la jugada no puede ser realizada.
+bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int numeroJugador, string letraJugador, sf::RenderWindow& window)
+{
+	if (mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) && !ganadorJugador1
+		&& !ganadorJugador2 && !noGanadorFinal) {
 
+		jugadaRealizada = true;
+		contarMoviRealizados++;
+		cambioLetrasJugadores(letraJugador, numeroJugador);
+
+
+		// Dibuja los cambios de los botones mediante un vector que contiene los valores de matriz de movimientos 
+		// efectuados por los juegador de la clase modoJuego1
+		dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+		if (mod1.verificaGanadorJugador1() && contarMoviRealizados <= 9 && numeroJugador == 1) {
+			cout << "\n :::::::::::		J U G A D O R  1  G A N O !!	:::::::::::::::::::::::\n";
+			// Actualiza el estado que jugador 1 gano es verdadero
+			ganadorJugador1 = true;
+		}
+		else if (mod1.verificaGanadorJugador2() && contarMoviRealizados <= 9 && numeroJugador == 2) {
+			cout << "\n :::::::::::		J U G A D O R  2  G A N O !!	:::::::::::::::::::::::\n";
+			// Actualiza el estado que jugador 2 gano es verdadero
+			ganadorJugador2 = true;
+		}
+		else if (!mod1.verificaGanadorJugador1() && !mod1.verificaGanadorJugador2() && contarMoviRealizados >= 9) {
+			cout << "\n :::::::::::::::			E M P A T E !!		:::::::::::::::::::::::\n";
+			// Actualiza el estado que ningun jugador gano y es un empate a verdadero
+			noGanadorFinal = true;
+		}
+
+	}
+	else {
+		jugadaRealizada = false; // por defecto se resetea la vaciable de jugada realizada
+	}
+	return jugadaRealizada;
+}
+
+// Metodo que actualiza la matriz mostrada en pantalla de modo jugador vs jugador
+void gato::actualizaMatrizMod1(sf::RenderWindow& window)
+{
+	dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+}
+
+// Metodo que actualiza la matriz mostrada en pantalla del nivel facil:: jugador VS CPU
+void gato::actualizaMatrizNivelFacil(sf::RenderWindow& window)
+{
+	//dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+}
+
+// Metodo que actualiza la matriz mostrada en pantalla del nivel normal:: jugador VS CPU
+void gato::actualizaMatrizNivelMedio(sf::RenderWindow& window)
+{
+	//dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+}
+
+// Metodo que actualiza la matriz mostrada en pantalla del nivel dificil:: jugador VS CPU
+void gato::actualizaMatrizNivelDificil(sf::RenderWindow& window)
+{
+	//dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+// Metodo que se en carga de cargar y verificar la s imagenes usadas en el juego.
 void gato::cargaDeTexturasJuego() {
 
 	if (!jugadorX.loadFromFile(DIR_JUGADORX)) {
@@ -200,7 +276,6 @@ void gato::obtenerTamanioImgBotones() {
 }
 
 
-
 // Este metodo indica con el evento del mause la flecha esta hubicada encima de algun boton dle juego.
 void gato::pintarColorBotonEncima(sf::RenderWindow& window) {
 	mousePos = sf::Mouse::getPosition(window);
@@ -212,58 +287,6 @@ void gato::pintarColorBotonEncima(sf::RenderWindow& window) {
 	{
 		boton1Image.setColor(sf::Color(0, 100, 100));
 
-	}
-
-	// falso si el boton esta hubicado encima del boton 2
-	else if (boton2Image.getGlobalBounds().contains(mousePosF)) {
-		boton2Image.setColor(sf::Color(0, 100, 100));
-
-
-	}
-	// falso si el boton esta hubicado encima del boton 3
-	else if (boton3Image.getGlobalBounds().contains(mousePosF)) {
-		boton3Image.setColor(sf::Color(0, 100, 100));
-
-	}
-	// falso si el boton esta hubicado encima del boton 4
-	else if (boton4Image.getGlobalBounds().contains(mousePosF)) {
-		boton4Image.setColor(sf::Color(0, 100, 100));
-
-
-	}
-
-	// falso si el boton esta hubicado encima del boton 5
-	else if (boton5Image.getGlobalBounds().contains(mousePosF)) {
-		boton5Image.setColor(sf::Color(0, 100, 100));
-
-	}
-	// falso si el boton esta hubicado encima del boton 6
-	else if (boton6Image.getGlobalBounds().contains(mousePosF)) {
-		boton6Image.setColor(sf::Color(0, 100, 100));
-
-	}
-
-	// falso si el boton esta hubicado encima del boton 7
-	else if (boton7Image.getGlobalBounds().contains(mousePosF)) {
-		boton7Image.setColor(sf::Color(0, 100, 100));
-
-	}
-
-	// falso si el boton esta hubicado encima del boton 8
-	else if (boton8Image.getGlobalBounds().contains(mousePosF)) {
-		boton8Image.setColor(sf::Color(0, 100, 100));
-
-	}
-
-	// falso si el boton esta hubicado encima del boton 9
-	else if (boton9Image.getGlobalBounds().contains(mousePosF)) {
-		boton9Image.setColor(sf::Color(0, 100, 100));
-
-	}
-	// Falso si no esta encima de ningun boton no mantiene pinta de color ningun boton 
-	else
-	{
-		boton1Image.setColor(sf::Color(255, 255, 255));
 		boton2Image.setColor(sf::Color(255, 255, 255));
 		boton3Image.setColor(sf::Color(255, 255, 255));
 		boton4Image.setColor(sf::Color(255, 255, 255));
@@ -274,17 +297,130 @@ void gato::pintarColorBotonEncima(sf::RenderWindow& window) {
 		boton9Image.setColor(sf::Color(255, 255, 255));
 	}
 
+	// falso si el boton esta hubicado encima del boton 2
+	if (boton2Image.getGlobalBounds().contains(mousePosF)) {
+		boton2Image.setColor(sf::Color(0, 100, 100));
+
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton3Image.setColor(sf::Color(255, 255, 255));
+		boton4Image.setColor(sf::Color(255, 255, 255));
+		boton5Image.setColor(sf::Color(255, 255, 255));
+		boton6Image.setColor(sf::Color(255, 255, 255));
+		boton7Image.setColor(sf::Color(255, 255, 255));
+		boton8Image.setColor(sf::Color(255, 255, 255));
+		boton9Image.setColor(sf::Color(255, 255, 255));
+
+
+	}
+	// falso si el boton esta hubicado encima del boton 3
+	if (boton3Image.getGlobalBounds().contains(mousePosF)) {
+		boton3Image.setColor(sf::Color(0, 100, 100));
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton2Image.setColor(sf::Color(255, 255, 255));
+		boton4Image.setColor(sf::Color(255, 255, 255));
+		boton5Image.setColor(sf::Color(255, 255, 255));
+		boton6Image.setColor(sf::Color(255, 255, 255));
+		boton7Image.setColor(sf::Color(255, 255, 255));
+		boton8Image.setColor(sf::Color(255, 255, 255));
+		boton9Image.setColor(sf::Color(255, 255, 255));
+
+	}
+	// falso si el boton esta hubicado encima del boton 4
+	else if (boton4Image.getGlobalBounds().contains(mousePosF)) {
+		boton4Image.setColor(sf::Color(0, 100, 100));
+
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton2Image.setColor(sf::Color(255, 255, 255));
+		boton3Image.setColor(sf::Color(255, 255, 255));
+		boton5Image.setColor(sf::Color(255, 255, 255));
+		boton6Image.setColor(sf::Color(255, 255, 255));
+		boton7Image.setColor(sf::Color(255, 255, 255));
+		boton8Image.setColor(sf::Color(255, 255, 255));
+		boton9Image.setColor(sf::Color(255, 255, 255));
+
+
+	}
+
+	// falso si el boton esta hubicado encima del boton 5
+	if (boton5Image.getGlobalBounds().contains(mousePosF)) {
+		boton5Image.setColor(sf::Color(0, 100, 100));
+
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton2Image.setColor(sf::Color(255, 255, 255));
+		boton3Image.setColor(sf::Color(255, 255, 255));
+		boton4Image.setColor(sf::Color(255, 255, 255));
+		boton6Image.setColor(sf::Color(255, 255, 255));
+		boton7Image.setColor(sf::Color(255, 255, 255));
+		boton8Image.setColor(sf::Color(255, 255, 255));
+		boton9Image.setColor(sf::Color(255, 255, 255));
+
+	}
+	// falso si el boton esta hubicado encima del boton 6
+	if (boton6Image.getGlobalBounds().contains(mousePosF)) {
+		boton6Image.setColor(sf::Color(0, 100, 100));
+
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton2Image.setColor(sf::Color(255, 255, 255));
+		boton3Image.setColor(sf::Color(255, 255, 255));
+		boton4Image.setColor(sf::Color(255, 255, 255));
+		boton5Image.setColor(sf::Color(255, 255, 255));
+		boton7Image.setColor(sf::Color(255, 255, 255));
+		boton8Image.setColor(sf::Color(255, 255, 255));
+		boton9Image.setColor(sf::Color(255, 255, 255));
+
+	}
+
+	// falso si el boton esta hubicado encima del boton 7
+	if (boton7Image.getGlobalBounds().contains(mousePosF)) {
+		boton7Image.setColor(sf::Color(0, 100, 100));
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton2Image.setColor(sf::Color(255, 255, 255));
+		boton3Image.setColor(sf::Color(255, 255, 255));
+		boton4Image.setColor(sf::Color(255, 255, 255));
+		boton5Image.setColor(sf::Color(255, 255, 255));
+		boton6Image.setColor(sf::Color(255, 255, 255));
+		boton8Image.setColor(sf::Color(255, 255, 255));
+		boton9Image.setColor(sf::Color(255, 255, 255));
+
+	}
+
+	// falso si el boton esta hubicado encima del boton 8
+	if (boton8Image.getGlobalBounds().contains(mousePosF)) {
+		boton8Image.setColor(sf::Color(0, 100, 100));
+
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton2Image.setColor(sf::Color(255, 255, 255));
+		boton3Image.setColor(sf::Color(255, 255, 255));
+		boton4Image.setColor(sf::Color(255, 255, 255));
+		boton5Image.setColor(sf::Color(255, 255, 255));
+		boton6Image.setColor(sf::Color(255, 255, 255));
+		boton7Image.setColor(sf::Color(255, 255, 255));
+		boton9Image.setColor(sf::Color(255, 255, 255));
+	}
+
+	// falso si el boton esta hubicado encima del boton 9
+	if (boton9Image.getGlobalBounds().contains(mousePosF)) {
+		boton9Image.setColor(sf::Color(0, 100, 100));
+
+		boton1Image.setColor(sf::Color(255, 255, 255));
+		boton2Image.setColor(sf::Color(255, 255, 255));
+		boton3Image.setColor(sf::Color(255, 255, 255));
+		boton4Image.setColor(sf::Color(255, 255, 255));
+		boton5Image.setColor(sf::Color(255, 255, 255));
+		boton6Image.setColor(sf::Color(255, 255, 255));
+		boton7Image.setColor(sf::Color(255, 255, 255));
+		boton8Image.setColor(sf::Color(255, 255, 255));
+
+	}
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -351,54 +487,7 @@ void gato::accionSeleccionarBoton(sf::RenderWindow& window, unsigned int numeroJ
 	}
 }
 
-
-
-// Metodo que actualiza la matriz mostrada en pantalla de modo jugador vs jugador
-void gato::actualizaMatrizMod1(sf::RenderWindow& window)
-{
-	dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
-
-}
-
-// Este metodo tambine valida que cambie los eventos graficos y de validacion si no hay todavia un ganador o empate
-// de lo contrario avisara que ya la jugada no puede ser realizada.
-bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int numeroJugador, string letraJugador, sf::RenderWindow& window)
-{
-	if (mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) && !ganadorJugador1
-		&& !ganadorJugador2 && !noGanadorFinal) {
-
-		jugadaRealizada = true;
-		contarMoviRealizados++;
-		cambioLetrasJugadores(letraJugador, numeroJugador);
-
-
-		// Dibuja los cambios de los botones mediante un vector que contiene los valores de matriz de movimientos 
-		// efectuados por los juegador de la clase modoJuego1
-		dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
-
-		if (mod1.verificaGanadorJugador1() && contarMoviRealizados <= 9 && numeroJugador == 1) {
-			cout << "\n JUGADOR 1 GANO EL GATO!!\n";
-
-			ganadorJugador1 = true;
-		}
-		else if (mod1.verificaGanadorJugador2() && contarMoviRealizados <= 9 && numeroJugador == 2) {
-			cout << "\n JUGADOR 2 GANO EL GATO!!\n";
-			ganadorJugador2 = true;
-		}
-		else if (!mod1.verificaGanadorJugador1() && !mod1.verificaGanadorJugador2() && contarMoviRealizados >= 9) {
-			cout << "\n JUEGO TERMINO EN EMPATE!!\n";
-			noGanadorFinal = true;
-		}
-
-	}
-	else {
-		jugadaRealizada = false; // por defecto se resetea la vaciable de jugada realizada
-	}
-	return jugadaRealizada;
-
-}
-
-
+// Metodo que realiza el cambio de letras segun la eleccion de tipo y numero de jugador 
 
 void gato::cambioLetrasJugadores(string letraJugador, unsigned int numeroJugador) {
 	// Actualiza con que letra esta realizando la jugada el jugador 
