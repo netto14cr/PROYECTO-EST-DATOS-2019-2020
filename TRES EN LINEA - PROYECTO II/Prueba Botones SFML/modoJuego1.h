@@ -27,58 +27,33 @@ class modoJuego1 {
 public:
 
 	modoJuego1() {
-
-		jugador1Gano = false;
-		jugador2Gano = false;
-		realizoJugada = false;
+		jugador1Gano = false; jugador2Gano = false; realizoJugada = false;
 		inicializarMatrizJuegoVacia();
 	}
-
-
 	~modoJuego1() { limpiarMatrizJuego(); }
 
-
-
-	bool verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar);
-	bool verificaGanadorJugador1();
-	bool verificaGanadorJugador2();
-
-
-	//void SetRealizoJugada( bool realizoJugad) { realizoJugada = realizoJugad; }
 	bool GetRealizoJugada() { return realizoJugada; }
 	bool GetJugador1Gana() { return jugador1Gano; }
 	bool GetJugador2Gana() { return jugador2Gano; }
 
-	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
+	bool verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar),
+		verificaGanadorJugador1(), verificaGanadorJugador2();
 
 	vector<char> vectorGuardaMatriz();
-
+	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 
 private:
 
 	char matrizJuego[TAM_FILA][TAM_COLUMNA];
+	bool jugador1Gano, jugador2Gano, realizoJugada;
+	bool asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar),
+		verificarJugadorGanador(),
+		verificacionMovimientoDiagonalDerecha(),
+		verificacionMovimientoDiagonalIzquierda(),
+		verificacionMovimientoHorizontal(),
+		verificacionMovimientoVertical();
 
-	void inicializarMatrizJuegoVacia();
-	void limpiarMatrizJuego();
-
-
-	bool asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar);
-	bool verificarJugadorGanador();
-	bool verificacionMovimientoDiagonalDerecha();
-	bool verificacionMovimientoDiagonalIzquierda();
-	bool verificacionMovimientoHorizontal();
-	bool verificacionMovimientoVertical();
-
-	bool jugador1Gano;
-	bool jugador2Gano;
-	bool realizoJugada;
-
-	void resetGame();
-
-
+	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego(), resetGame();
 };
-
-
-
 #endif // !MODOJUEGO1_H
 

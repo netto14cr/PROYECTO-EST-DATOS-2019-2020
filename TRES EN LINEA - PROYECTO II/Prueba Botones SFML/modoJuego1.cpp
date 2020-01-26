@@ -17,7 +17,6 @@ bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugad
 		// llamado al metodo que muestra los valores de la matriz por consola
 		mostrarValoresEnMatriz(matrizJuego);
 	}
-
 	// Falso si no se puede asignar un valor a la matriz se actualiza su estado a falso
 	else if (!asignarValorEnBotonMatriz(nBoton, letraAAgregar)) {
 		// Se realiza el cambio del estado de realizo movimiento en la jugada a falso
@@ -26,7 +25,6 @@ bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugad
 
 	return realizoJugada;
 }
-
 
 // Metodo para imprimir la matriz mostrada por consola
 void modoJuego1::mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
@@ -40,7 +38,6 @@ void modoJuego1::mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA])
 		cout << "\n";
 	}
 }
-
 
 // Metodo booleano que devuele la verificasion de verdadero o falso si el juegador 1
 // ha realizado movimientos para declararlo ganador del juego o no.
@@ -56,7 +53,6 @@ bool modoJuego1::verificaGanadorJugador1() {
 	return jugador1Gano;
 }
 
-
 // Metodo booleano que devuele la verificasion de verdadero o falso si el juegador 2
 // ha realizado movimientos para declararlo ganador del juego o no.
 bool modoJuego1::verificaGanadorJugador2() {
@@ -70,15 +66,11 @@ bool modoJuego1::verificaGanadorJugador2() {
 	return jugador2Gano;
 }
 
-
-
-
 // Metodo que verifica si la seleccion de boton del jugador se puede escoger y 
 // cambia el estado de la variable realizoJugada a verdadero. 
 bool modoJuego1::verificarJugadorGanador() {
 	bool jugadorGano;
 	jugadorGano = false;
-
 
 	// Si se puede realizar un movimiento en la diagonal izquierda
 	if (verificacionMovimientoDiagonalIzquierda()) {
@@ -97,8 +89,6 @@ bool modoJuego1::verificarJugadorGanador() {
 	else if (verificacionMovimientoVertical()) {
 		jugadorGano = true;
 	}
-	// Falso si no se puede realizar ningun tipo de movimiento entonces es falso
-
 	realizoJugada = jugadorGano;
 	return realizoJugada;
 }
@@ -114,12 +104,10 @@ bool modoJuego1::verificacionMovimientoDiagonalIzquierda() {
 	if (matrizJuego[0][0] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][8] == 'X') {
 		auxGanaDiagonalIz = true;
 	}
-
 	// Verifical la diagonal izuquierda de O
 	else if (matrizJuego[0][0] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][8] == 'O') {
 		auxGanaDiagonalIz = true;
 	}
-
 	// Falso no hay coincidencias de gane en diagonal izquierda
 	else {
 		auxGanaDiagonalIz = false;
@@ -149,10 +137,8 @@ bool modoJuego1::verificacionMovimientoDiagonalDerecha() {
 	return auxGanaDiagonalDer;
 }
 
-
 // Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
 // una jugada ganadora realizada por los juegadores en las posicion vectical.
-
 bool modoJuego1::verificacionMovimientoVertical() {
 	bool auxGanaVertical;
 	auxGanaVertical = false;
@@ -182,15 +168,12 @@ bool modoJuego1::verificacionMovimientoVertical() {
 	else if (matrizJuego[0][2] == 'O' && matrizJuego[0][5] == 'O' && matrizJuego[0][8] == 'O') {
 		auxGanaVertical = true;
 	}
-
-
 	// Falso no existen concidencias de jugada ganadora en vetical
 	else {
 		auxGanaVertical = false;
 	}
 	return auxGanaVertical;
 }
-
 
 // Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
 // una jugada ganadora realizada por los juegadores en las posicion horizontal.
@@ -231,15 +214,11 @@ bool modoJuego1::verificacionMovimientoHorizontal() {
 	return auxGanaHorizontal;
 }
 
-
-
-
 // Vector guarda matrizJuego para pasar a la clase gato para usarla 
 // para imprimir contenido de botones del juego
 vector<char> modoJuego1::vectorGuardaMatriz()
 {
 	vector<char> vectorAux;
-
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_FILA; k++) {
 
@@ -259,11 +238,8 @@ void modoJuego1::resetGame()
 	inicializarMatrizJuegoVacia();
 }
 
-
 // Verifica que se pueda agrgar un nuevo valor a la matriz de juego
 bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar) {
-
-
 	cout << "BOTON # " << nBoton << endl;
 	bool auxAsignaValor = false;
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
@@ -279,18 +255,14 @@ bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgreg
 	return auxAsignaValor;
 }
 
-
-
 // Metodo que se encarga de asignar un valor de vacia a toda la matriz de juego
 void modoJuego1::inicializarMatrizJuegoVacia() {
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
-
 			matrizJuego[i][k] = '-';
 		}
 	}
 }
-
 
 // Metodo que se encargar de reseter los valores por defecto de la matriz de juego
 void modoJuego1::limpiarMatrizJuego() {

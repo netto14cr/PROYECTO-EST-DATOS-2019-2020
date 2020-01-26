@@ -52,8 +52,6 @@ public:
 		jugador1Eligio = false;
 		jugador2Eligio = false;
 		juegoEnPausa = true;
-		juegoModo1Empezo = false;
-		realizoCambioEnJuego = false;
 		juegoFinalizo = false;
 
 		nivelJuegoSeleccionado = 0;
@@ -89,11 +87,9 @@ private:
 
 	bool jugador1Eligio;
 	bool jugador2Eligio;
-	bool realizoCambioEnJuego;
 	bool juegoFinalizo;
 
 
-	bool juegoModo1Empezo;
 	string tipoJuego;
 	string dificultad;
 	char letraSeleccionadaJugador1, letraSeleccionadaJugador2;
@@ -102,9 +98,10 @@ private:
 	void determinarTipoEvento(sf::RenderWindow& window);
 	void opcionesMenuJuego(sf::RenderWindow& window);
 	void opcionesBotonesJuegoModo1(sf::RenderWindow& window);
+	void opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window);
+
 	void actualizaEstadoImgJugador();
 	void verificacionJugadorLetra();
-
 	void verificaEstatusDelJuego(sf::RenderWindow& window);
 
 };

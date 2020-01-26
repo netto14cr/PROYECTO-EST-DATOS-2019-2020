@@ -40,30 +40,28 @@ public:
 	void moveUpMenu(unsigned int navegaMenu);
 	void moveUpSeleccionJugador(int tipoJugador);
 	void moveDownSeleccionJugador(int tipoJugador);
-
 	int GetPressedItem() { return selectedItemIndex; }
-
 
 	// Declaracion de metodo para preguntar al usaurio la eleccion de una letra en el juego
 	void mostrarMenuSeleccionImgJugador1(float width, float height);
 	void mostrarMenuSeleccionImgJugador2(float width, float height, int seleccionJugador1);
 	void mostrarSubMenuNiveles(float width, float height);
 	void mostrarMenuJuego2(float width, float height);
+	void reseteaValorSelected() { selectedItemIndex = 0; }
 
 
-private:
+private:	// Declaracion de atributos privados de la clase menu
 
-	// Declaracion de atributos privados de la clase menu
+
 	int selectedItemIndex;
-	sf::Font font;
-	sf::Text menu[MAXIMO_OPCIONES];
-	sf::Text menuSeleccionJugador1[MAXIMO_OPCIONES_JUGADOR1];
-	sf::Text menuSeleccionJugador2[MAXIMO_OPCIONES_JUGADOR2];
-	sf::Text menuJuego2[MAXIMO_OPCIONES];
-	sf::Text menuSubNiveles[MAXIMO_OPCIONES];
 
-	sf::Texture tituloJuego;
+	sf::Font font;
+	sf::Text menu[MAXIMO_OPCIONES], menuSeleccionJugador1[MAXIMO_OPCIONES_JUGADOR1],
+		menuSeleccionJugador2[MAXIMO_OPCIONES_JUGADOR2], menuJuego2[MAXIMO_OPCIONES],
+		menuSubNiveles[MAXIMO_OPCIONES], tituloJuego;
+
 	sf::Sprite obj;
+
 
 	void cargarFuentes();
 	void mostrarMenuInicial(float width, float height);

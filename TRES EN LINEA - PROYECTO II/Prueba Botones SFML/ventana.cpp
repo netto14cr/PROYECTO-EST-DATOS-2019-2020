@@ -6,19 +6,16 @@
 #include "ventana.h"
 #include "gato.h"
 #include "menu.h"
-//#include "modoJuego1.h"
 
 // Se define una nueva ventana que contendra el juego gato con un tamaaño establecido y titulo.
 sf::RenderWindow window(sf::VideoMode(1024, 622), "Tres en linea ", sf::Style::Default);
 
 // Se declara el uso de la clase menu
-Menu m(1024, 622);
+Menu m(1024.0f, 622.0f);
 // Se declara el uso de la clase gato
 gato ga;
 
-
 // Metodo que da inicio a la interfaz del juego
-
 void ventana::iniciarPrograma()
 {
 	// Se define la velocidad de actualizacion del frame en pantalla
@@ -73,10 +70,6 @@ void ventana::verificaEstatusDelJuego(sf::RenderWindow& window) {
 	}
 }
 
-
-
-
-
 //  Metodo que escucha todo lo que sucede y se ejecuta mientras la nueva ventana o el juego este en ejecucion
 void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 
@@ -98,8 +91,6 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 			actualizaEstadoImgJugador();
 			// actualiza los botones de la matriz de juego modo jugador vs jugador
 			ga.actualizaMatrizMod1(window);
-			// Se resetea el valor para que este este a la espera de un nuevo cambio..
-			realizoCambioEnJuego = false;
 
 		}//	>>>>>>>	  F I N  M O D O  J U G A D O R  V S  J U G A D O R       >>>>>>>>>>>>>>>>>>>>>
 
@@ -232,7 +223,6 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 			//ga.detenerSonido();
 			break;
 
-
 		case sf::Event::MouseMoved:
 			// Valida de caso para evento de mouse encima de un boton si estan jugando
 			if (comenzoJuego && !juegoEnPausa) {
@@ -241,6 +231,7 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 				ga.pintarColorBotonEncima(window);
 			}
 			break;
+
 			// Validacion de boton presionado por el usuario (click)
 		case sf::Event::MouseButtonPressed:
 			// LLama al metodo que comprueba cual boton fue presionado por el usuario
@@ -287,9 +278,7 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 					}
 
 				}
-
 				break;
-
 
 				//  Presiono tecla de abajo
 			case sf::Keyboard::Down:
@@ -344,8 +333,13 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 						// jugador vs jugador
 						opcionesBotonesJuegoModo1(window);
 					}
+
+					// Falso Si el tipo de juego es Jugador vs CPU
 					else if (tipoJuego == "JugadorVsCPU") {
 
+						// Llama al metodo que se encarga de manejar lo que ocurre en el juego
+						// jugador vs CPU
+						opcionesBotonesModoJuegoMaquina(window);
 					}
 				}
 			}
@@ -354,51 +348,166 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 	}
 }
 
+// Metodo que realiza la validacion de movimientos y de jugadas en modo de juego jugador vs CPU
+// ademas de escuhar lo que pasa con los botones, verifica que el jugador pueda realizar la jugada y 
+// de ser posible cambia el estado de las imagenes de los botones en el juego.
+void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
+	unsigned int numeroBotonSeleccionado; // Se declara una variable auxliar que contendra el valor de boton digitado
+	numeroBotonSeleccionado = 0; // Se asgina un valor de 0 a la variable auxiliar de boton seleccionado
+	numeroBotonSeleccionado = ga.GetBotonPresionado(); // se le pasa el boton apretado en la matriz por el jugador
+
+	// si el boton seleccionado es diferente de 0 por el juegador 1 entre a realizar las acciones de su turno de juego
+	// o tambien si el turno de jugador se entiende que es la maquina y no puede presionar una tecla por lo que le da
+	// acceso a que realice la comprobacion de turno y si puede elegir una casilla de la matriz del juego.
+	if (numeroBotonSeleccionado != 0 || turnoJugador2) {
+
+		// Si es el turno de eleccion es del jugador 1 () Por defecto el turno uno siempre va hacer verdadero
+		if (turnoJugador1) {
+			cout << "\n - J-U-G-A-D-O-R---> 1 \n";
+
+			// Falso si es el turno del juegador 1 y la dificultad de juego es facil
+			// Actualiza si jugador 1 puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
+			if (dificultad == "facil") {
+				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+				// en este caso jugador 1 y la letra de seleccion con la que juega.
+				if (ga.verificarPosibleJugadaModoFacil(1, letraSeleccionadaJugador1, window)) {
+
+					// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
+					turnoJugador1 = false;
+					turnoJugador2 = true;
+
+					// Como la maquina no puede presionar ningun boton fisicamente como se sabe que el jugador 1 (usuario )
+					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
+					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
+					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
+					opcionesBotonesModoJuegoMaquina(window);
+				}
+
+			}
+
+			// Falso si es el turno del juegador 1 y la dificultad de juego es medio
+			// Actualiza si jugador 1 puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
+			else if (dificultad == "medio") {
+
+				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+				// en este caso jugador 1 y la letra de seleccion con la que juega.
+				if (ga.verificarPosibleJugadaModoMedio(1, letraSeleccionadaJugador1, window)) {
+
+					// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
+					turnoJugador1 = false;
+					turnoJugador2 = true;
+
+					// Como la maquina no puede presionar ningun boton fisicamente como se sabe que el jugador 1 (usuario )
+					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
+					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
+					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
+					opcionesBotonesModoJuegoMaquina(window);
+
+
+				}
+			}
+
+			// Falso si es el turno del juegador 1 y la dificultad de juego es dificil
+			// Actualiza si jugador 1 puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
+			else if (dificultad == "dificil") {
+				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+				// en este caso jugador 1 y la letra de seleccion con la que juega.
+				if (ga.verificarPosibleJugadaModoDificil(1, letraSeleccionadaJugador1, window)) {
+
+					// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
+					turnoJugador1 = false;
+					turnoJugador2 = true;
+
+					// Como la maquina no puede presionar ningun boton fisicamente como se sabe que el jugador 1 (usuario )
+					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
+					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
+					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
+					opcionesBotonesModoJuegoMaquina(window);
+				}
+			}
+
+		}// FIN TURNO JUGADOR 1
+
+		// Si el turno de eleccion es de jugador 2 - [ M A Q U I N A ] 
+		else if (turnoJugador2) {
+
+			// Se imprime una imagen que guiara en la consola el turno de la maquina
+			cout << "\n                      !   ! \n";
+			cout << "\n - M-A-Q-U-I-N-A---> [ -_- ] \n";
+
+			// Si es el turno de la maquina y la dificultad de juego es facil
+			// Actualiza si la maquina puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
+			if (dificultad == "facil") {
+
+				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+				// en este caso jugador 1 y la letra de seleccion con la que juega.
+				if (ga.verificarPosibleJugadaModoFacil(2, letraSeleccionadaJugador2, window)) {
+					turnoJugador2 = false;
+					turnoJugador1 = true;
+				}
+			}
+			// Falso si es el turno de la maquina y la dificultad de juego es medio
+			// Actualiza si la maquina puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
+			else if (dificultad == "medio") {
+
+				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+				// en este caso jugador 1 y la letra de seleccion con la que juega.
+				if (ga.verificarPosibleJugadaModoMedio(2, letraSeleccionadaJugador2, window)) {
+					turnoJugador2 = false;
+					turnoJugador1 = true;
+				}
+			}
+
+			// Falso si es el turno de la maquina y la dificultad de juego es dificil
+			// Actualiza si la maquina puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
+			else if (dificultad == "dificil") {
+				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+				// en este caso jugador 1 y la letra de seleccion con la que juega.
+				if (ga.verificarPosibleJugadaModoDificil(2, letraSeleccionadaJugador2, window)) {
+					turnoJugador2 = false;
+					turnoJugador1 = true;
+				}
+			}
+		}// FIN TURNO JUGADOR 2 - [ M A Q U I N A ] 
+	}
+}
 
 // Metodo que realiza la validacion de movimientos y de jugadas en modo de juego jugador vs jugador
-// ademas de escuhar lo que pasa con los botones, verifica que el jugador pueda realizar la juga y de
-// ser posible cambia el estado de las imagenes de los botones en el juego.
-
+// ademas de escuhar lo que pasa con los botones, verifica que el jugador pueda realizar la jugada y 
+// de ser posible cambia el estado de las imagenes de los botones en el juego.
 void ventana::opcionesBotonesJuegoModo1(sf::RenderWindow& window) {
 
+	unsigned int numeroBotonSeleccionado; // Se declara una variable auxliar que contendra el valor de boton digitado
+	numeroBotonSeleccionado = 0; // Se asgina un valor de 0 a la variable auxiliar de boton seleccionado
+	numeroBotonSeleccionado = ga.GetBotonPresionado(); // se le pasa el boton apretado en la matriz por el jugador
 
-	unsigned int numeroBotonSeleccionado;
-	numeroBotonSeleccionado = 0;
-	numeroBotonSeleccionado = ga.GetBotonPresionado();
 	// si el boton seleccionado es diferente de 0 realice una accion sino no haga nada..
 	if (numeroBotonSeleccionado != 0) {
 
 		// Si es el turno de eleccion es del jugador 1 () Por defecto el turno uno siempre va hacer verdadero
 		if (turnoJugador1) {
-			cout << "\n ----->1\n";
+			cout << "\n - J-U-G-A-D-O-R---> 1 \n";
 
 			// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 			// en este caso jugador 1 y la letra de seleccion con la que juega.
 			if (ga.verificarPosibleJugadaModo1((numeroBotonSeleccionado - 1), 1, letraSeleccionadaJugador1, window)) {
-				// Cambia el estado de dibujo del juego a positivo, deja de mostrar los botones en blanco
-				// ha actualizar los que se modifican
-				juegoModo1Empezo = true;
 
 				// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
-
 				turnoJugador1 = false;
 				turnoJugador2 = true;
-
-				realizoCambioEnJuego = true;// Si jugador modifica el area de juego realizo un cambio correctamente y actualiza
 
 			}
 		}
 
 		// Si el turno de eleccion es del jugador 2
 		else if (turnoJugador2) {
-			cout << "\n ----->2\n";
+			cout << "\n - J-U-G-A-D-O-R---> 2 \n";
 
 			// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 			// en este caso jugador 1 y la letra de seleccion con la que juega.
 			if (ga.verificarPosibleJugadaModo1((numeroBotonSeleccionado - 1), 2, letraSeleccionadaJugador2, window)) {
 				turnoJugador2 = false;
 				turnoJugador1 = true;
-				juegoModo1Empezo = true; // Si jugador modifica el area de juego realizo un cambio correctamente y actualiza
 			}
 		}
 
@@ -409,7 +518,6 @@ void ventana::opcionesBotonesJuegoModo1(sf::RenderWindow& window) {
 
 
 }
-
 
 // Metodo que escuha las opciones del menu mostradas a los juegores ne pantalla y
 // determina el tipo de acccion seleccionada por los  usuarios segun sea el caso.
@@ -469,14 +577,13 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 
 					// Por defecto si jugador 1 escoge la letra X, la letra del 
 					// jugador 2 va hacer la letra "O"
-					m.mostrarMenuSeleccionImgJugador2(1024, 622, 2);
+					m.mostrarMenuSeleccionImgJugador2(1024.0f, 622.0f, 2);
 					letraSeleccionadaJugador2 = LETRA_JUGADOR_O;
 
 					// Si se esta jugando contra la maquina se da por hecho que la maquina
 					// eligio ya que ella escoge siempre el tipo de letra restante despues
 					// que el jugador eligio y con esto se salta la confirmacion en el mnu de 
 					// letra de ella misma.
-
 					if (juegaMaquina == true) {
 						verificacionJugadorLetra();
 					}
@@ -488,7 +595,6 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 					// Se cambia el estado jugador2elgio a verdadero y la de comenzo juego a verdadero 
 			// por que ya los dos jugadores elegieron la letra para coemnzar la partida.
 			// tambine juegoEnPausa pasa a falso para comenzar a escuchar los enventos deñ mouse
-
 					verificacionJugadorLetra();
 				}
 			}
@@ -514,7 +620,6 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 
 		// -------------	M E N U  D E  J U E G O   E S T A   A C T I V O		-----------------------
 		// Si menu de Inicio esta Activo es verdadero 		
-
 		if (menuInicioActivo) {
 
 			// Quiere decir que el usuario ha selecciono modo de juego Jugador vs CPU (Maquina)
@@ -528,6 +633,8 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				subMenuNivelActivo = true;
 				// Se cambia el estado de juega maquina a verdadero
 				juegaMaquina = true;
+				// Cambia el estado de selectIndex a 0 en menu , soluciona error aumento en eleccion de menu anterior
+				m.reseteaValorSelected();
 			}
 
 			// Falso si se encuentra jugadondo contra otro jugador y selecciona 
@@ -563,7 +670,7 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 
 				// Por defecto si jugador 1 escoge la letra O, la letra del 
 				// jugador 2 va hacer la letra "X"
-				m.mostrarMenuSeleccionImgJugador2(1024, 622, 1);
+				m.mostrarMenuSeleccionImgJugador2(1024.0f, 622.0f, 1);
 				letraSeleccionadaJugador2 = LETRA_JUGADOR_X;
 
 				// Si se esta jugando contra la maquina se da por hecho que la maquina
@@ -604,6 +711,8 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 			// las opciones de seleccion de letra con la que jugara.
 			subMenuNivelActivo = false;
 
+			// Cambia el estado de selectIndex a 0 en menu , soluciona error aumento en eleccion de menu anterior
+			m.reseteaValorSelected();
 		}
 		// TERMINA SUB MENU DE NIVEL ACTIVO
 
@@ -624,9 +733,9 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 
 			// Falso jugador no ha empenzado el juego y decide salir!
 			else if (!comenzoJuego) {
-				cout << "\n Selecciono la opcion de salir del juego.. \nAdios! \n";
+				cout << "\n Selecciono la opción salir del juego.. \n	A d i o s !! \n\n";
 			}
-			window.close();
+			window.close(); // Cierra la ventana dej juego.
 		}
 
 		// -------		S U B  M E N U  E S T A  A C T I V O		--------------------
@@ -641,6 +750,9 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 			// Cambia el estado de subMenuNivel a falsa para que se le muestra al usuario
 			// las opciones de seleccion de letra con la que jugara.
 			subMenuNivelActivo = false;
+
+			// Cambia el estado de selectIndex a 0 en menu , soluciona error aumento en eleccion de menu anterior
+			m.reseteaValorSelected();
 		}
 		// TERMINA SUB MENU DE NIVEL ACTIVO
 
@@ -648,7 +760,6 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 	}
 
 }
-
 
 // Metodo que verifica si el jugador 2 selecciono su eleccion y comienza el juego, saliendo asi 
 // del menu mostrado en pantallapara seguidamente mostrar la matriz de juego.
@@ -665,27 +776,20 @@ void ventana::verificacionJugadorLetra() {
 	juegoEnPausa = false;
 }
 
-
-
-
 // Metodo que actualiza el titulo y la iamgen de jugador que esta jugando en el juego
 void ventana::actualizaEstadoImgJugador() {
-	if (turnoJugador1) {
 
+	// Si el turno de jugador que esta jugando jugador 1 es verdadero  
+	if (turnoJugador1) {
 		// Dibuja en pantalla img de jugador 1 y titulo enposicion mas arriba una 
 		ga.dibujarImagenEspecifica(window, 7);
 		ga.dibujarImagenEspecifica(window, 9);
 	}
-	// Dibuja en pantalla img de jugador 2 y titulo enposicion mas arriba una 
+
+	// Si el turno de jugador que esta jugando jugador 2 es verdadero
 	else if (turnoJugador2) {
+		// Dibuja en pantalla img de jugador 2 y titulo enposicion mas arriba una 
 		ga.dibujarImagenEspecifica(window, 8);
 		ga.dibujarImagenEspecifica(window, 9);
 	}
 }
-
-
-
-
-
-
-

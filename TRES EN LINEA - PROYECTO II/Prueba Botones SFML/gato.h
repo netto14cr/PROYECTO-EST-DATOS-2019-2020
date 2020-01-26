@@ -3,7 +3,6 @@
 // Descripción: Definicion de la clase gato metodos y variables necesarias para la
 // implementacion del juego.
 
-
 #ifndef GATO_H
 #define GATO_H
 
@@ -19,7 +18,6 @@
 using std::vector;
 using std::string;
 using std::stack;
-
 
 // Definicion de la direcciones de las imagenes
 #define DIR_ESPACIOVACIO "../img/white.png"
@@ -39,7 +37,8 @@ using std::stack;
 #define DIR_PAUSA "../sonido/EndofLine.wav"
 #define DIR_MUSICA_TECLAS "../sonido/confirm.wav"
 #define DIR_MUSICA_FONDO "../sonido/juego.wav"
-
+// Defino la cambiada de botones a desmarcar
+#define CANT_BOTONES 9
 
 //		C L A S E  G A T O
 class gato {
@@ -48,6 +47,7 @@ class gato {
 	// pueden hacer uso para realizar cambios en la clase gato y en el juego.
 
 public:
+
 	// Costructor por defecto
 	gato() {
 		// Inicializacion de variables de la clase
@@ -65,14 +65,25 @@ public:
 	~gato() {} // Destrutor de la clase
 
 	// Declaracion de variables que devuelven un valor
+
+	// Declaracion de metodo que realiza la verificacion en modo de juego jugador Vs jugador
 	bool verificarPosibleJugadaModo1(unsigned int nunerBoton, unsigned int numeroJugador,
 		char letraJugador, sf::RenderWindow& window);
+	// Declaracion de metodo que realiza la verificacion en el nivel Facil del juego Vs CPU
+	bool verificarPosibleJugadaModoFacil(unsigned int numeroJugador,
+		char letraJugador, sf::RenderWindow& window);
+	// Declaracion de metodo que realiza la verificacion en el nivel normal del juego Vs CPU
+	bool verificarPosibleJugadaModoMedio(unsigned int numeroJugador,
+		char letraJugador, sf::RenderWindow& window);
+	// Declaracion de metodo que realiza la verificacion en el nivel Dificil del juego Vs CPU
+	bool verificarPosibleJugadaModoDificil(unsigned int numeroJugador,
+		char letraJugador, sf::RenderWindow& window);
+
 	int GetBotonPresionado() { return botonSeleccionado; }
 	bool GetRealizoJugada() { return jugadaRealizada; }
 	bool GetGanadorJ1() { return ganadorJugador1; }
 	bool GetGanadorJ2() { return ganadorJugador2; }
 	bool GetNoGanadorFinal() { return noGanadorFinal; }
-
 
 	// Declaracion de metodos que no devuelven un valor
 	void cargaDeTexturasJuego();
@@ -87,7 +98,6 @@ public:
 	void actualizaMatrizNivelMedio(sf::RenderWindow& window);
 	void actualizaMatrizNivelDificil(sf::RenderWindow& window);
 
-
 	// Declaracion de metodos y variables de tipo privadas de la clase
 private:
 	// ---------- Declaracion del uso de funciones de la libreria  S F M L	--------------
@@ -99,8 +109,8 @@ private:
 		boton8, boton9;
 
 	// Declaracion de Sprite's
-	sf::Sprite fondoImage, obj, boton1Image, boton2Image, boton3Image, boton4Image, boton5Image, boton6Image,
-		boton7Image, boton8Image, boton9Image, imgTitulo;
+	sf::Sprite fondoImage, obj, boton1Image, boton2Image, boton3Image, boton4Image,
+		boton5Image, boton6Image, boton7Image, boton8Image, boton9Image, imgTitulo;
 
 	// Declaracion de eventos con SFML
 	sf::Event event;
@@ -137,12 +147,20 @@ private:
 
 	// Declaracion de metodo que obtiene segun la letra del jugador el obejto tipo de textura correcto
 	sf::Texture determinarImagenTextura(char letraJuegador);
+
 	// Declaracion de metodo que realiza el cambio de letra de jugadores segun si es jugador 1 u 2
 	void cambioLetrasJugadores(char letraJugador, unsigned int numeroJugador);
+
 	// Declaracion de metodo que actualiza la imagen del boton especifico y lo dibuja
 	void actualizaImgBoton(unsigned int nBoton, sf::RenderWindow& window, sf::Texture imagenAux);
+
 	// Declaracion de metodo que dibuja los botones de la matriz de juego
 	void dibujarBotonesMatriz(vector<char> vectorAux, sf::RenderWindow& window);
+
+	// Declaracion de metodo que des-selecciona el color de los botones diferentes al actual marcado
+	// por el cursor del mause
+	void desSeleccionaBotonesMatriz(unsigned int nBoton);
+
 	// Declaracion de metodo que obtiene las medidas de las imagnes usadas para simular la matriz
 	// de botones en pantalla.
 	void obtenerTamanioImgBotones();
