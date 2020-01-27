@@ -183,7 +183,7 @@ bool gato::verificarPosibleJugadaModoDificil(unsigned int numeroBoton, unsigned 
 
 		// Se hace el llamado del metodo que comprueba si sigue mostrando los cambios en la matriz del juego
 		// o notifica a la vista para que muestre el resultado final del juego.
-		verificarEstatusGanador(nD.verificaGanadorJugador1(), nD.verificaGanadorJugador2(),
+		verificarEstatusGanador(nD.GetGanadorJ1(), nD.GetGanadorJ2(),
 			numeroJugador, contarMoviRealizados);
 
 	}

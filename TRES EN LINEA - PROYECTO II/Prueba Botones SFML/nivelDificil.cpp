@@ -1,9 +1,9 @@
 // nivelDificicil.cpp
 // Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
-// Descripcion: Implementacion de la clase nivelDificil y sus metodos necesarios para la 
+// Descripcion: Implementación de la clase nivelDificil y sus metodos necesarios para la 
 // realizacion de la validacion del nivel jugador vs CPU - Dificultadad:: Dificil, y
-// implementa metodos para validar y ejecutar movimientos intelegentes de la máquina, 
-// segun el jugador va realizando jugadas para intentar que el jugador pierda, empate y si 
+// implementa metodos para validar y ejecutar movimientos inteligentes de la máquina, 
+// según el jugador va realizando jugadas para intentar que el jugador pierda, empate y si 
 // es posible que máquina gana la partida del juego. 
 
 #include "nivelDificil.h"
@@ -19,15 +19,24 @@ bool nivelDificil::verificarPosibleJugada(unsigned int nBoton, unsigned int nume
 	if (asignarValorEnBotonMatriz(nBoton, letraAAgregar) && numeroJugador == 1) {
 		// Se realiza el cambio del estado de realizo movimiento en la jugada a verdadero
 		realizoJugada = true;
+
+		// Se hace el llamado del metodo que verifica si el juegador 1 con el movimiento 
+		// realizada puede ganar y actualiza el estado de ganador de jugador 1, de ser verdad.
+		verificaGanadorJugador1(letraAAgregar, matrizJuego);
+
 		// Llamado al metodo que muestra los valores de la matriz por consola
 		mostrarValoresEnMatriz(matrizJuego);
+
 	}
 	// Falso Si es el turno del jugador 1 realiza la comprobacion asignada de jugada de la maquina
 	else if (numeroJugador == 2) {
 		cout << "\n N o  v a l i d a d o  a u n !!\n\n";
+		system("cls");
+
 
 		// Aqui se debe llamar al metodo para que juegue y valide la maquina
-		system("cls");
+		//verificaGanadorJugador2(letraAAgregar, matrizJuego);
+
 		realizoJugada = false;
 	}
 
@@ -77,7 +86,7 @@ vector<pair<unsigned int, unsigned int>> nivelDificil::llenarVectorPosiblesJugad
 	return jugadasGanadores;
 }
 
-// Vector guarda matrizJuego nivel  Dificil para pasar a la clase gato para usarla 
+// Vector guarda matrizJuego nivel Dificil para pasar a la clase gato para usarla 
 // para imprimir contenido de botones del juego
 vector<char> nivelDificil::vectorGuardaMatrizDificil()
 {
@@ -157,7 +166,7 @@ void nivelDificil::mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA
 }
 
 // Metodo que retorna un vector con la informacion de todos los campos ocupados por cada 
-// jugador obteniendo así lel valor de la totalidad de ocupados existentes en la matriz 
+// jugador obteniendo así el valor de la totalidad de ocupados existentes en la matriz 
 // de juego ocupados por cada letra del jugador X y jugador O.
 vector<pair<unsigned int, unsigned int>> nivelDificil::obtenerLugaresOcupados(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA])
 {
@@ -177,31 +186,52 @@ vector<pair<unsigned int, unsigned int>> nivelDificil::obtenerLugaresOcupados(ch
 	return auxVectorCamposOcupados;
 }
 
-// Metodo booleano que devuele la verificación de verdadero o falso si el juegador 1
+// Metodo que actualiza el estado de la variable jugador 1 gano a verdadero o falso si el juegador 2 (máquina)
 // ha realizado movimientos para declararlo ganador del juego o no.
-bool nivelDificil::verificaGanadorJugador1() {
+void nivelDificil::verificaGanadorJugador1(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
 	// Siempre y cuando los movimientos correctos por el jugador 1 podra ganar
-	if (/*verificarJugadorGanador()*/ false) {
+	if (verificarJugadorGanador(obtenerLugaresOcupados(letraAAgregar, matrizJuego))) {
 		jugador1Gano = true;
 	}
-	else {
-		jugador1Gano = false;
-	}
-
-	return jugador1Gano;
+	else { jugador1Gano = false; }
 }
 
-// Metodo booleano que devuele la verificación de verdadero o falso si el juegador 2 (máquina)
+// Metodo que actualiza el estado de la variable jugador 2 gano a verdadero o falso si el juegador 2 (máquina)
 // ha realizado movimientos para declararlo ganador del juego o no.
-bool nivelDificil::verificaGanadorJugador2() {
+void nivelDificil::verificaGanadorJugador2(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
 	// Siempre y cuando los movimientos correctos por el jugador  2 podra ganar
-	if (/*verificarJugadorGanador()*/ false) {
+	if (verificarJugadorGanador(obtenerLugaresOcupados(letraAAgregar, matrizJuego))) {
 		jugador2Gano = true;
 	}
-	else {
-		jugador2Gano = false;
+	else { jugador2Gano = false; }
+}
+
+// Metodo que verifica los lugares ocupados en el vector que contiene la información de los movimientos
+// realizados en la matriz y verifica si los lugares ocupados son iguales a una posibilidad de gane ya
+// definida previamente en vector de posibles jugadas.
+bool nivelDificil::verificarJugadorGanador(vector<pair<unsigned int, unsigned int>>  obtenerLugaresOcupados)
+{
+	// Se declara una variable auxiliar booleanan para modificar si se encuntra que el jugador a
+	// verificar tien una jugada ganadora
+	bool auxliarJugadorGano;
+	auxliarJugadorGano = false;
+
+	for (unsigned int i = 0; i < llenarVectorPosiblesJugadas().size(); i++)
+	{
+		auxliarJugadorGano = true;
+		vector<pair<unsigned int, unsigned int>> auxliarPosicionGane = llenarVectorPosiblesJugadas();
+		for (int j = 0; j < 3; j++)
+		{
+			if (!(find(begin(llenarVectorPosiblesJugadas()), end(llenarVectorPosiblesJugadas()),
+				auxliarPosicionGane[j]) != end(llenarVectorPosiblesJugadas()))) {
+				auxliarJugadorGano = false; break;
+			}
+		}
+
+		// Si se encontro que el juegador gano es verdadero detengase y salga de ciclo
+		if (auxliarJugadorGano) { break; }
 	}
-	return jugador2Gano;
+	return auxliarJugadorGano;
 }
 
 // Vector que recorre la matriz de juego y verifica que cada posición no tenga una letra por algún
@@ -227,6 +257,8 @@ vector<pair<unsigned int, unsigned int>>nivelDificil::obtenerLugaresDisponibles(
 	}
 	return espaciosVaciosMatriz;
 }
+
+
 
 
 // <<<<<<<<<<<<<<<<<<	N I V E L  E N  C O N S T R U C C I O N	  >>>>>>>>>>>>>>>>>>>>>>>>>

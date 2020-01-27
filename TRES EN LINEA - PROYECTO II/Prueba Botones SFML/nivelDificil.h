@@ -17,6 +17,10 @@ using std::endl;
 using std::vector;
 using std::pair;
 using std::make_pair;
+using std::begin;
+using std::find;
+using std::end;
+
 
 // Definición del tamano de las fila y la columna para usar para la matriz
 #define TAM_FILA 3
@@ -42,9 +46,11 @@ public:// Declaración de metodos publicos
 
 	~nivelDificil() {} // Destructor de la clase
 
-	bool verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar),
-		verificaGanadorJugador1(),
-		verificaGanadorJugador2();
+	bool verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar);
+	bool GetGanadorJ1() { return jugador1Gano; }
+	bool GetGanadorJ2() { return jugador2Gano; }
+
+
 	vector<char> vectorGuardaMatrizDificil();
 
 private:// Declaración de metodos privados
@@ -63,8 +69,13 @@ private:// Declaración de metodos privados
 	vector<pair<unsigned int, unsigned int>> obtenerLugaresOcupados(char letraAAgregar,
 		char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 
+	bool verificarJugadorGanador(vector<pair<unsigned int, unsigned int>>  obtenerLugaresOcupados);
+
 	// Declaracion de metodos que no retornan ningun valor
 	void inicializarMatrizJuegoVacia();
 	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
+	void verificaGanadorJugador1(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA]),
+		verificaGanadorJugador2(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA]);
+
 };
 #endif NIVELDIFICIL_H
