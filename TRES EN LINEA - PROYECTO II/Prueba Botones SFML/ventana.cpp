@@ -370,7 +370,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 			if (dificultad == "facil") {
 				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 				// en este caso jugador 1 y la letra de seleccion con la que juega.
-				if (ga.verificarPosibleJugadaModoFacil(1, letraSeleccionadaJugador1, window)) {
+				if (ga.verificarPosibleJugadaModoFacil((numeroBotonSeleccionado - 1), 1, letraSeleccionadaJugador1, window)) {
 
 					// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
 					turnoJugador1 = false;
@@ -391,7 +391,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 
 				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 				// en este caso jugador 1 y la letra de seleccion con la que juega.
-				if (ga.verificarPosibleJugadaModoMedio(1, letraSeleccionadaJugador1, window)) {
+				if (ga.verificarPosibleJugadaModoMedio((numeroBotonSeleccionado - 1), 1, letraSeleccionadaJugador1, window)) {
 
 					// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
 					turnoJugador1 = false;
@@ -412,7 +412,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 			else if (dificultad == "dificil") {
 				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 				// en este caso jugador 1 y la letra de seleccion con la que juega.
-				if (ga.verificarPosibleJugadaModoDificil(1, letraSeleccionadaJugador1, window)) {
+				if (ga.verificarPosibleJugadaModoDificil((numeroBotonSeleccionado - 1), 1, letraSeleccionadaJugador1, window)) {
 
 					// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
 					turnoJugador1 = false;
@@ -441,10 +441,12 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 
 				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 				// en este caso jugador 1 y la letra de seleccion con la que juega.
-				if (ga.verificarPosibleJugadaModoFacil(2, letraSeleccionadaJugador2, window)) {
+				if (ga.verificarPosibleJugadaModoFacil(-1, 2, letraSeleccionadaJugador2, window)) {
 					turnoJugador2 = false;
 					turnoJugador1 = true;
 				}
+				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
+				else { opcionesBotonesModoJuegoMaquina(window); }
 			}
 			// Falso si es el turno de la maquina y la dificultad de juego es medio
 			// Actualiza si la maquina puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
@@ -452,10 +454,12 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 
 				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 				// en este caso jugador 1 y la letra de seleccion con la que juega.
-				if (ga.verificarPosibleJugadaModoMedio(2, letraSeleccionadaJugador2, window)) {
+				if (ga.verificarPosibleJugadaModoMedio(-1, 2, letraSeleccionadaJugador2, window)) {
 					turnoJugador2 = false;
 					turnoJugador1 = true;
 				}
+				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
+				else { opcionesBotonesModoJuegoMaquina(window); }
 			}
 
 			// Falso si es el turno de la maquina y la dificultad de juego es dificil
@@ -463,10 +467,12 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 			else if (dificultad == "dificil") {
 				// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
 				// en este caso jugador 1 y la letra de seleccion con la que juega.
-				if (ga.verificarPosibleJugadaModoDificil(2, letraSeleccionadaJugador2, window)) {
+				if (ga.verificarPosibleJugadaModoDificil(-1, 2, letraSeleccionadaJugador2, window)) {
 					turnoJugador2 = false;
 					turnoJugador1 = true;
 				}
+				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
+				else { opcionesBotonesModoJuegoMaquina(window); }
 			}
 		}// FIN TURNO JUGADOR 2 - [ M A Q U I N A ] 
 	}

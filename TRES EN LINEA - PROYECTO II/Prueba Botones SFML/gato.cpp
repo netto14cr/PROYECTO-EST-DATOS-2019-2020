@@ -39,27 +39,10 @@ bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int nu
 		// efectuados por los juegador de la clase modoJuego1
 		dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
 
-		// Si de determina que verdadero que jugador 1 gano && los movimientos correctos es menor o igual
-		// a 9 y le numero de jugador en el turno es el jugador 1, se interpreta que gano la partida del juego.
-		if (mod1.verificaGanadorJugador1() && contarMoviRealizados <= 9 && numeroJugador == 1) {
-			cout << "\n :::::::::::		J U G A D O R  1  G A N O !!	:::::::::::::::::::::::\n";
-			// Actualiza el estado que jugador 1 gano es verdadero
-			ganadorJugador1 = true;
-		}
-		// Falso Si de determina que verdadero que jugador 2 gano && los movimientos correctos es menor o igual
-		// a 9 y le numero de jugador en el turno es el jugador 2, se interpreta que gano la partida del juego.
-		else if (mod1.verificaGanadorJugador2() && contarMoviRealizados <= 9 && numeroJugador == 2) {
-			cout << "\n :::::::::::		J U G A D O R  2  G A N O !!	:::::::::::::::::::::::\n";
-			// Actualiza el estado que jugador 2 gano es verdadero
-			ganadorJugador2 = true;
-		}
-		// Falso Si de determina que el jugador 1 && jugador 2 no ganaron &&  que los movimientos correctos 
-		// realizados es igual a 9 se interpreta que nadie gano el juego y que termina la partida.
-		else if (!mod1.verificaGanadorJugador1() && !mod1.verificaGanadorJugador2() && contarMoviRealizados == 9) {
-			cout << "\n :::::::::::::::			E M P A T E !!		:::::::::::::::::::::::\n";
-			// Actualiza el estado que ningun jugador gano y es un empate a verdadero
-			noGanadorFinal = true;
-		}
+		//
+		verificarEstatusGanador(mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),
+			numeroJugador, contarMoviRealizados);
+
 	}
 	// Falso si no se cumple que se pueda realizar la jugada el estado cambia a falso y no modifica el turno, 
 	// ni realiza un cambio en pantalla y jugador con turno puede intentar elegir otro posicion mientras en el juego
@@ -68,26 +51,136 @@ bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int nu
 	return jugadaRealizada;
 }
 
+
+void gato::verificarEstatusGanador(bool verificacionGanadorJugador1, bool verificacionGanadorJugador2,
+	unsigned int numeroJugador, unsigned int movimientosRealizados) {
+	// Si de determina que verdadero que jugador 1 gano && los movimientos correctos es menor o igual
+// a 9 y le numero de jugador en el turno es el jugador 1, se interpreta que gano la partida del juego.
+	if (verificacionGanadorJugador1 && contarMoviRealizados <= 9 && numeroJugador == 1) {
+		cout << "\n :::::::::::		J U G A D O R  1  G A N O !!	:::::::::::::::::::::::\n";
+		// Actualiza el estado que jugador 1 gano es verdadero
+		ganadorJugador1 = true;
+	}
+	// Falso Si de determina que verdadero que jugador 2 gano && los movimientos correctos es menor o igual
+	// a 9 y le numero de jugador en el turno es el jugador 2, se interpreta que gano la partida del juego.
+	else if (verificacionGanadorJugador2 && contarMoviRealizados <= 9 && numeroJugador == 2) {
+		cout << "\n :::::::::::		J U G A D O R  2  G A N O !!	:::::::::::::::::::::::\n";
+		// Actualiza el estado que jugador 2 gano es verdadero
+		ganadorJugador2 = true;
+	}
+	// Falso Si de determina que el jugador 1 && jugador 2 no ganaron &&  que los movimientos correctos 
+	// realizados es igual a 9 se interpreta que nadie gano el juego y que termina la partida.
+	else if (!mod1.verificaGanadorJugador1() && !mod1.verificaGanadorJugador2() && contarMoviRealizados == 9) {
+		cout << "\n :::::::::::::::			E M P A T E !!		:::::::::::::::::::::::\n";
+		// Actualiza el estado que ningun jugador gano y es un empate a verdadero
+		noGanadorFinal = true;
+	}
+}
+
+
 // Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Facil y determina si con la jugada 
 // realizada por el juegador 1 o la maquina, tambien determina el ganador mediante la jugada realizada yactualizara el estado 
 // de jugador ganador o maquina y de lo contrario determinara un empate en la partida.
-bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
+bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
 {
-	return false;
+	// <<<<<<<<<<<<<<   llama a los metodos de la clase nivel facil  >>>>>>>>>>>>>>>>>
+
+	// Si se cumple que se puede seleccionar la casilla elegida && todavia no hay un ganador oun empate se interpreta
+	// como verdadero que la jugada realizada es correcta y actualiza cambios en la matriz de botnones del juego
+
+	/// el metodo comentado es de nivel facil
+	if (/*mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) &&*/ !ganadorJugador1
+		&& !ganadorJugador2 && !noGanadorFinal) {
+
+		// Cambio el estado de jugada realizada a verdadero
+		jugadaRealizada = true;
+
+		// cuenta los movimientos correctos para saber si ya se realizaron los movimientos totales del juego
+		// y asi determinar si hay un ganador o el juego termina empatado.
+		contarMoviRealizados++;
+
+		// Llama al metodo que realiza la colocacion de imagenes segun el tipo de jugador que este jugando
+		cambioLetrasJugadores(letraJugador, numeroJugador);
+
+		// Dibuja los cambios de los botones mediante un vector que contiene los valores de matriz de movimientos 
+		// efectuados por los juegador de la clase nivel facil
+		//----------------------------------------------------------------------------------------------------
+
+		// AQUI PASA EL VECTOR CON LA INFOMACION DE SLECCION MATRIZ DE JUEGO NIVEL MEDIO
+
+		//  dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+		//----------------------------------------------------------------------------------------------------
+
+		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
+		// clase nivel facil
+
+		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
+			numeroJugador, contarMoviRealizados);
+
+	}
+	// Falso si no se cumple que se pueda realizar la jugada el estado cambia a falso y no modifica el turno, 
+	// ni realiza un cambio en pantalla y jugador con turno puede intentar elegir otro posicion mientras en el juego
+	// no haya terminado por haber un ganador o empate.
+	else { jugadaRealizada = false; } // por defecto se resetea la vaciable de jugada realizada
+	return jugadaRealizada;
 }
 
 // Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Normal y determina si con la jugada 
 // realizada por el juegador 1 o la maquina, tambien determina el ganador mediante la jugada realizada yactualizara el estado 
 // de jugador ganador o maquina y de lo contrario determinara un empate en la partida.
-bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
+bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
 {
-	return false;
+	// <<<<<<<<<<<<<<   llama a los metodos de la clase nivel normal (medio)  >>>>>>>>>>>>>>>>>
+
+	// Si se cumple que se puede seleccionar la casilla elegida && todavia no hay un ganador oun empate se interpreta
+	// como verdadero que la jugada realizada es correcta y actualiza cambios en la matriz de botnones del juego
+
+	/// el metodo comentado es de nivel normal
+	if (/*mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) &&*/ !ganadorJugador1
+		&& !ganadorJugador2 && !noGanadorFinal) {
+
+		// Cambio el estado de jugada realizada a verdadero
+		jugadaRealizada = true;
+
+		// cuenta los movimientos correctos para saber si ya se realizaron los movimientos totales del juego
+		// y asi determinar si hay un ganador o el juego termina empatado.
+		contarMoviRealizados++;
+
+		// Llama al metodo que realiza la colocacion de imagenes segun el tipo de jugador que este jugando
+		cambioLetrasJugadores(letraJugador, numeroJugador);
+
+		// Dibuja los cambios de los botones mediante un vector que contiene los valores de matriz de movimientos 
+		// efectuados por los juegador de la clase medio
+
+		//----------------------------------------------------------------------------------------------------
+
+		// AQUI PASA EL VECTOR CON LA INFOMACION DE SLECCION MATRIZ DE JUEGO NIVEL MEDIO
+
+		//  dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+
+		//----------------------------------------------------------------------------------------------------
+
+
+
+		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
+		// clase nivel normal
+
+		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
+			numeroJugador, contarMoviRealizados);
+
+	}
+	// Falso si no se cumple que se pueda realizar la jugada el estado cambia a falso y no modifica el turno, 
+	// ni realiza un cambio en pantalla y jugador con turno puede intentar elegir otro posicion mientras en el juego
+	// no haya terminado por haber un ganador o empate.
+	else { jugadaRealizada = false; } // por defecto se resetea la vaciable de jugada realizada
+	return jugadaRealizada;
 }
 
 // Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Dificil y determina si con la jugada 
 // realizada por el juegador 1 o la maquina, tambien determina el ganador mediante la jugada realizada yactualizara el estado 
 // de jugador ganador o maquina y de lo contrario determinara un empate en la partida.
-bool gato::verificarPosibleJugadaModoDificil(unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
+bool gato::verificarPosibleJugadaModoDificil(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
 {
 	return false;
 }

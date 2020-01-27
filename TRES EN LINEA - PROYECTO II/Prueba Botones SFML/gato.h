@@ -1,170 +1,277 @@
-// gato.h
+// modoJuego1.cpp
 // Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
-// Descripción: Definicion de la clase gato metodos y variables necesarias para la
-// implementacion del juego.
+// Descripcion: Implementacion de la clase modoJeugo1 y sus metodos necesarios para la 
+// realizacion de la validacion del nivel jugador vs jugador, realizacion de jugadas y
+// la validacion de jugadas correctas y el deterninar asi en el transcurso del juego
+// si hay una ganador o el juego termina en empate.
 
-#ifndef GATO_H
-#define GATO_H
+#include "modoJuego1.h"
 
-// Declaracion de uso inclusion de la libreria graphica SFML 
-#include <SFML/Graphics.hpp> // Inclusion para 
-// Declaracion de uso inclusion de la llibreria de sonido SFML.
-#include <SFML/Audio.hpp> 
-#include <iostream>
-#include <vector>
-#include <stack>
-
-//  Declaracion del uso tipo variables de la libreria STD
-using std::vector;
-using std::string;
-using std::stack;
-
-// Definicion de la direcciones de las imagenes
-#define DIR_ESPACIOVACIO "../img/white.png"
-#define DIR_JUGADORX "../img/letraX.png"
-#define DIR_JUGADORO "../img/letraO.png"
-#define DIR_SALIR "../img/exit.png"
-#define DIR_TITULO "../img/tres.png"
-#define DIR_TURNOSELECCION1 "../img/ts1.png"
-#define DIR_TURNOSELECCION2 "../img/ts2.png"
-#define DIR_TURNOJ1 "../img/juga1.png"
-#define DIR_TURNOJ2 "../img/juga2.png"
-#define DIR_GANO1 "../img/ganoj1.png"
-#define DIR_GANO2 "../img/ganoj2.png"
-#define DIR_EMPATE "../img/empate.png"
-
-// Definicio de la direccion de los archivos de musica empleados en el juego
-#define DIR_PAUSA "../sonido/EndofLine.wav"
-#define DIR_MUSICA_TECLAS "../sonido/confirm.wav"
-#define DIR_MUSICA_FONDO "../sonido/juego.wav"
-// Defino la cambiada de botones a desmarcar
-#define CANT_BOTONES 9
-
-//		C L A S E  G A T O
-class gato {
-
-	// Declaracion de metodos y variables  de tipo publico que otras clases 
-	// pueden hacer uso para realizar cambios en la clase gato y en el juego.
-
-public:
-
-	// Costructor por defecto
-	gato() {
-		// Inicializacion de variables de la clase
-		letraJugador1 = "";
-		letraJugador2 = "";
-		jugadaRealizada = false;
-		contarMoviRealizados = 0;
-		ganadorJugador1 = false;
-		ganadorJugador2 = false;
-		noGanadorFinal = false;
-
-		cargaDeTexturasJuego();
-		obtenerTamanioImgBotones();
+bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar) {
+	cout << "\nletra a agrgar:: " << letraAAgregar << endl;
+	// Asigna un valor de ser posible en la matriz de juego y actualiza el estado de realizo jugada
+	// ademas se verifica la posibilidad de que el jugador haya ganado con ese movimiento
+	if (asignarValorEnBotonMatriz(nBoton, letraAAgregar)) {
+		// Se realiza el cambio del estado de realizo movimiento en la jugada a verdadero
+		realizoJugada = true;
+		// llamado al metodo que muestra los valores de la matriz por consola
+		mostrarValoresEnMatriz(matrizJuego);
 	}
-	~gato() {} // Destrutor de la clase
+	// Falso si no se puede asignar un valor a la matriz se actualiza su estado a falso
+	else if (!asignarValorEnBotonMatriz(nBoton, letraAAgregar)) {
+		// Se realiza el cambio del estado de realizo movimiento en la jugada a falso
+		realizoJugada = false;
+	}
 
-	// Declaracion de variables que devuelven un valor
+	return realizoJugada;
+}
 
-	// Declaracion de metodo que realiza la verificacion en modo de juego jugador Vs jugador
-	bool verificarPosibleJugadaModo1(unsigned int nunerBoton, unsigned int numeroJugador,
-		char letraJugador, sf::RenderWindow& window);
-	// Declaracion de metodo que realiza la verificacion en el nivel Facil del juego Vs CPU
-	bool verificarPosibleJugadaModoFacil(unsigned int numeroJugador,
-		char letraJugador, sf::RenderWindow& window);
-	// Declaracion de metodo que realiza la verificacion en el nivel normal del juego Vs CPU
-	bool verificarPosibleJugadaModoMedio(unsigned int numeroJugador,
-		char letraJugador, sf::RenderWindow& window);
-	// Declaracion de metodo que realiza la verificacion en el nivel Dificil del juego Vs CPU
-	bool verificarPosibleJugadaModoDificil(unsigned int numeroJugador,
-		char letraJugador, sf::RenderWindow& window);
+// Metodo para imprimir la matriz mostrada por consola
+void modoJuego1::mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
+	system("cls");
+	cout << " \n :::::::::::::::::		MATRIZ MODO JUGADOR VS JUGADOR		::::::::::::::::\n\n";
+	for (unsigned int i = 0; i < TAM_FILA; i++) {
+		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
+			cout << "[	" << matrizJuego[i][k] << "	]	";
 
-	int GetBotonPresionado() { return botonSeleccionado; }
-	bool GetRealizoJugada() { return jugadaRealizada; }
-	bool GetGanadorJ1() { return ganadorJugador1; }
-	bool GetGanadorJ2() { return ganadorJugador2; }
-	bool GetNoGanadorFinal() { return noGanadorFinal; }
+		}
+		cout << "\n";
+	}
+}
 
-	// Declaracion de metodos que no devuelven un valor
-	void cargaDeTexturasJuego();
-	void cargarSonidos();
-	void detenerSonido();
-	void reproducirSonido(int numeroSonido);
-	void pintarColorBotonEncima(sf::RenderWindow& window);
-	void accionSeleccionarBoton(sf::RenderWindow& window, unsigned int numeroJugador);
-	void dibujarImagenEspecifica(sf::RenderWindow& window, int tipoImg);
-	void actualizaMatrizMod1(sf::RenderWindow& window);
-	void actualizaMatrizNivelFacil(sf::RenderWindow& window);
-	void actualizaMatrizNivelMedio(sf::RenderWindow& window);
-	void actualizaMatrizNivelDificil(sf::RenderWindow& window);
+// Metodo booleano que devuele la verificasion de verdadero o falso si el juegador 1
+// ha realizado movimientos para declararlo ganador del juego o no.
+bool modoJuego1::verificaGanadorJugador1() {
+	// Siempre y cuando los movimientos correctos por el jugador 1 podra ganar
+	if (verificarJugadorGanador()) {
+		jugador1Gano = true;
+	}
+	else {
+		jugador1Gano = false;
+	}
 
-	// Declaracion de metodos y variables de tipo privadas de la clase
-private:
-	// ---------- Declaracion del uso de funciones de la libreria  S F M L	--------------
+	return jugador1Gano;
+}
 
-	// Declaracion de texturas para la carga de imagenes
-	sf::Texture jugadorX, jugadorO, espacioVacio, salir, tituloJuego, turnoSeleccion1,
-		turnoSeleccion2, jugadorGano1, jugadorGano2, empate, jugadorE1, jugadorE2, fondo,
-		actualizaImagenAux, boton1, boton2, boton3, boton4, boton5, boton6, boton7,
-		boton8, boton9;
+// Metodo booleano que devuele la verificasion de verdadero o falso si el juegador 2
+// ha realizado movimientos para declararlo ganador del juego o no.
+bool modoJuego1::verificaGanadorJugador2() {
+	// Siempre y cuando los movimientos correctos por el jugador  2 podra ganar
+	if (verificarJugadorGanador()) {
+		jugador2Gano = true;
+	}
+	else {
+		jugador2Gano = false;
+	}
+	return jugador2Gano;
+}
 
-	// Declaracion de Sprite's
-	sf::Sprite fondoImage, obj, boton1Image, boton2Image, boton3Image, boton4Image,
-		boton5Image, boton6Image, boton7Image, boton8Image, boton9Image, imgTitulo;
+// Metodo que verifica si la seleccion de boton del jugador se puede escoger y 
+// cambia el estado de la variable realizoJugada a verdadero. 
+bool modoJuego1::verificarJugadorGanador() {
+	bool jugadorGano;
+	jugadorGano = false;
 
-	// Declaracion de eventos con SFML
-	sf::Event event;
+	// Si se puede realizar un movimiento en la diagonal izquierda
+	if (verificacionMovimientoDiagonalIzquierda()) {
+		jugadorGano = true;
+	}
 
-	// Declaracion evento mause
-	sf::Vector2i mousePos;
+	// Falso Si se puede realizar un movimiento en la diagonal Derecha
+	else if (verificacionMovimientoDiagonalDerecha()) {
+		jugadorGano = true;
+	}
+	// Falso si se puede realizar un movimiento horizontal
+	else if (verificacionMovimientoHorizontal()) {
+		jugadorGano = true;
+	}
+	// Falso si se puede realizar un movimiento en vertical
+	else if (verificacionMovimientoVertical()) {
+		jugadorGano = true;
+	}
+	realizoJugada = jugadorGano;
+	return realizoJugada;
+}
 
-	// Declaracion de carga de Buffer de sonidos SFML
-	sf::SoundBuffer musicaPausa, musicaTeclas, musicaFondo;
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en la diagonal izquierda.
+bool modoJuego1::verificacionMovimientoDiagonalIzquierda() {
+	bool auxGanaDiagonalIz;
+	auxGanaDiagonalIz = false;
 
-	// Declaracion de sonido
-	sf::Sound sonido;
-	// Declaracion de musica
-	sf::Music musica;
 
-	// Declaracion de vectores
-	vector<string>letrasBotones;
-	vector <int>numeroDigitados;
+	// Verifical la diagonal izuquierda de X
+	if (matrizJuego[0][0] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][8] == 'X') {
+		auxGanaDiagonalIz = true;
+	}
+	// Verifical la diagonal izuquierda de O
+	else if (matrizJuego[0][0] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][8] == 'O') {
+		auxGanaDiagonalIz = true;
+	}
+	// Falso no hay coincidencias de gane en diagonal izquierda
+	else {
+		auxGanaDiagonalIz = false;
+	}
+	return auxGanaDiagonalIz;
+}
 
-	// Declaracion de variables que guardaran las dimesiones de ancho y alto de las imagenes 
-	// usadas como simulacion de botones en el juego
-	float boton1Width, boton2Width, boton3Width, boton4Width, boton5Width, boton6Width,
-		boton7Width, boton8Width, boton9Width, boton1Height, boton2Height, boton3Height,
-		boton4Height, boton5Height, boton6Height, boton7Height, boton8Height, boton9Height;
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en la diagonal derecha.
+bool modoJuego1::verificacionMovimientoDiagonalDerecha() {
+	bool auxGanaDiagonalDer;
+	auxGanaDiagonalDer = false;
 
-	// Declaracion de variables sin definir int 
-	unsigned int botonSeleccionado, nivelSelecionado, contarMoviRealizados;
+	// Verifical la diagonal derecha de X
+	if (matrizJuego[0][2] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][6] == 'X') {
+		auxGanaDiagonalDer = true;
+	}
 
-	// Declaracion de varaibles tipo booleanas 
-	bool jugadaRealizada, ganadorJugador1, ganadorJugador2, noGanadorFinal;
+	// Verifical la diagonal derecha de O
+	else if (matrizJuego[0][2] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][6] == 'O') {
+		auxGanaDiagonalDer = true;
+	}
+	// Falso no hay coincidencias de gane en diagonal derecha
+	else {
+		auxGanaDiagonalDer = false;
+	}
+	return auxGanaDiagonalDer;
+}
 
-	// Delaracion de variables de tipo String
-	string letraJugador1, letraJugador2;
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en las posicion vectical.
+bool modoJuego1::verificacionMovimientoVertical() {
+	bool auxGanaVertical;
+	auxGanaVertical = false;
 
-	// Declaracion de metodo que obtiene segun la letra del jugador el obejto tipo de textura correcto
-	sf::Texture determinarImagenTextura(char letraJuegador);
+	// Verifica la primera columna vertical de X
+	if (matrizJuego[0][0] == 'X' && matrizJuego[0][3] == 'X' && matrizJuego[0][6] == 'X') {
+		auxGanaVertical = true;
+	}
+	// Verifica la primera columna vertical de O
+	else if (matrizJuego[0][0] == 'O' && matrizJuego[0][3] == 'O' && matrizJuego[0][6] == 'O') {
+		auxGanaVertical = true;
+	}
+	// Verifica la segunda columna vertical de X
+	else if (matrizJuego[0][1] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][7] == 'X') {
+		auxGanaVertical = true;
+	}
+	// Verifica la segunda columna vertical de O
+	else if (matrizJuego[0][1] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][7] == 'O') {
+		auxGanaVertical = true;
+	}
 
-	// Declaracion de metodo que realiza el cambio de letra de jugadores segun si es jugador 1 u 2
-	void cambioLetrasJugadores(char letraJugador, unsigned int numeroJugador);
+	// Verifica la tercera columna vertical de X
+	else if (matrizJuego[0][2] == 'X' && matrizJuego[0][5] == 'X' && matrizJuego[0][8] == 'X') {
+		auxGanaVertical = true;
+	}
+	// Verifica la tercera columna vertical de O
+	else if (matrizJuego[0][2] == 'O' && matrizJuego[0][5] == 'O' && matrizJuego[0][8] == 'O') {
+		auxGanaVertical = true;
+	}
+	// Falso no existen concidencias de jugada ganadora en vetical
+	else {
+		auxGanaVertical = false;
+	}
+	return auxGanaVertical;
+}
 
-	// Declaracion de metodo que actualiza la imagen del boton especifico y lo dibuja
-	void actualizaImgBoton(unsigned int nBoton, sf::RenderWindow& window, sf::Texture imagenAux);
+// Metodo tipo booleano que devuele verdaro o falso dependiendo si encuentra o no
+// una jugada ganadora realizada por los juegadores en las posicion horizontal.
+bool modoJuego1::verificacionMovimientoHorizontal() {
+	bool auxGanaHorizontal;
+	auxGanaHorizontal = false;
 
-	// Declaracion de metodo que dibuja los botones de la matriz de juego
-	void dibujarBotonesMatriz(vector<char> vectorAux, sf::RenderWindow& window);
+	// Verifica la primera linea horizontal de X
+	if (matrizJuego[0][0] == 'X' && matrizJuego[0][1] == 'X' && matrizJuego[0][2] == 'X') {
+		auxGanaHorizontal = true;
+	}
+	// Verifica la primera linea horizontalde O
+	else if (matrizJuego[0][0] == 'O' && matrizJuego[0][1] == 'O' && matrizJuego[0][2] == 'O') {
+		auxGanaHorizontal = true;
+	}
+	// Verifica la segunda linea horizontal de X
+	else if (matrizJuego[0][3] == 'X' && matrizJuego[0][4] == 'X' && matrizJuego[0][5] == 'X') {
+		auxGanaHorizontal = true;
+	}
+	// Verifica la segunda linea horizontal de O
+	else if (matrizJuego[0][3] == 'O' && matrizJuego[0][4] == 'O' && matrizJuego[0][5] == 'O') {
+		auxGanaHorizontal = true;
+	}
 
-	// Declaracion de metodo que des-selecciona el color de los botones diferentes al actual marcado
-	// por el cursor del mause
-	void desSeleccionaBotonesMatriz(unsigned int nBoton);
+	// Verifica la tercera linea horizontal de X
+	else if (matrizJuego[0][6] == 'X' && matrizJuego[0][7] == 'X' && matrizJuego[0][8] == 'X') {
+		auxGanaHorizontal = true;
+	}
+	// Verifica la tercera linea horizontal de O
+	else if (matrizJuego[0][6] == 'O' && matrizJuego[0][7] == 'O' && matrizJuego[0][8] == 'O') {
+		auxGanaHorizontal = true;
+	}
 
-	// Declaracion de metodo que obtiene las medidas de las imagnes usadas para simular la matriz
-	// de botones en pantalla.
-	void obtenerTamanioImgBotones();
+	// Falso no existen concidencias de jugada ganadora en horizontal
+	else {
+		auxGanaHorizontal = false;
+	}
+	return auxGanaHorizontal;
+}
 
-};
+// Vector guarda matrizJuego para pasar a la clase gato para usarla 
+// para imprimir contenido de botones del juego
+vector<char> modoJuego1::vectorGuardaMatriz()
+{
+	vector<char> vectorAux;
+	for (unsigned int i = 0; i < TAM_FILA; i++) {
+		for (unsigned int k = 0; k < TAM_FILA; k++) {
 
-#endif // !GATO_H
+			vectorAux.push_back(matrizJuego[i][k]);
+		}
+	}
+	return vectorAux;
+}
+
+// Metodo que vuelve a colocar los valores de las variables modificados 
+// a su valor original para comenzar un nuevo juego.
+void modoJuego1::resetGame()
+{
+	jugador1Gano = false;
+	jugador2Gano = false;
+	realizoJugada = false;
+	inicializarMatrizJuegoVacia();
+}
+
+// Verifica que se pueda agrgar un nuevo valor a la matriz de juego
+bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar) {
+	cout << "BOTON # " << nBoton << endl;
+	bool auxAsignaValor = false;
+	for (unsigned int i = 0; i < TAM_FILA; i++) {
+		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
+
+			if (matrizJuego[0][nBoton] == '-') {
+				matrizJuego[0][nBoton] = letraAAgregar;
+				auxAsignaValor = true;
+			}
+		}
+	}
+
+	return auxAsignaValor;
+}
+
+// Metodo que se encarga de asignar un valor de vacia a toda la matriz de juego
+void modoJuego1::inicializarMatrizJuegoVacia() {
+	for (unsigned int i = 0; i < TAM_FILA; i++) {
+		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
+			matrizJuego[i][k] = '-';
+		}
+	}
+}
+
+// Metodo que se encargar de reseter los valores por defecto de la matriz de juego
+void modoJuego1::limpiarMatrizJuego() {
+	for (unsigned int i = 0; i < TAM_FILA; i++) {
+		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
+
+			matrizJuego[i][k] = ' ';
+		}
+	}
+}
+
+
