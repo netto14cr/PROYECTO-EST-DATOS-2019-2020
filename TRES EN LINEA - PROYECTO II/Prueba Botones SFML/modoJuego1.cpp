@@ -1,11 +1,15 @@
 // modoJuego1.cpp
 // Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
-// Descripcion: Implementacion de la clase modoJeugo1 y sus metodos necesarios para la 
-// realizacion de la validacion del nivel jugador vs jugador, realizacion de jugadas y
-// la validacion de jugadas correctas y el deterninar asi en el transcurso del juego
+// Descripción: Implementación de la clase modoJeugo1 y sus metodos necesarios para la 
+// realización de la validacion del nivel jugador vs jugador, realización de jugadas y
+// la validación de jugadas correctas y el deterninar así en el transcurso del juego
 // si hay una ganador o el juego termina en empate.
 
 #include "modoJuego1.h"
+
+// Metodo que determina si el juegador puede realizar una jugada y retorna un valor de verdadero o falso
+// ademas de asignar el movimiento solicitado por el usuario , llama al metodo que muestra la matriz de 
+// juego por consola.
 
 bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugador, char letraAAgregar) {
 	cout << "\nletra a agrgar:: " << letraAAgregar << endl;
@@ -22,7 +26,6 @@ bool modoJuego1::verificarPosibleJugada(unsigned int nBoton, unsigned int nJugad
 		// Se realiza el cambio del estado de realizo movimiento en la jugada a falso
 		realizoJugada = false;
 	}
-
 	return realizoJugada;
 }
 
@@ -206,11 +209,8 @@ bool modoJuego1::verificacionMovimientoHorizontal() {
 	else if (matrizJuego[0][6] == 'O' && matrizJuego[0][7] == 'O' && matrizJuego[0][8] == 'O') {
 		auxGanaHorizontal = true;
 	}
-
 	// Falso no existen concidencias de jugada ganadora en horizontal
-	else {
-		auxGanaHorizontal = false;
-	}
+	else { auxGanaHorizontal = false; }
 	return auxGanaHorizontal;
 }
 
@@ -230,28 +230,25 @@ vector<char> modoJuego1::vectorGuardaMatriz()
 
 // Metodo que vuelve a colocar los valores de las variables modificados 
 // a su valor original para comenzar un nuevo juego.
-void modoJuego1::resetGame()
-{
-	jugador1Gano = false;
-	jugador2Gano = false;
-	realizoJugada = false;
+void modoJuego1::resetGame() {
+	jugador1Gano, jugador2Gano, realizoJugada = false;
 	inicializarMatrizJuegoVacia();
 }
 
 // Verifica que se pueda agrgar un nuevo valor a la matriz de juego
 bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar) {
-	cout << "BOTON # " << nBoton << endl;
-	bool auxAsignaValor = false;
+
+	bool auxAsignaValor;
+	auxAsignaValor = false;
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
 
-			if (matrizJuego[0][nBoton] == '-') {
+			if (matrizJuego[0][nBoton] == CAMPO_EN_BLANCO) {
 				matrizJuego[0][nBoton] = letraAAgregar;
 				auxAsignaValor = true;
 			}
 		}
 	}
-
 	return auxAsignaValor;
 }
 
@@ -259,7 +256,7 @@ bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgreg
 void modoJuego1::inicializarMatrizJuegoVacia() {
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
-			matrizJuego[i][k] = '-';
+			matrizJuego[i][k] = CAMPO_EN_BLANCO;
 		}
 	}
 }

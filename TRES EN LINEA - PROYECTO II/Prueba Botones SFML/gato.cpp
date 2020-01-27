@@ -2,9 +2,10 @@
 // Autores: Kislev Aleman, Josua Esquivel y Néstor Leiva
 // Descripcion: Implementacion de la clase gato
 
-#include "gato.h" // Declara inclusion de la clase gato.h
-#include "ventana.h"// Declara la inclusion de la clase ventana.h
-#include "modoJuego1.h"// Declara la inclusion de la clase modoJuego1 
+#include "gato.h" // Declaración inclusion de clase gato.h
+#include "ventana.h"// Declaración inclusion de clase ventana.h
+#include "modoJuego1.h"// Declaración inclusion de clase modoJuego1 
+#include "nivelDificil.h" // Declaración de clase nivelDificil
 
 // Declara la implementacion de la clase modo de juego jugador vs jugador
 modoJuego1 mod1;
@@ -14,11 +15,13 @@ modoJuego1 mod1;
 // Declara la implementacion en la de nivelNormal
 
 // Declara la implementacion de la clase nivelDificil
+nivelDificil nD;
 
-
-// Metodo que valida los eventos graficos del modo de juego jugador vs jugador y determina si con la jugada realizada por los jugadores, de exitit ganador 
-// mediante la jugada realiza actualizara el estado de jugador ganador o de lo contrario determinara un empate en la partida.
-bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
+// Metodo que valida los eventos graficos del modo de juego jugador vs jugador y determina 
+// si con la jugada realizada por los jugadores, de exitit ganador mediante la jugada realiza
+// actualizara el estado de jugador ganador o de lo contrario determinara un empate en la partida.
+bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int numeroJugador,
+	char letraJugador, sf::RenderWindow& window)
 {
 	// Si se cumple que se puede seleccionar la casilla elegida && todavia no hay un ganador oun empate se interpreta
 	// como verdadero que la jugada realizada es correcta y actualiza cambios en la matriz de botnones del juego
@@ -52,9 +55,10 @@ bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int nu
 	return jugadaRealizada;
 }
 
-// Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Facil y determina si con la jugada 
-// realizada por el juegador 1 o la maquina, tambien determina el ganador mediante la jugada realizada yactualizara el estado 
-// de jugador ganador o maquina y de lo contrario determinara un empate en la partida.
+// Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Facil y
+// determina si con la jugada realizada por el juegador 1 o la maquina, tambien determina el ganador
+// mediante la jugada realizada yactualizara el estado de jugador ganador o maquina y de lo contrario
+// determinara un empate en la partida.
 bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
 {
 	// <<<<<<<<<<<<<<   llama a los metodos de la clase nivel facil  >>>>>>>>>>>>>>>>>
@@ -89,8 +93,6 @@ bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroBoton, unsigned in
 		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
 		// clase nivel facil
 
-		// Se hace el llamado del metodo que comprueba si sigue mostrando los cambios en la matriz del juego
-		// o notifica a la vista para que muestre el resultado final del juego.
 		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
 			numeroJugador, contarMoviRealizados);
 
@@ -102,12 +104,13 @@ bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroBoton, unsigned in
 	return jugadaRealizada;
 }
 
-// Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Normal y determina si con la jugada 
-// realizada por el juegador 1 o la maquina, tambien determina el ganador mediante la jugada realizada yactualizara el estado 
-// de jugador ganador o maquina y de lo contrario determinara un empate en la partida.
+// Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Normal y
+// determina si con la jugada realizada por el juegador 1 o la maquina, tambien determina el ganador
+// mediante la jugada realizada yactualizara el estado de jugador ganador o maquina y de lo contrario
+// determinara un empate en la partida.
 bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
 {
-	// <<<<<<<<<<<<<<   llama a los metodos de la clase nivel normal (medio)  >>>>>>>>>>>>>>>>>
+	// <<<<<<<<<<<<<<   Llama a los metodos de la clase nivel normal (medio)  >>>>>>>>>>>>>>>>>
 
 	// Si se cumple que se puede seleccionar la casilla elegida && todavia no hay un ganador oun empate se interpreta
 	// como verdadero que la jugada realizada es correcta y actualiza cambios en la matriz de botnones del juego
@@ -142,8 +145,6 @@ bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned in
 		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
 		// clase nivel normal
 
-		// Se hace el llamado del metodo que comprueba si sigue mostrando los cambios en la matriz del juego
-		// o notifica a la vista para que muestre el resultado final del juego.
 		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
 			numeroJugador, contarMoviRealizados);
 
@@ -155,14 +156,43 @@ bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned in
 	return jugadaRealizada;
 }
 
-// Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Dificil y determina si con la jugada 
-// realizada por el juegador 1 o la maquina, tambien determina el ganador mediante la jugada realizada yactualizara el estado 
-// de jugador ganador o maquina y de lo contrario determinara un empate en la partida.
+// Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Dificil y 
+// determina si con la jugada realizada por el juegador 1 o la maquina, tambien determina el ganador
+// mediante la jugada realizada yactualizara el estado de jugador ganador o maquina y de lo contrario 
+// determinara un empate en la partida.
 bool gato::verificarPosibleJugadaModoDificil(unsigned int numeroBoton, unsigned int numeroJugador, char letraJugador, sf::RenderWindow& window)
 {
-	return false;
-}
 
+	// Si se cumple que se puede seleccionar la casilla elegida && todavia no hay un ganador oun empate se interpreta
+	// como verdadero que la jugada realizada es correcta y actualiza cambios en la matriz de botnones del juego
+	if (nD.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) && !ganadorJugador1
+		&& !ganadorJugador2 && !noGanadorFinal) {
+
+		// Cambio el estado de jugada realizada a verdadero
+		jugadaRealizada = true;
+
+		// cuenta los movimientos correctos para saber si ya se realizaron los movimientos totales del juego
+		// y asi determinar si hay un ganador o el juego termina empatado.
+		contarMoviRealizados++;
+		// Llama al metodo que realiza la colocacion de imagnes segun el tipo de jugador que este jugando
+		cambioLetrasJugadores(letraJugador, numeroJugador);
+
+		// Dibuja los cambios de los botones mediante un vector que contiene los valores de matriz de movimientos 
+		// efectuados por los juegador de la clase modoJuego1
+		dibujarBotonesMatriz(nD.vectorGuardaMatrizDificil(), window);
+
+		// Se hace el llamado del metodo que comprueba si sigue mostrando los cambios en la matriz del juego
+		// o notifica a la vista para que muestre el resultado final del juego.
+		verificarEstatusGanador(nD.verificaGanadorJugador1(), nD.verificaGanadorJugador2(),
+			numeroJugador, contarMoviRealizados);
+
+	}
+	// Falso si no se cumple que se pueda realizar la jugada el estado cambia a falso y no modifica el turno, 
+	// ni realiza un cambio en pantalla y jugador con turno puede intentar elegir otro posicion mientras en el juego
+	// no haya terminado por haber un ganador o empate.
+	else { jugadaRealizada = false; } // por defecto se resetea la vaciable de jugada realizada
+	return jugadaRealizada;
+}
 
 // Metodo que realiza la comprobacion que por movimientos de los jugadores que son 9 posibles y
 // comprueba mediante el estado de ganador jugador 1 o jugador 2 de la clase del nivel correspondiente
@@ -194,9 +224,6 @@ void gato::verificarEstatusGanador(bool verificacionGanadorJugador1, bool verifi
 	}
 }
 
-
-
-
 // Metodo que actualiza la matriz mostrada en pantalla de modo jugador vs jugador
 void gato::actualizaMatrizMod1(sf::RenderWindow& window)
 {
@@ -220,8 +247,7 @@ void gato::actualizaMatrizNivelMedio(sf::RenderWindow& window)
 // Metodo que actualiza la matriz mostrada en pantalla del nivel dificil:: jugador VS CPU
 void gato::actualizaMatrizNivelDificil(sf::RenderWindow& window)
 {
-	//dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
-
+	dibujarBotonesMatriz(nD.vectorGuardaMatrizDificil(), window);
 }
 
 // Metodo que se en carga de cargar y verificar la s imagenes usadas en el juego.
@@ -462,8 +488,8 @@ void gato::desSeleccionaBotonesMatriz(unsigned int nBoton) {
 	}
 }
 
-// Metodo que actualiza el estado de la variable boton seleccionado, cuando detecta que el jugador realizo un click
-// encima de la imagen que simula una matriz de botones en pantalla.
+// Metodo que actualiza el estado de la variable boton seleccionado, cuando detecta que el jugador 
+// realizo un click encima de la imagen que simula una matriz de botones en pantalla.
 void gato::accionSeleccionarBoton(sf::RenderWindow& window, unsigned int numeroJugador) {
 	mousePos = sf::Mouse::getPosition(window);
 	sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
@@ -499,8 +525,8 @@ void gato::cambioLetrasJugadores(char letraJugador, unsigned int numeroJugador) 
 	else if (numeroJugador == 2) { letraJugador2 = letraJugador; }
 }
 
-// Metodo que evalua a  que nuero de boton a a asignar la letra correspondiente de jugador sea jugador uno o dos
-// la letra con la que juega al incio del juego.
+// Metodo que evalua a  que nuero de boton a a asignar la letra correspondiente de jugador sea 
+// jugador uno o dos la letra con la que juega al incio del juego.
 sf::Texture gato::determinarImagenTextura(char letraJuegador) {
 	sf::Texture auxImagenAPoner;
 	// Si la letra del jugador es X pone la textura de la imagen X

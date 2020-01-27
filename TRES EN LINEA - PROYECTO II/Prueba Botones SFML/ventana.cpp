@@ -23,15 +23,18 @@ void ventana::iniciarPrograma()
 	// se realiza el llamado del metodo que maneja todos los eventos del juego mientras
 	// la ventana del juego este abierta.
 	manejoEventosJuego(window);
-
 }
 
+// Metodo que realiza la verificacion previa antes de seguir actualizando los eventos 
+// graficos mostrados por pantalla, el estado en el que se encuntra la partida de juego
+// depues de que los juegaodes o la máquina realizaran un movimiento y de existir un 
+// resultado actualizara los eventos graficos acorde a si el jugador 1 gano, si jugador 2
+// gano o si la partida termino y es un empate.
 void ventana::verificaEstatusDelJuego(sf::RenderWindow& window) {
 	//si el jugador 1 gano y el juego jugador vs jugador continua activo
    // actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
    // jugador q ha ganado y pausa el juego.
-
-	if (ga.GetGanadorJ1() && !juegoEnPausa) {
+	if ( ga.GetGanadorJ1() && !juegoEnPausa  ) {
 		window.clear();// Borra lo mostrado en pantallla
 		// Dibuja el titulo del juego en pantalla
 		ga.dibujarImagenEspecifica(window, 9);
@@ -492,7 +495,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
+				else { opcionesBotonesModoJuegoMaquina(window); }
 			}
 			// Falso si es el turno de la maquina y la dificultad de juego es medio
 			// Actualiza si la maquina puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
@@ -505,7 +508,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
+				else { opcionesBotonesModoJuegoMaquina(window); }
 			}
 
 			// Falso si es el turno de la maquina y la dificultad de juego es dificil
@@ -518,7 +521,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
+				else { opcionesBotonesModoJuegoMaquina(window); }
 			}
 		}// FIN TURNO JUGADOR 2 - [ M A Q U I N A ] 
 	}

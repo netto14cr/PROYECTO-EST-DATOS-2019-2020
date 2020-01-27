@@ -19,6 +19,7 @@ using std::vector;
 
 #define TAM_FILA 3
 #define TAM_COLUMNA 3
+#define CAMPO_EN_BLANCO '-'
 
 
 class modoJuego1 {
@@ -27,7 +28,7 @@ class modoJuego1 {
 public:
 
 	modoJuego1() {
-		jugador1Gano = false; jugador2Gano = false; realizoJugada = false;
+		jugador1Gano, jugador2Gano, realizoJugada = false;
 		inicializarMatrizJuegoVacia();
 	}
 	~modoJuego1() { limpiarMatrizJuego(); }
@@ -40,7 +41,7 @@ public:
 		verificaGanadorJugador1(), verificaGanadorJugador2();
 
 	vector<char> vectorGuardaMatriz();
-	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
+
 
 private:
 
@@ -53,7 +54,8 @@ private:
 		verificacionMovimientoHorizontal(),
 		verificacionMovimientoVertical();
 
-	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego(), resetGame();
+	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego(), resetGame(),
+		mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 };
 #endif // !MODOJUEGO1_H
 
