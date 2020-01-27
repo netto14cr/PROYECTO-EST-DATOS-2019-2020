@@ -39,7 +39,8 @@ bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int nu
 		// efectuados por los juegador de la clase modoJuego1
 		dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
 
-		//
+		// Se hace el llamado del metodo que comprueba si sigue mostrando los cambios en la matriz del juego
+		// o notifica a la vista para que muestre el resultado final del juego.
 		verificarEstatusGanador(mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),
 			numeroJugador, contarMoviRealizados);
 
@@ -50,33 +51,6 @@ bool gato::verificarPosibleJugadaModo1(unsigned int numeroBoton, unsigned int nu
 	else { jugadaRealizada = false; } // por defecto se resetea la vaciable de jugada realizada
 	return jugadaRealizada;
 }
-
-
-void gato::verificarEstatusGanador(bool verificacionGanadorJugador1, bool verificacionGanadorJugador2,
-	unsigned int numeroJugador, unsigned int movimientosRealizados) {
-	// Si de determina que verdadero que jugador 1 gano && los movimientos correctos es menor o igual
-	// a 9 y le numero de jugador en el turno es el jugador 1, se interpreta que gano la partida del juego.
-	if (verificacionGanadorJugador1 && contarMoviRealizados <= 9 && numeroJugador == 1) {
-		cout << "\n :::::::::::		J U G A D O R  1  G A N O !!	:::::::::::::::::::::::\n";
-		// Actualiza el estado que jugador 1 gano es verdadero
-		ganadorJugador1 = true;
-	}
-	// Falso Si de determina que verdadero que jugador 2 gano && los movimientos correctos es menor o igual
-	// a 9 y le numero de jugador en el turno es el jugador 2, se interpreta que gano la partida del juego.
-	else if (verificacionGanadorJugador2 && contarMoviRealizados <= 9 && numeroJugador == 2) {
-		cout << "\n :::::::::::		J U G A D O R  2  G A N O !!	:::::::::::::::::::::::\n";
-		// Actualiza el estado que jugador 2 gano es verdadero
-		ganadorJugador2 = true;
-	}
-	// Falso Si de determina que el jugador 1 && jugador 2 no ganaron &&  que los movimientos correctos 
-	// realizados es igual a 9 se interpreta que nadie gano el juego y que termina la partida.
-	else if (!mod1.verificaGanadorJugador1() && !mod1.verificaGanadorJugador2() && contarMoviRealizados == 9) {
-		cout << "\n :::::::::::::::			E M P A T E !!		:::::::::::::::::::::::\n";
-		// Actualiza el estado que ningun jugador gano y es un empate a verdadero
-		noGanadorFinal = true;
-	}
-}
-
 
 // Metodo que valida los eventos graficos del modo de juego jugador vs CPU - dificualtad:::Facil y determina si con la jugada 
 // realizada por el juegador 1 o la maquina, tambien determina el ganador mediante la jugada realizada yactualizara el estado 
@@ -115,6 +89,8 @@ bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroBoton, unsigned in
 		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
 		// clase nivel facil
 
+		// Se hace el llamado del metodo que comprueba si sigue mostrando los cambios en la matriz del juego
+		// o notifica a la vista para que muestre el resultado final del juego.
 		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
 			numeroJugador, contarMoviRealizados);
 
@@ -166,6 +142,8 @@ bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned in
 		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
 		// clase nivel normal
 
+		// Se hace el llamado del metodo que comprueba si sigue mostrando los cambios en la matriz del juego
+		// o notifica a la vista para que muestre el resultado final del juego.
 		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
 			numeroJugador, contarMoviRealizados);
 
@@ -184,6 +162,40 @@ bool gato::verificarPosibleJugadaModoDificil(unsigned int numeroBoton, unsigned 
 {
 	return false;
 }
+
+
+// Metodo que realiza la comprobacion que por movimientos de los jugadores que son 9 posibles y
+// comprueba mediante el estado de ganador jugador 1 o jugador 2 de la clase del nivel correspondiente
+// si debe notificar a la vista que detenga la actualizacion de la matriz de juego y muestre la parte
+// visual de que ya el juego acabo y muestre el resultado final , gandor jugador 1 , juegador 2
+// o que durante el juego no existio ningun ganador y por lo tanto es un empate.
+void gato::verificarEstatusGanador(bool verificacionGanadorJugador1, bool verificacionGanadorJugador2,
+	unsigned int numeroJugador, unsigned int movimientosRealizados) {
+	// Si de determina que verdadero que jugador 1 gano && los movimientos correctos es menor o igual
+	// a 9 y le numero de jugador en el turno es el jugador 1, se interpreta que gano la partida del juego.
+	if (verificacionGanadorJugador1 && contarMoviRealizados <= 9 && numeroJugador == 1) {
+		cout << "\n :::::::::::		J U G A D O R  1  G A N O !!	:::::::::::::::::::::::\n";
+		// Actualiza el estado que jugador 1 gano es verdadero
+		ganadorJugador1 = true;
+	}
+	// Falso Si de determina que verdadero que jugador 2 gano && los movimientos correctos es menor o igual
+	// a 9 y le numero de jugador en el turno es el jugador 2, se interpreta que gano la partida del juego.
+	else if (verificacionGanadorJugador2 && contarMoviRealizados <= 9 && numeroJugador == 2) {
+		cout << "\n :::::::::::		J U G A D O R  2  G A N O !!	:::::::::::::::::::::::\n";
+		// Actualiza el estado que jugador 2 gano es verdadero
+		ganadorJugador2 = true;
+	}
+	// Falso Si de determina que el jugador 1 && jugador 2 no ganaron &&  que los movimientos correctos 
+	// realizados es igual a 9 se interpreta que nadie gano el juego y que termina la partida.
+	else if (!verificacionGanadorJugador1 && !verificacionGanadorJugador2 && contarMoviRealizados == 9) {
+		cout << "\n :::::::::::::::			E M P A T E !!		:::::::::::::::::::::::\n";
+		// Actualiza el estado que ningun jugador gano y es un empate a verdadero
+		noGanadorFinal = true;
+	}
+}
+
+
+
 
 // Metodo que actualiza la matriz mostrada en pantalla de modo jugador vs jugador
 void gato::actualizaMatrizMod1(sf::RenderWindow& window)

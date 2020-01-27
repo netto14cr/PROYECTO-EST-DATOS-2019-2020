@@ -111,7 +111,6 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 		// Se actualizan los eventos en pantalla del juego segun el nivel escogido.
 		else if (comenzoJuego && !juegoEnPausa && tipoJuego == "JugadorVsCPU") {
 			window.clear(); // Borra lo mostrado en pantallla
-
 			// Actualiza y muestra la imgen del turno de jugador en pantalla
 			actualizaEstadoImgJugador();
 
@@ -130,12 +129,9 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 			}
 			// Actualiza la dificultad del nivel dificil
 			else if (dificultad == "dificil") {
-				cout << "\nENTRO EN MODO DE JUGO    D I F I C I L \n";
 				// actualiza los botones de la matriz de juego modo dificil::jugador vs CPU
 				ga.actualizaMatrizNivelDificil(window);
 			}
-
-			window.display(); // actualiza cambios en pantalla
 		}//	>>>>>>>		F I N   M O D O  J U G A D O R  V S  C P U 		>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------------
 
@@ -237,7 +233,12 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 			// LLama al metodo que comprueba cual boton fue presionado por el usuario
 			if (comenzoJuego && !juegoEnPausa) {
 				ga.accionSeleccionarBoton(window, numeroJugador);
-				opcionesBotonesJuegoModo1(window);
+				if (tipoJuego == "JugadorVsJugador") {
+					opcionesBotonesJuegoModo1(window);
+				}
+				else if (tipoJuego == "JugadorVsCPU") {
+					opcionesBotonesModoJuegoMaquina(window);
+				}
 			}
 			break;
 
@@ -348,6 +349,53 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 	}
 }
 
+// Metodo que realiza la validacion de movimientos y de jugadas en modo de juego jugador vs jugador
+// ademas de escuhar lo que pasa con los botones, verifica que el jugador pueda realizar la jugada y 
+// de ser posible cambia el estado de las imagenes de los botones en el juego.
+void ventana::opcionesBotonesJuegoModo1(sf::RenderWindow& window) {
+
+	unsigned int numeroBotonSeleccionado; // Se declara una variable auxliar que contendra el valor de boton digitado
+	numeroBotonSeleccionado = 0; // Se asgina un valor de 0 a la variable auxiliar de boton seleccionado
+	numeroBotonSeleccionado = ga.GetBotonPresionado(); // se le pasa el boton apretado en la matriz por el jugador
+
+	// si el boton seleccionado es diferente de 0 realice una accion sino no haga nada..
+	if (numeroBotonSeleccionado != 0) {
+
+		// Si es el turno de eleccion es del jugador 1 () Por defecto el turno uno siempre va hacer verdadero
+		if (turnoJugador1) {
+			cout << "\n - J-U-G-A-D-O-R---> 1 \n";
+
+			// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+			// en este caso jugador 1 y la letra de seleccion con la que juega.
+			if (ga.verificarPosibleJugadaModo1((numeroBotonSeleccionado - 1), 1, letraSeleccionadaJugador1, window)) {
+
+				// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
+				turnoJugador1 = false;
+				turnoJugador2 = true;
+
+			}
+		}
+
+		// Si el turno de eleccion es del jugador 2
+		else if (turnoJugador2) {
+			cout << "\n - J-U-G-A-D-O-R---> 2 \n";
+
+			// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
+			// en este caso jugador 1 y la letra de seleccion con la que juega.
+			if (ga.verificarPosibleJugadaModo1((numeroBotonSeleccionado - 1), 2, letraSeleccionadaJugador2, window)) {
+				turnoJugador2 = false;
+				turnoJugador1 = true;
+			}
+		}
+
+	}
+	else {
+		// No ha presinado un boton valido!
+	}
+
+
+}
+
 // Metodo que realiza la validacion de movimientos y de jugadas en modo de juego jugador vs CPU
 // ademas de escuhar lo que pasa con los botones, verifica que el jugador pueda realizar la jugada y 
 // de ser posible cambia el estado de las imagenes de los botones en el juego.
@@ -402,8 +450,6 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
 					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
 					opcionesBotonesModoJuegoMaquina(window);
-
-
 				}
 			}
 
@@ -446,7 +492,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { opcionesBotonesModoJuegoMaquina(window); }
+				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
 			}
 			// Falso si es el turno de la maquina y la dificultad de juego es medio
 			// Actualiza si la maquina puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
@@ -459,7 +505,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { opcionesBotonesModoJuegoMaquina(window); }
+				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
 			}
 
 			// Falso si es el turno de la maquina y la dificultad de juego es dificil
@@ -472,57 +518,10 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { opcionesBotonesModoJuegoMaquina(window); }
+				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
 			}
 		}// FIN TURNO JUGADOR 2 - [ M A Q U I N A ] 
 	}
-}
-
-// Metodo que realiza la validacion de movimientos y de jugadas en modo de juego jugador vs jugador
-// ademas de escuhar lo que pasa con los botones, verifica que el jugador pueda realizar la jugada y 
-// de ser posible cambia el estado de las imagenes de los botones en el juego.
-void ventana::opcionesBotonesJuegoModo1(sf::RenderWindow& window) {
-
-	unsigned int numeroBotonSeleccionado; // Se declara una variable auxliar que contendra el valor de boton digitado
-	numeroBotonSeleccionado = 0; // Se asgina un valor de 0 a la variable auxiliar de boton seleccionado
-	numeroBotonSeleccionado = ga.GetBotonPresionado(); // se le pasa el boton apretado en la matriz por el jugador
-
-	// si el boton seleccionado es diferente de 0 realice una accion sino no haga nada..
-	if (numeroBotonSeleccionado != 0) {
-
-		// Si es el turno de eleccion es del jugador 1 () Por defecto el turno uno siempre va hacer verdadero
-		if (turnoJugador1) {
-			cout << "\n - J-U-G-A-D-O-R---> 1 \n";
-
-			// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
-			// en este caso jugador 1 y la letra de seleccion con la que juega.
-			if (ga.verificarPosibleJugadaModo1((numeroBotonSeleccionado - 1), 1, letraSeleccionadaJugador1, window)) {
-
-				// Si se cumple y jugador 1 puede realizar el movimiento actualiza la matriz grafica y cambia de turno entre jugadores.
-				turnoJugador1 = false;
-				turnoJugador2 = true;
-
-			}
-		}
-
-		// Si el turno de eleccion es del jugador 2
-		else if (turnoJugador2) {
-			cout << "\n - J-U-G-A-D-O-R---> 2 \n";
-
-			// Verificamos que se pueda realizar la jugada pasando el numero de boton presionado y el tipo de jugador 
-			// en este caso jugador 1 y la letra de seleccion con la que juega.
-			if (ga.verificarPosibleJugadaModo1((numeroBotonSeleccionado - 1), 2, letraSeleccionadaJugador2, window)) {
-				turnoJugador2 = false;
-				turnoJugador1 = true;
-			}
-		}
-
-	}
-	else {
-		// No ha presinado un boton valido!
-	}
-
-
 }
 
 // Metodo que escuha las opciones del menu mostradas a los juegores ne pantalla y
