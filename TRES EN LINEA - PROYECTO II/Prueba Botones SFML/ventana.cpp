@@ -119,9 +119,12 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 
 			// Actualiza si la dificultad elegida es facil
 			if (dificultad == "facil") {
+				
 				cout << "\nENTRO EN MODO DE JUGO    F A C I L \n";
 				// actualiza los botones de la matriz de juego modo facil::jugador vs CPU
+				//actualizaEstadoImgJugador();
 				ga.actualizaMatrizNivelFacil(window);
+
 			}
 
 			// Actualiza la dificultad del nivel normal

@@ -5,12 +5,15 @@
 #include "gato.h" // Declaración inclusion de clase gato.h
 #include "ventana.h"// Declaración inclusion de clase ventana.h
 #include "modoJuego1.h"// Declaración inclusion de clase modoJuego1 
+#include "nivelFacil.h" //Declaracion inclusion de clase nivelFacil
 #include "nivelDificil.h" // Declaración de clase nivelDificil
+
 
 // Declara la implementacion de la clase modo de juego jugador vs jugador
 modoJuego1 mod1;
 
 // Declara la implementacion en la de nivelFacil
+nivelFacil nivelF;
 
 // Declara la implementacion en la de nivelNormal
 
@@ -67,7 +70,7 @@ bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroBoton, unsigned in
 	// como verdadero que la jugada realizada es correcta y actualiza cambios en la matriz de botnones del juego
 
 	/// el metodo comentado es de nivel facil
-	if (/*mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) &&*/ !ganadorJugador1
+	if (nivelF.verificarPosibleJugadaNF(numeroBoton,numeroJugador,letraJugador) && !ganadorJugador1
 		&& !ganadorJugador2 && !noGanadorFinal) {
 
 		// Cambio el estado de jugada realizada a verdadero
@@ -86,14 +89,15 @@ bool gato::verificarPosibleJugadaModoFacil(unsigned int numeroBoton, unsigned in
 
 		// AQUI PASA EL VECTOR CON LA INFOMACION DE SLECCION MATRIZ DE JUEGO NIVEL MEDIO
 
-		//  dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+		 dibujarBotonesMatriz(nivelF.vectorGuardaMatriz(), window);
 
 		//----------------------------------------------------------------------------------------------------
 
 		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
 		// clase nivel facil
-
-		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
+		 nivelF.verificaGanadorJugador1();
+		 nivelF.verificaGanadorJugador2();
+		verificarEstatusGanador(nivelF.GetJugador1Gana(), nivelF.GetJugador2Gana(),
 			numeroJugador, contarMoviRealizados);
 
 	}
@@ -201,8 +205,11 @@ bool gato::verificarPosibleJugadaModoDificil(unsigned int numeroBoton, unsigned 
 // o que durante el juego no existio ningun ganador y por lo tanto es un empate.
 void gato::verificarEstatusGanador(bool verificacionGanadorJugador1, bool verificacionGanadorJugador2,
 	unsigned int numeroJugador, unsigned int movimientosRealizados) {
+	cout << "Entro estatus" << endl;
 	// Si de determina que verdadero que jugador 1 gano && los movimientos correctos es menor o igual
 	// a 9 y le numero de jugador en el turno es el jugador 1, se interpreta que gano la partida del juego.
+	cout << "estado1"<<verificacionGanadorJugador1 << endl;
+	cout << "estado2"<<verificacionGanadorJugador2 << endl;
 	if (verificacionGanadorJugador1 && contarMoviRealizados <= 9 && numeroJugador == 1) {
 		cout << "\n :::::::::::		J U G A D O R  1  G A N O !!	:::::::::::::::::::::::\n";
 		// Actualiza el estado que jugador 1 gano es verdadero
@@ -233,7 +240,7 @@ void gato::actualizaMatrizMod1(sf::RenderWindow& window)
 // Metodo que actualiza la matriz mostrada en pantalla del nivel facil:: jugador VS CPU
 void gato::actualizaMatrizNivelFacil(sf::RenderWindow& window)
 {
-	//dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+	dibujarBotonesMatriz(nivelF.vectorGuardaMatriz(), window);
 
 }
 
