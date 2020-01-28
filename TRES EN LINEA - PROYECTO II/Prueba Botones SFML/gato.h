@@ -32,6 +32,7 @@ using std::stack;
 #define DIR_GANO1 "../img/ganoj1.png"
 #define DIR_GANO2 "../img/ganoj2.png"
 #define DIR_EMPATE "../img/empate.png"
+#define DIR_MAQUINA "../img/maquina.png"
 
 // Definicio de la direccion de los archivos de musica empleados en el juego
 #define DIR_PAUSA "../sonido/EndofLine.wav"
@@ -104,7 +105,7 @@ private:
 
 	// Declaracion de texturas para la carga de imagenes
 	sf::Texture jugadorX, jugadorO, espacioVacio, salir, tituloJuego, turnoSeleccion1,
-		turnoSeleccion2, jugadorGano1, jugadorGano2, empate, jugadorE1, jugadorE2, fondo,
+		turnoSeleccion2, jugadorGano1, jugadorGano2, empate, maquina, jugadorE1, jugadorE2, fondo,
 		actualizaImagenAux, boton1, boton2, boton3, boton4, boton5, boton6, boton7,
 		boton8, boton9;
 

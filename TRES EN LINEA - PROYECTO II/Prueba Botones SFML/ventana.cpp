@@ -51,8 +51,17 @@ void ventana::verificaEstatusDelJuego(sf::RenderWindow& window) {
 		window.clear();// Borra lo mostrado en pantallla
 		// Dibuja el titulo del juego en pantalla
 		ga.dibujarImagenEspecifica(window, 9);
-		// Dibuja en pantalla ganador jugador 2
-		ga.dibujarImagenEspecifica(window, 11);
+
+
+		if (!juegaMaquina) {
+			// Dibuja en pantalla ganador jugador 2
+			ga.dibujarImagenEspecifica(window, 11);
+		}
+		else {
+			// Dibuja en pantalla ganador maquina si esta jugando contra el CPU
+			ga.dibujarImagenEspecifica(window, 13);
+		}
+		
 		window.display();
 		// Si el juego ternimo se actualiza el estado de juego a pausado
 		juegoEnPausa = true;

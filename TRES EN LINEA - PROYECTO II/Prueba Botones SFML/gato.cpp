@@ -316,6 +316,12 @@ void gato::cargaDeTexturasJuego() {
 		//Error en caso de cargar la img de empate.
 		cout << "\nError al cargar img de empate \n";
 	}
+
+	if (!maquina.loadFromFile(DIR_MAQUINA)) {
+		//Error en caso de cargar la img de empate.
+		cout << "\nError al cargar img de empate \n";
+	}
+
 }
 
 // Metodo que obtiene los valores del vector de matriz de juego y lee uno por uno su contenido y
@@ -576,6 +582,8 @@ void gato::dibujarImagenEspecifica(sf::RenderWindow& window, int tipoImg) {
 	else if (tipoImg == 11) { obj.setTexture(jugadorGano2); obj.setPosition(150.0f, 230.0f); }
 	// Falso Si el tipo de imagen es 12 siginifica que dibujara la imagen de empate
 	else if (tipoImg == 12) { obj.setTexture(empate); obj.setPosition(170.0f, 230.0f); }
+	// Falso Si el tipo de imagen es 13 siginifica que dibujara la imagen de maquina gano
+	else if (tipoImg == 13) { obj.setTexture(maquina); obj.setPosition(125.0f, 230.0f); }
 	window.draw(obj); // Dibuja el objeto en pantalla dependiento del numero de imgen escogida
 }
 
