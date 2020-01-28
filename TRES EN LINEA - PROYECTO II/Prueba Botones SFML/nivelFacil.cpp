@@ -53,7 +53,8 @@ int nivelFacil::validarJugadaMaquina(unsigned int jugador, char letraAAgregar) {
 	int  y=0;
 	int x = 0;
 	//valida si la maquina logro hacer la jugada
-	bool validar = false;
+	bool validar;
+	validar = false;
 	//boton que la maquina va a seleccionar 
 	
 	//semilla para el numero aleatrio 
@@ -68,7 +69,7 @@ int nivelFacil::validarJugadaMaquina(unsigned int jugador, char letraAAgregar) {
 
 		//Valida si la matriz en la coordenadas generadas esta vacia, si se encuentra vacia guarda la letra
 		//de la maquina
-		if (matrizJuego[x][y] == CAP_BLAN) {
+		if (this->matrizJuego[x][y] == CAP_BLAN) {
 			validar = true;
 		}
 	}
@@ -78,8 +79,8 @@ int nivelFacil::validarJugadaMaquina(unsigned int jugador, char letraAAgregar) {
 
 // Metodo para imprimir la matriz mostrada por consola
 void nivelFacil::mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
-	system("cls");
-	cout << " \n :::::::::::::::::		MATRIZ MODO JUGADOR VS MAQUINA		::::::::::::::::\n\n";
+	//system("cls");
+	cout << " \n ::::::::::::		MATRIZ MODO JUGADOR VS MAQUINA	DIFICULTAD::FACIL	::::::::::::::::\n\n";
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
 			cout << "[	" << matrizJuego[i][k] << "	]	";
@@ -138,6 +139,7 @@ bool nivelFacil::verificarJugadorGanador() {
 		jugadorGano = true;
 	}
 	realizoJugada = jugadorGano;
+	cout << "\n\nJUEGADOR GANO? " << jugadorGano<<"\n\n";
 	return realizoJugada;
 }
 
@@ -288,7 +290,7 @@ void nivelFacil::resetGame()
 
 // Verifica que se pueda agrgar un nuevo valor a la matriz de juego
 bool nivelFacil::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar) {
-	cout << "BOTON # " << nBoton << endl;
+	
 	bool auxAsignaValor = false;
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
@@ -317,7 +319,7 @@ void nivelFacil::limpiarMatrizJuego() {
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
 
-			matrizJuego[i][k] = ' ';
+			matrizJuego[i][k] = CAP_BLAN;
 		}
 	}
 }

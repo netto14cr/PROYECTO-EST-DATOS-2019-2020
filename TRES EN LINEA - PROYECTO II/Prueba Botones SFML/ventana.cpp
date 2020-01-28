@@ -119,8 +119,6 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 
 			// Actualiza si la dificultad elegida es facil
 			if (dificultad == "facil") {
-				
-				cout << "\nENTRO EN MODO DE JUGO    F A C I L \n";
 				// actualiza los botones de la matriz de juego modo facil::jugador vs CPU
 				//actualizaEstadoImgJugador();
 				ga.actualizaMatrizNivelFacil(window);
@@ -129,7 +127,6 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 
 			// Actualiza la dificultad del nivel normal
 			else if (dificultad == "medio") {
-				cout << "\nENTRO EN MODO DE JUGO    N O R M A L \n";
 				// actualiza los botones de la matriz de juego modo normal::jugador vs CPU
 				ga.actualizaMatrizNivelMedio(window);
 			}
@@ -434,7 +431,13 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
 					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
 					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
-					opcionesBotonesModoJuegoMaquina(window);
+
+					// Este metodo para que la maquina pueda seleccionar su turno, tiene que verificar que no existe nigun
+					// resultado posible en el juego para que termine apropiadamente!
+					if (!ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
+						opcionesBotonesModoJuegoMaquina(window);
+					}
+					
 				}
 
 			}
@@ -455,7 +458,12 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
 					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
 					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
-					opcionesBotonesModoJuegoMaquina(window);
+					
+					// Este metodo para que la maquina pueda seleccionar su turno, tiene que verificar que no existe nigun
+					// resultado posible en el juego para que termine apropiadamente!
+					if (!ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
+						opcionesBotonesModoJuegoMaquina(window);
+					}
 				}
 			}
 
@@ -474,7 +482,11 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
 					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
 					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
-					opcionesBotonesModoJuegoMaquina(window);
+					// Este metodo para que la maquina pueda seleccionar su turno, tiene que verificar que no existe nigun
+					// resultado posible en el juego para que termine apropiadamente!
+					if (!ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
+						opcionesBotonesModoJuegoMaquina(window);
+					}
 				}
 			}
 

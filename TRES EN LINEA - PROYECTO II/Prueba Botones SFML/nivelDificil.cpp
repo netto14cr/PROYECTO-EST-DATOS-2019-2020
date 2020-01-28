@@ -50,35 +50,35 @@ bool nivelDificil::verificarPosibleJugada(unsigned int nBoton, unsigned int nume
 // de fila, columna y diagonal izquierda y derecha.
 vector<pair<unsigned int, unsigned int>> nivelDificil::llenarVectorPosiblesJugadas()
 {
-	// Validacion de jugada de gane de fila 0
+	// Validación de jugada de gane de fila 0
 	jugadasGanadores.push_back(make_pair(0, 0));
 	jugadasGanadores.push_back(make_pair(0, 1));
 	jugadasGanadores.push_back(make_pair(0, 2));
-	// Validacion de jugada de gane de fila 1
+	// Validación de jugada de gane de fila 1
 	jugadasGanadores.push_back(make_pair(1, 0));
 	jugadasGanadores.push_back(make_pair(1, 1));
 	jugadasGanadores.push_back(make_pair(1, 2));
-	// Validacion de jugada de gane de fila 2
+	// Validación de jugada de gane de fila 2
 	jugadasGanadores.push_back(make_pair(2, 0));
 	jugadasGanadores.push_back(make_pair(2, 1));
 	jugadasGanadores.push_back(make_pair(2, 2));
-	// Validacion de jugada de gane de columana 0
+	// Validación de jugada de gane de columana 0
 	jugadasGanadores.push_back(make_pair(0, 0));
 	jugadasGanadores.push_back(make_pair(1, 0));
 	jugadasGanadores.push_back(make_pair(2, 0));
-	// Validacion de jugada de gane de columana 1
+	// Validación de jugada de gane de columana 1
 	jugadasGanadores.push_back(make_pair(0, 1));
 	jugadasGanadores.push_back(make_pair(1, 1));
 	jugadasGanadores.push_back(make_pair(2, 1));
-	// Validacion de jugada de gane de columana 2
+	// Validación de jugada de gane de columana 2
 	jugadasGanadores.push_back(make_pair(0, 2));
 	jugadasGanadores.push_back(make_pair(1, 2));
 	jugadasGanadores.push_back(make_pair(2, 2));
-	// Validacion de jugada de gane de diagonal izquierda
+	// Validación de jugada de gane de diagonal izquierda
 	jugadasGanadores.push_back(make_pair(0, 0));
 	jugadasGanadores.push_back(make_pair(1, 1));
 	jugadasGanadores.push_back(make_pair(2, 2));
-	// Validacion de jugada de gane de diagonal derecha
+	// Validación de jugada de gane de diagonal derecha
 	jugadasGanadores.push_back(make_pair(2, 0));
 	jugadasGanadores.push_back(make_pair(1, 1));
 	jugadasGanadores.push_back(make_pair(0, 2));
@@ -186,7 +186,7 @@ vector<pair<unsigned int, unsigned int>> nivelDificil::obtenerLugaresOcupados(ch
 	return auxVectorCamposOcupados;
 }
 
-// Metodo que actualiza el estado de la variable jugador 1 gano a verdadero o falso si el juegador 2 (máquina)
+// Metodo que actualiza el estado de la variable jugador 1 gano a verdadero o falso si el juegador 1 (usuario)
 // ha realizado movimientos para declararlo ganador del juego o no.
 void nivelDificil::verificaGanadorJugador1(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
 	// Siempre y cuando los movimientos correctos por el jugador 1 podra ganar
