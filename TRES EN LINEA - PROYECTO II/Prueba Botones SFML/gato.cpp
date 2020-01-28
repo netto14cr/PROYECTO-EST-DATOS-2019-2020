@@ -205,11 +205,8 @@ bool gato::verificarPosibleJugadaModoDificil(unsigned int numeroBoton, unsigned 
 // o que durante el juego no existio ningun ganador y por lo tanto es un empate.
 void gato::verificarEstatusGanador(bool verificacionGanadorJugador1, bool verificacionGanadorJugador2,
 	unsigned int numeroJugador, unsigned int movimientosRealizados) {
-	cout << "Entro estatus" << endl;
 	// Si de determina que verdadero que jugador 1 gano && los movimientos correctos es menor o igual
 	// a 9 y le numero de jugador en el turno es el jugador 1, se interpreta que gano la partida del juego.
-	cout << "estado1"<<verificacionGanadorJugador1 << endl;
-	cout << "estado2"<<verificacionGanadorJugador2 << endl;
 	if (verificacionGanadorJugador1 && contarMoviRealizados <= 9 && numeroJugador == 1) {
 		cout << "\n :::::::::::		J U G A D O R  1  G A N O !!	:::::::::::::::::::::::\n";
 		// Actualiza el estado que jugador 1 gano es verdadero

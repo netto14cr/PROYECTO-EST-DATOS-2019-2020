@@ -482,6 +482,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
 					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
 					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
+					
 					// Este metodo para que la maquina pueda seleccionar su turno, tiene que verificar que no existe nigun
 					// resultado posible en el juego para que termine apropiadamente!
 					if (!ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {

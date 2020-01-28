@@ -79,7 +79,7 @@ int nivelFacil::validarJugadaMaquina(unsigned int jugador, char letraAAgregar) {
 
 // Metodo para imprimir la matriz mostrada por consola
 void nivelFacil::mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]) {
-	//system("cls");
+	system("cls");
 	cout << " \n ::::::::::::		MATRIZ MODO JUGADOR VS MAQUINA	DIFICULTAD::FACIL	::::::::::::::::\n\n";
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
@@ -139,7 +139,6 @@ bool nivelFacil::verificarJugadorGanador() {
 		jugadorGano = true;
 	}
 	realizoJugada = jugadorGano;
-	cout << "\n\nJUEGADOR GANO? " << jugadorGano<<"\n\n";
 	return realizoJugada;
 }
 
