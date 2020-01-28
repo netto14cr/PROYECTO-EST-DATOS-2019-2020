@@ -141,7 +141,7 @@ bool nivelDificil::verificarPosicionMarcada(pair<unsigned int, unsigned int> pos
 
 int nivelDificil::obtenerEstadoMatrizJuego(char matrizJuego[TAM_FILA][TAM_COLUMNA], char letraAAgregar)
 {
-	// Se daclara un vector para recibir los campos ocupados por el juegador en espefico en la 
+	// Se daclara un vector para recibir los campos ocupados por el jugador en espefico en la 
 	// matriz de juego para comparar si exite un ganador o se perdio.
 	vector<pair< unsigned int, unsigned int>>
 		camposOcupadosAux = obtenerLugaresOcupados(letraAAgregar, matrizJuego);
