@@ -34,12 +34,11 @@ using std::end;
 #define LETRA_JUGADOR_O 'O'
 #define CAMPO_EN_BLANCO '-'
 
-#define ESTADO_INICIAL 0
 #define GANADOR 1000
 #define	VALOR_TEMPORAL 0
 #define PERDEDOR -1000
 
-
+#define ESTADO_INICIAL 0
 
 //	C L A S E  N I V E L  D I F I C I L
 class nivelDificil {
@@ -51,6 +50,7 @@ public:// Declaración de metodos publicos
 	nivelDificil() {
 		// Inicialización de varibles
 		jugador1Gano, jugador2Gano, realizoJugada = false;
+		letraJugador1, letraMaquina = ' ';
 		// Cuando arranca la clase se asigna automaticamente los valores iniciales a la matriz de juego
 		inicializarMatrizJuegoVacia();
 	}
@@ -73,6 +73,9 @@ public:// Declaración de metodos publicos
 	// movimientos y jugadas realizadas en la matriz de juego de nivel dificil.
 	vector<char> vectorGuardaMatrizDificil();
 
+	bool verificaGanadorJugador11(),
+		verificaGanadorJugador22();
+
 private:// Declaración de metodos privados
 
 	// Declaracion de variables
@@ -80,31 +83,38 @@ private:// Declaración de metodos privados
 	bool jugador1Gano, jugador2Gano, realizoJugada;
 
 	// Declaracion de metodos que retornan un valor
-	bool asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar, unsigned int numeroJugador);
-	bool verificarPosicionMarcada(pair<unsigned int, unsigned int> posicion,
+	bool asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar, int numeroJugador);
+	bool verificarPosicionMarcada(pair<int, int> posicion,
 		char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 
-	vector<pair<unsigned int, unsigned int>> jugadasGanadores;
-	vector<pair<unsigned int, unsigned int>> obtenerLugaresDisponibles(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
-	vector<pair<unsigned int, unsigned int>> obtenerLugaresOcupados(char letraAAgregar,
+	vector<pair<int, int>> jugadasGanadores;
+	vector<pair<int, int>> obtenerLugaresDisponibles(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
+	vector<pair<int, int>> obtenerLugaresOcupados(char letraAAgregar,
 		char matrizJuego[TAM_FILA][TAM_COLUMNA]);
-
-
 
 	pair<int, pair<int, int>> algoritmoMinimazaJuego(
-		char matrizJuego[TAM_FILA][TAM_COLUMNA], int numeroJugador, char letraAAgregar,
+		char matrizJuego[TAM_FILA][TAM_COLUMNA], char letraAAgregar,
 		int auxEstadoInicial, int auxPerdedor, int auxGanador);
 
-	bool verificarJugadorGanador(vector<pair<unsigned int, unsigned int>>  obtenerLugaresOcupados);
+	bool verificarJugadorGanador(vector<pair<int, int>>  obtenerLugaresOcupados);
 	bool matrizJuegoLlena(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 	int obtenerEstadoMatrizJuego(char matrizJuego[TAM_FILA][TAM_COLUMNA], char letraAAgregar);
 
+	char letraJugador1, letraMaquina;
 
+	vector<vector<pair<int, int>>> declaraPosiblesJugadas;
 	// Declaracion de metodos que no retornan ningun valor
 	void inicializarMatrizJuegoVacia();
 	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 	void verificaGanadorJugador1(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA]),
 		verificaGanadorJugador2(char letraAAgregar, char matrizJuego[TAM_FILA][TAM_COLUMNA]);
+
+	bool verificarJugadorGanador1(),
+		verificacionMovimientoDiagonalDerecha(),
+		verificacionMovimientoDiagonalIzquierda(),
+		verificacionMovimientoHorizontal(),
+		verificacionMovimientoVertical();
+	void determinaLetraJugadores(char letraJugador, unsigned int numeroJugador);
 
 };
 #endif NIVELDIFICIL_H

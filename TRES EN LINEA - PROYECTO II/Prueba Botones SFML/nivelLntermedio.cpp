@@ -73,106 +73,130 @@ int nivelIntermedio::validarJugadaMaquina(unsigned int jugador, char letraAAgreg
 
 			//Validacion horizontal: vaalida dos posiciones con la letra de la maquina y
 		   // vaida la tercera que sea espacio vacio
-		if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][1] == letraAAgregar) &&  (matrizJuego[0][2]==CAP_BLAN)) {
+		if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][1] == letraAAgregar) 
+			&&  (matrizJuego[0][2]==CAP_BLAN)) {
 			cout << "Validar Horizontal" << endl;
 			validar = true;
 			y = 2;
 		}
-		else if ((matrizJuego[0][3] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][5] == CAP_BLAN)) {
+		else if ((matrizJuego[0][3] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) 
+			&& (matrizJuego[0][5] == CAP_BLAN)) {
 			validar = true;
 			y = 5;
 		}
-		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][7] == letraAAgregar) && (matrizJuego[0][8] == CAP_BLAN)) {
+		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][7] == letraAAgregar) 
+			&& (matrizJuego[0][8] == CAP_BLAN)) {
 			validar = true;
 			y = 8;
 		}
-		else if ((matrizJuego[0][1] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][0] == CAP_BLAN)) {
+		else if ((matrizJuego[0][1] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) 
+			&& (matrizJuego[0][0] == CAP_BLAN)) {
 			validar = true;
 			y = 0;
 		}
-		else if ((matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) && (matrizJuego[0][3] == CAP_BLAN)) {
+		else if ((matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) 
+			&& (matrizJuego[0][3] == CAP_BLAN)) {
 			validar = true;
 			y = 3;
 		}
-		else if ((matrizJuego[0][7] == letraAAgregar) && (matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][6] == CAP_BLAN)) {
+		else if ((matrizJuego[0][7] == letraAAgregar) && (matrizJuego[0][8] == letraAAgregar) 
+			&& (matrizJuego[0][6] == CAP_BLAN)) {
 			validar = true;
 			y = 6;
 		}
-		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][1] == CAP_BLAN)) {
+		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) 
+			&& (matrizJuego[0][1] == CAP_BLAN)) {
 			validar = true;
 			y = 1;
 		}
-		else if ((matrizJuego[0][3] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) && (matrizJuego[0][4] == CAP_BLAN)) {
+		else if ((matrizJuego[0][3] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) 
+			&& (matrizJuego[0][4] == CAP_BLAN)) {
 			validar = true;
 			y = 4;
 		}
-		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][7] == CAP_BLAN)) {
+		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][8] == letraAAgregar) 
+			&& (matrizJuego[0][7] == CAP_BLAN)) {
 			validar = true;
 			y = 7;
 		}
 		//Valida todas las posibles combinacionas a ganar en Vertical
 		// Valida dos posiciones que sean de la misma letra con la que juega la maquina 
 		// y la tercera sea espacio vacio
-		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][3] == letraAAgregar) && (matrizJuego[0][6] == CAP_BLAN)) {
+		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][3] == letraAAgregar) 
+			&& (matrizJuego[0][6] == CAP_BLAN)) {
 			validar = true;
 			y = 6;
 		}
-		else if ((matrizJuego[0][1] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][7] == CAP_BLAN)) {
+		else if ((matrizJuego[0][1] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) 
+			&& (matrizJuego[0][7] == CAP_BLAN)) {
 			validar = true;
 			y = 7;
 		}
-		else if ((matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) && (matrizJuego[0][8] == CAP_BLAN)) {
+		else if ((matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) 
+			&& (matrizJuego[0][8] == CAP_BLAN)) {
 			validar = true;
 			y = 8;
 		}
-		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][3] == letraAAgregar) && (matrizJuego[0][0] == CAP_BLAN)) {
+		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][3] == letraAAgregar) 
+			&& (matrizJuego[0][0] == CAP_BLAN)) {
 			validar = true;
 			y = 0;
 		}
-		else if ((matrizJuego[0][7] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][1] == CAP_BLAN)) {
+		else if ((matrizJuego[0][7] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) 
+			&& (matrizJuego[0][1] == CAP_BLAN)) {
 			validar = true;
 			y = 1;
 		}
-		else if ((matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) && (matrizJuego[0][2] == CAP_BLAN)) {
+		else if ((matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][5] == letraAAgregar) 
+			&& (matrizJuego[0][2] == CAP_BLAN)) {
 			validar = true;
 			y = 2;
 		}
-		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][3] == CAP_BLAN)) {
+		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][0] == letraAAgregar) 
+			&& (matrizJuego[0][3] == CAP_BLAN)) {
 			validar = true;
 			y = 3;
 		}
-		else if ((matrizJuego[0][1] == letraAAgregar) && (matrizJuego[0][7] == letraAAgregar) && (matrizJuego[0][4] == CAP_BLAN)) {
+		else if ((matrizJuego[0][1] == letraAAgregar) && (matrizJuego[0][7] == letraAAgregar) 
+			&& (matrizJuego[0][4] == CAP_BLAN)) {
 			validar = true;
 			y = 4;
 		}
-		else if ((matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][5] == CAP_BLAN)) {
+		else if ((matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) 
+			&& (matrizJuego[0][5] == CAP_BLAN)) {
 			validar = true;
 			y = 5;
 		}
 		//Vaidar todas las posibles combinaciones en Diagonales izquieda y derecha 
 		// Valida dos posiciones que sean de la misma letra con la que juega la maquina 
 		// y la tercera sea espacio vacio
-		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][8] == CAP_BLAN)) {
+		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) 
+			&& (matrizJuego[0][8] == CAP_BLAN)) {
 			validar = true;
 			y = 8;
 		}
-		else if ((matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][0] == CAP_BLAN)) {
+		else if ((matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) 
+		&& (matrizJuego[0][0] == CAP_BLAN)) {
 			validar = true;
 			y = 0;
 		}
-		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][8] == letraAAgregar) && (matrizJuego[0][4] == CAP_BLAN)) {
+		else if ((matrizJuego[0][0] == letraAAgregar) && (matrizJuego[0][8] == letraAAgregar) 
+		&& (matrizJuego[0][4] == CAP_BLAN)) {
 			validar = true;
 			y = 4;
 		}
-		else if ((matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][6] == CAP_BLAN)) {
+		else if ((matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) 
+		&& (matrizJuego[0][6] == CAP_BLAN)) {
 			validar = true;
 			y = 6;
 		}
-		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) && (matrizJuego[0][2] == CAP_BLAN)) {
+		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][4] == letraAAgregar) 
+		&& (matrizJuego[0][2] == CAP_BLAN)) {
 			validar = true;
 			y = 2;
 		}
-		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) && (matrizJuego[0][4] == CAP_BLAN)) {
+		else if ((matrizJuego[0][6] == letraAAgregar) && (matrizJuego[0][2] == letraAAgregar) 
+		&& (matrizJuego[0][4] == CAP_BLAN)) {
 			validar = true;
 			y = 4;
 		}
@@ -183,47 +207,65 @@ int nivelIntermedio::validarJugadaMaquina(unsigned int jugador, char letraAAgreg
 		     // Valida dos posiciones que sean diferente de la  letra con la que juega la maquina 
 		     //  y que sean diferente de espacio vacio
 		     // para bloquear en la tercera posicion 
-			if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][1] != letraAAgregar) && (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][1] != CAP_BLAN) && ( matrizJuego[0][2]== CAP_BLAN)) {
+			if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][1] != letraAAgregar) 
+				&& (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][1] != CAP_BLAN) &&
+				( matrizJuego[0][2]== CAP_BLAN)) {
 				validar = true;
 				y = 2;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][3] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][3] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN)   && (matrizJuego[0][5] == CAP_BLAN)) {
+			else if ((matrizJuego[0][3] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) 
+				&& (matrizJuego[0][3] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN)  
+				&& (matrizJuego[0][5] == CAP_BLAN)) {
 				validar = true;
 				y = 5;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][7] != letraAAgregar) && (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][7] != CAP_BLAN) && (matrizJuego[0][8] == CAP_BLAN)) {
+			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][7] != letraAAgregar) 
+				&& (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][7] != CAP_BLAN) &&
+				(matrizJuego[0][8] == CAP_BLAN)) {
 				validar = true;
 				y = 8;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][1] != letraAAgregar) && (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][1] != CAP_BLAN) && (matrizJuego[0][0] == CAP_BLAN)) {
+			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][1] != letraAAgregar) 
+				&& (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][1] != CAP_BLAN) && 
+				(matrizJuego[0][0] == CAP_BLAN)) {
 				validar = true;
 				y = 0;
 				bloquear == true;
 			}
-			else if ((matrizJuego[0][5] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][5] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][3] == CAP_BLAN)) {
+			else if ((matrizJuego[0][5] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar)
+				&& (matrizJuego[0][5] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && 
+				(matrizJuego[0][3] == CAP_BLAN)) {
 				validar = true;
 				y = 3;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][7] != letraAAgregar) && (matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][7] != CAP_BLAN) && (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][6] == CAP_BLAN)) {
+			else if ((matrizJuego[0][7] != letraAAgregar) && (matrizJuego[0][8] != letraAAgregar) 
+				&& (matrizJuego[0][7] != CAP_BLAN) && (matrizJuego[0][8] != CAP_BLAN) && 
+				(matrizJuego[0][6] == CAP_BLAN)) {
 				validar = true;
 				y = 6;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][1] == CAP_BLAN)) {
+			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][2] != letraAAgregar) 
+				&& (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][2] != CAP_BLAN) && 
+				(matrizJuego[0][1] == CAP_BLAN)) {
 				validar = true;
 				y = 1;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][3] != letraAAgregar) && (matrizJuego[0][5] != letraAAgregar) && (matrizJuego[0][3] != CAP_BLAN) && (matrizJuego[0][5] != CAP_BLAN) && (matrizJuego[0][4] == CAP_BLAN)) {
+			else if ((matrizJuego[0][3] != letraAAgregar) && (matrizJuego[0][5] != letraAAgregar)
+				&& (matrizJuego[0][3] != CAP_BLAN) && (matrizJuego[0][5] != CAP_BLAN) && 
+				(matrizJuego[0][4] == CAP_BLAN)) {
 				validar = true;
 				y = 4;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][7] == CAP_BLAN)) {
+			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][8] != letraAAgregar)
+				&& (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][8] != CAP_BLAN) && 
+				(matrizJuego[0][7] == CAP_BLAN)) {
 				validar = true;
 				y = 7;
 				bloquear++;
@@ -232,47 +274,65 @@ int nivelIntermedio::validarJugadaMaquina(unsigned int jugador, char letraAAgreg
 			 // Valida dos posiciones que sean diferente de la  letra con la que juega la maquina 
 			 //  y que sean diferente de espacio vacio
 			 // para bloquear en la tercera posicion 
-			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][3] != letraAAgregar) && (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][3] != CAP_BLAN) && (matrizJuego[0][6] == CAP_BLAN)) {
+			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][3] != letraAAgregar) 
+				&& (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][3] != CAP_BLAN) 
+				&& (matrizJuego[0][6] == CAP_BLAN)) {
 				validar = true;
 				y = 6;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][1] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][1] != CAP_BLAN) && (matrizJuego[0][7] == CAP_BLAN)) {
+			else if ((matrizJuego[0][1] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) 
+				&& (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][1] != CAP_BLAN) &&
+				(matrizJuego[0][7] == CAP_BLAN)) {
 				validar = true;
 				y = 7;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][5] != letraAAgregar) && (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][5] != CAP_BLAN) && (matrizJuego[0][8] == CAP_BLAN)) {
+			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][5] != letraAAgregar) 
+				&& (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][5] != CAP_BLAN) &&
+				(matrizJuego[0][8] == CAP_BLAN)) {
 				validar = true;
 				y = 8;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][3] != letraAAgregar) && (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][3] != CAP_BLAN) && (matrizJuego[0][0] == CAP_BLAN)) {
+			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][3] != letraAAgregar) 
+				&& (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][3] != CAP_BLAN) && 
+				(matrizJuego[0][0] == CAP_BLAN)) {
 				validar = true;
 				y = 0;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][7] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][7] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][1] == CAP_BLAN)) {
+			else if ((matrizJuego[0][7] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) 
+				&& (matrizJuego[0][7] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && 
+				(matrizJuego[0][1] == CAP_BLAN)) {
 				validar = true;
 				y = 1;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][5] != letraAAgregar) && (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][5] != CAP_BLAN) && (matrizJuego[0][2] == CAP_BLAN)) {
+			else if ((matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][5] != letraAAgregar)
+				&& (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][5] != CAP_BLAN) && 
+				(matrizJuego[0][2] == CAP_BLAN)) {
 				validar = true;
 				y = 2;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][3] == CAP_BLAN)) {
+			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][6] != letraAAgregar) 
+			&& (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][6] != CAP_BLAN) && 
+			(matrizJuego[0][3] == CAP_BLAN)) {
 				validar = true;
 				y = 3;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][1] != letraAAgregar) && (matrizJuego[0][7] != letraAAgregar) && (matrizJuego[0][1] != CAP_BLAN) && (matrizJuego[0][7] != CAP_BLAN) && (matrizJuego[0][4] == CAP_BLAN)) {
+			else if ((matrizJuego[0][1] != letraAAgregar) && (matrizJuego[0][7] != letraAAgregar) 
+			&& (matrizJuego[0][1] != CAP_BLAN) && (matrizJuego[0][7] != CAP_BLAN) && 
+			(matrizJuego[0][4] == CAP_BLAN)) {
 				validar = true;
 				y = 4;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][5] == CAP_BLAN)) {
+			else if ((matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][2] != letraAAgregar) 
+			&& (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][2] != CAP_BLAN) && 
+			(matrizJuego[0][5] == CAP_BLAN)) {
 				validar = true;
 				y = 5;
 				bloquear++;
@@ -281,32 +341,44 @@ int nivelIntermedio::validarJugadaMaquina(unsigned int jugador, char letraAAgreg
 			 // Valida dos posiciones que sean diferente de la  letra con la que juega la maquina 
 			 //  y que sean diferente de espacio vacio
 			 // para bloquear en la tercera posicion 
-			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][8] == CAP_BLAN)) {
+			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) 
+			&& (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && 
+			(matrizJuego[0][8] == CAP_BLAN)) {
 				validar = true;
 				y = 8;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][0] == CAP_BLAN)) {
+			else if ((matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) 
+			&& (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && 
+			(matrizJuego[0][0] == CAP_BLAN)) {
 				validar = true;
 				y = 0;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][8] != letraAAgregar) && (matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][8] != CAP_BLAN) && (matrizJuego[0][4] == CAP_BLAN)) {
+			else if ((matrizJuego[0][0] != letraAAgregar) && (matrizJuego[0][8] != letraAAgregar) &&
+			(matrizJuego[0][0] != CAP_BLAN) && (matrizJuego[0][8] != CAP_BLAN) && 
+			(matrizJuego[0][4] == CAP_BLAN)) {
 				validar = true;
 				y = 4;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][6] == CAP_BLAN)) {
+			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) 
+			&& (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && 
+			(matrizJuego[0][6] == CAP_BLAN)) {
 				validar = true;
 				y = 6;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) && (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && (matrizJuego[0][2] == CAP_BLAN)) {
+			else if ((matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar) 
+			&& (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && 
+			(matrizJuego[0][2] == CAP_BLAN)) {
 				validar = true;
 				y = 2;
 				bloquear++;
 			}
-			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][6] != letraAAgregar) && (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][6] != CAP_BLAN) && (matrizJuego[0][4] == CAP_BLAN)) {
+			else if ((matrizJuego[0][2] != letraAAgregar) && (matrizJuego[0][6] != letraAAgregar) 
+			&& (matrizJuego[0][2] != CAP_BLAN) && (matrizJuego[0][6] != CAP_BLAN) && 
+			(matrizJuego[0][4] == CAP_BLAN)) {
 				validar = true;
 				y = 4;
 				bloquear++;
@@ -333,7 +405,7 @@ int nivelIntermedio::validarJugadaMaquina(unsigned int jugador, char letraAAgreg
 // Metodo para imprimir la matrizJuego mostrada por consola
 void nivelIntermedio::mostrarValoresEnMatriz(char matrizJuegoJuego[TAM_FILA][TAM_COLUMNA]) {
 	system("cls");
-	cout << " \n :::::::::::::::::		Matriz MODO JUGADOR VS MAQUINA		::::::::::::::::\n\n";
+	cout << " \n :::::::::		Matriz MODO JUGADOR VS MAQUINA -DIficultad:::NORMAL		::::::::::::::::\n\n";
 	for (unsigned int i = 0; i < TAM_FILA; i++) {
 		for (unsigned int k = 0; k < TAM_COLUMNA; k++) {
 			cout << "[	" << matrizJuego[i][k] << "	]	";
