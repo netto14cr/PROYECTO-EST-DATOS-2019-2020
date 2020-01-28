@@ -6,6 +6,7 @@
 #include "ventana.h"// Declaración inclusion de clase ventana.h
 #include "modoJuego1.h"// Declaración inclusion de clase modoJuego1 
 #include "nivelFacil.h" //Declaracion inclusion de clase nivelFacil
+#include "nivelIntermedio.h" //Declaracion inclusion de clases nivelIntermedio
 #include "nivelDificil.h" // Declaración de clase nivelDificil
 
 
@@ -16,6 +17,7 @@ modoJuego1 mod1;
 nivelFacil nivelF;
 
 // Declara la implementacion en la de nivelNormal
+nivelIntermedio nivelI;
 
 // Declara la implementacion de la clase nivelDificil
 nivelDificil nD;
@@ -120,7 +122,7 @@ bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned in
 	// como verdadero que la jugada realizada es correcta y actualiza cambios en la matriz de botnones del juego
 
 	/// el metodo comentado es de nivel normal
-	if (/*mod1.verificarPosibleJugada(numeroBoton, numeroJugador, letraJugador) &&*/ !ganadorJugador1
+	if (nivelI.verificarPosibleJugadaNI(numeroBoton, numeroJugador, letraJugador) && !ganadorJugador1
 		&& !ganadorJugador2 && !noGanadorFinal) {
 
 		// Cambio el estado de jugada realizada a verdadero
@@ -140,7 +142,7 @@ bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned in
 
 		// AQUI PASA EL VECTOR CON LA INFOMACION DE SLECCION MATRIZ DE JUEGO NIVEL MEDIO
 
-		//  dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+		  dibujarBotonesMatriz(nivelI.vectorGuardaMatriz(), window);
 
 		//----------------------------------------------------------------------------------------------------
 
@@ -148,8 +150,9 @@ bool gato::verificarPosibleJugadaModoMedio(unsigned int numeroBoton, unsigned in
 
 		// Tiene que pasar un bool con el estado de juegador 1 y jugador 2 (maquina) de ganador de la
 		// clase nivel normal
-
-		verificarEstatusGanador(false, false, /*mod1.verificaGanadorJugador1(), mod1.verificaGanadorJugador2(),*/
+		  nivelI.verificaGanadorJugador1();
+		  nivelI.verificaGanadorJugador2();
+		verificarEstatusGanador(nivelI.GetJugador1Gana(),nivelI.GetJugador2Gana(),	
 			numeroJugador, contarMoviRealizados);
 
 	}
@@ -244,7 +247,7 @@ void gato::actualizaMatrizNivelFacil(sf::RenderWindow& window)
 // Metodo que actualiza la matriz mostrada en pantalla del nivel normal:: jugador VS CPU
 void gato::actualizaMatrizNivelMedio(sf::RenderWindow& window)
 {
-	//dibujarBotonesMatriz(mod1.vectorGuardaMatriz(), window);
+	dibujarBotonesMatriz(nivelI.vectorGuardaMatriz(), window);
 
 }
 
