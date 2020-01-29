@@ -25,6 +25,7 @@ class nivelFacil {
 public:
 	nivelFacil() {
 		jugador1Gano = false; jugador2Gano = false; realizoJugada = false;
+		botton = 0;
 		inicializarMatrizJuegoVacia();
 	}
 	~nivelFacil() { limpiarMatrizJuego(); }
@@ -40,11 +41,14 @@ public:
 	vector<char> vectorGuardaMatriz();
 	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 
+
+	void resetGame();
+
 private:
 
 	char matrizJuego[TAM_FILA][TAM_COLUMNA];
 	bool jugador1Gano, jugador2Gano, realizoJugada;
-	int botton=0;
+	int botton;
 	int validarJugadaMaquina(unsigned int Jugador, char letraAAgregar);
 	bool asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar),
 		verificarJugadorGanador(),
@@ -53,7 +57,7 @@ private:
 		verificacionMovimientoHorizontal(),
 		verificacionMovimientoVertical();
 
-	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego(), resetGame();
+	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego();
 
 };
 #endif // !NIVELFACIL_H

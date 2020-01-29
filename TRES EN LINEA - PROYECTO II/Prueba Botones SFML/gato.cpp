@@ -607,4 +607,24 @@ void gato::detenerSonido() {
 	musica.stop();
 }
 
+// Metodo que devuelve al estado inicial los valores modificados en la partida anterior
+// que se estaba realizando antes de cambiar de nivel!
+void gato::resetGame() {
+	// Resetea valores de movimientos realizados en la partida anterior
+	contarMoviRealizados = 0;
+	// Elimina el valor de la letra de jugador 1
+	letraJugador1 = "",
+	// Elimina el valor de la letra de jugador 2
+	letraJugador2 = "";
+	// Cambia el estado de jugada realizada, ganador jugador 1, 2 y no ganador final a falso
+	jugadaRealizada = false; ganadorJugador1 = false; ganadorJugador2 = false; noGanadorFinal = false;
+	// Restablece valores iniciales de la clase modo juego 1 - jugador vs jugador
+	mod1.resetGame();
+	// Restablece valores iniciales de la clase modo jugador vs CPU - Dificultad::Facil
+	nivelF.resetGame();
+	// Restablece valores iniciales de la clase modo jugador vs CPU - Dificultad::Normal
+	nivelI.resetGame();
+	// Restablece valores iniciales de la clase modo jugador vs CPU - Dificultad::Dificil
+	nD.resetGame();
+}
 

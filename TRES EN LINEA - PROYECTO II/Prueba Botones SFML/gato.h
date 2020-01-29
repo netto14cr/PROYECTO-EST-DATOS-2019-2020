@@ -63,7 +63,7 @@ public:
 		cargaDeTexturasJuego();
 		obtenerTamanioImgBotones();
 	}
-	~gato() {} // Destrutor de la clase
+	~gato() { resetGame(); } // Destrutor de la clase
 
 	// Declaracion de variables que devuelven un valor
 
@@ -98,6 +98,10 @@ public:
 	void actualizaMatrizNivelFacil(sf::RenderWindow& window);
 	void actualizaMatrizNivelMedio(sf::RenderWindow& window);
 	void actualizaMatrizNivelDificil(sf::RenderWindow& window);
+
+	// Metodo que realiza el cambio de variables modificadas de la clase gato a su estado inicial
+	void resetGame();
+
 
 	// Declaracion de metodos y variables de tipo privadas de la clase
 private:
@@ -169,6 +173,8 @@ private:
 	//
 	void verificarEstatusGanador(bool verificacionGanadorJugador1, bool verificacionGanadorJugador2,
 		unsigned int numeroJugador, unsigned int movimientosRealizados);
+
+	
 };
 
 #endif // !GATO_H

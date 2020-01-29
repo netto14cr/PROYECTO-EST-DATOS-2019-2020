@@ -22,9 +22,11 @@ using std::vector;
 #define CAP_BLAN '-'
 
 class nivelIntermedio {
+
 public:
 	nivelIntermedio() {
 		jugador1Gano = false; jugador2Gano = false; realizoJugada = false; 
+		botton = 0; bloquear = 0;
 		inicializarMatrizJuegoVacia();
 	}
 	~nivelIntermedio() { limpiarMatrizJuego(); }
@@ -40,12 +42,14 @@ public:
 	vector<char> vectorGuardaMatriz();
 	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 
+	void resetGame();
+
 private:
 
 	char matrizJuego[TAM_FILA][TAM_COLUMNA];
 	bool jugador1Gano, jugador2Gano, realizoJugada;
-	int bloquear = 0;
-	int botton = 0;
+	int bloquear;
+	int botton;
 	int validarJugadaMaquina(unsigned int Jugador, char letraAAgregar);
 	bool asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar),
 		verificarJugadorGanador(),
@@ -54,7 +58,7 @@ private:
 		verificacionMovimientoHorizontal(),
 		verificacionMovimientoVertical();
 
-	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego(), resetGame();
+	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego();
 
 };
 #endif // !NIVELINTERMEDIO_H

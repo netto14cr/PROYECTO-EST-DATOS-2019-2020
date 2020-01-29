@@ -277,13 +277,14 @@ vector<char> nivelFacil::vectorGuardaMatriz()
 	return vectorAux;
 }
 
-// Metodo que vuelve a colocar los valores de las variables modificados 
-// a su valor original para comenzar un nuevo juego.
+// Metodo que borra los datos modificados en la clase nivel facil y vuelve todos sus valores
+// al estado inicial.
 void nivelFacil::resetGame()
 {
 	jugador1Gano = false;
 	jugador2Gano = false;
 	realizoJugada = false;
+	botton = 0;
 	inicializarMatrizJuegoVacia();
 }
 
@@ -322,4 +323,3 @@ void nivelFacil::limpiarMatrizJuego() {
 		}
 	}
 }
-

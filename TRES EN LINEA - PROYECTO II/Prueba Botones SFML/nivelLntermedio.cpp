@@ -233,7 +233,7 @@ int nivelIntermedio::validarJugadaMaquina(unsigned int jugador, char letraAAgreg
 				(matrizJuego[0][0] == CAP_BLAN)) {
 				validar = true;
 				y = 0;
-				bloquear == true;
+				bloquear ++;
 			}
 			else if ((matrizJuego[0][5] != letraAAgregar) && (matrizJuego[0][4] != letraAAgregar)
 				&& (matrizJuego[0][5] != CAP_BLAN) && (matrizJuego[0][4] != CAP_BLAN) && 
@@ -609,6 +609,7 @@ void nivelIntermedio::resetGame()
 	jugador1Gano = false;
 	jugador2Gano = false;
 	realizoJugada = false;
+	botton = 0;
 	inicializarMatrizJuegoVacia();
 }
 
@@ -647,3 +648,5 @@ void nivelIntermedio::limpiarMatrizJuego() {
 		}
 	}
 }
+
+

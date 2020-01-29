@@ -23,6 +23,7 @@ void ventana::iniciarPrograma()
 	// se realiza el llamado del metodo que maneja todos los eventos del juego mientras
 	// la ventana del juego este abierta.
 	manejoEventosJuego(window);
+
 }
 
 // Metodo que realiza la verificacion previa antes de seguir actualizando los eventos 
@@ -34,7 +35,8 @@ void ventana::verificaEstatusDelJuego(sf::RenderWindow& window) {
 	//si el jugador 1 gano y el juego jugador vs jugador continua activo
    // actualiza el estado en la pantalla: Borra la matriz de botones y indica que 
    // jugador q ha ganado y pausa el juego.
-	if ( ga.GetGanadorJ1() && !juegoEnPausa  ) {
+
+	if (ga.GetGanadorJ1() && !juegoEnPausa) {
 		window.clear();// Borra lo mostrado en pantallla
 		// Dibuja el titulo del juego en pantalla
 		ga.dibujarImagenEspecifica(window, 9);
@@ -42,6 +44,7 @@ void ventana::verificaEstatusDelJuego(sf::RenderWindow& window) {
 		ga.dibujarImagenEspecifica(window, 10);
 		window.display();
 		juegoEnPausa = true;// Si el juego ternimo se actualiza el estado de juego a pausado
+		juegoFinalizo=true; // se Cambia el estatus de juego finalizo a verdadero
 	}
 
 	// Falso si el jugador 2 gano y el juego jugador vs jugador continua activo
@@ -52,19 +55,20 @@ void ventana::verificaEstatusDelJuego(sf::RenderWindow& window) {
 		// Dibuja el titulo del juego en pantalla
 		ga.dibujarImagenEspecifica(window, 9);
 
-
+		// si la maquina no esta jugando significa que le juegador 2 es un (usuario)
 		if (!juegaMaquina) {
 			// Dibuja en pantalla ganador jugador 2
 			ga.dibujarImagenEspecifica(window, 11);
 		}
-		else {
-			// Dibuja en pantalla ganador maquina si esta jugando contra el CPU
+		// Si la maquina esta jugando indica que el jugador su oponente de jugador2 es la 
+		// maquina y por ende si gana muestra la imgen que la maquina gano!
+		else if (juegaMaquina) {
 			ga.dibujarImagenEspecifica(window, 13);
 		}
-		
 		window.display();
 		// Si el juego ternimo se actualiza el estado de juego a pausado
 		juegoEnPausa = true;
+		juegoFinalizo = true; // se Cambia el estatus de juego finalizo a verdadero
 	}
 
 	// Falso si se llego a la conclusion que ningun jugador gano en modo de juego jugador vs jugador y este continua 
@@ -79,6 +83,7 @@ void ventana::verificaEstatusDelJuego(sf::RenderWindow& window) {
 		window.display();// actualiza cambios en pantalla
 		// Si el juego ternimo se actualiza el estado de juego a pausado
 		juegoEnPausa = true;
+		juegoFinalizo = true; // se Cambia el estatus de juego finalizo a verdadero
 	}
 }
 
@@ -111,7 +116,7 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 		// <<<<<<<<		M O D O  J U G A D O R   V S  C P U		>>>>>>>>>>>>>>>>>
 
 		// Falso si menuInicial y comenzo es falso && subMenuNivel esta activo
-		// se muestran las opciones para elegir de tipo de dificultal de niveles al jugador!
+		// se muestran las opciones para elegir de tipo de dificultad de niveles al jugador!
 		else if (!menuInicioActivo && !comenzoJuego && subMenuNivelActivo) {
 			window.clear();// Borra lo mostrado en pantallla
 			// Dibuja la imgen del nombre del juego en pantalla
@@ -128,14 +133,14 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 
 			// Actualiza si la dificultad elegida es facil
 			if (dificultad == "facil") {
+				//cout << "\nENTRO EN MODO DE JUGO    F A C I L \n";
 				// actualiza los botones de la matriz de juego modo facil::jugador vs CPU
-				//actualizaEstadoImgJugador();
 				ga.actualizaMatrizNivelFacil(window);
-
 			}
 
 			// Actualiza la dificultad del nivel normal
 			else if (dificultad == "medio") {
+				//cout << "\nENTRO EN MODO DE JUGO    N O R M A L \n";
 				// actualiza los botones de la matriz de juego modo normal::jugador vs CPU
 				ga.actualizaMatrizNivelMedio(window);
 			}
@@ -207,9 +212,7 @@ void ventana::manejoEventosJuego(sf::RenderWindow& window) {
 			// Dibuja el menu inicial mostrado al principio o en pausa del juego
 			m.dibujarMenuInicial(window);
 		}// >>>>>>>>>>>>>>>>		F I N  M E N U  I N I C I A L		>>>>>>>>>>>>>>>>>>>>
-
 	}
-
 }
 
 // Metodo que determina el tipo de evento que esta ocurriendo realizado por el usuario en el juego
@@ -258,6 +261,43 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 		case sf::Event::KeyReleased:
 			switch (event.key.code)
 			{
+
+
+				// Tecla tab especifal definida para poner el juego en pausa y 
+				// mostrar el menu principal
+			case sf::Keyboard::Tab:
+
+				// Se cambia el estado de la variable index en menu para que sea en la posicion primera
+				// por si un cambio entre menu la dejo en otro lugar diferente
+				m.reseteaValorSelected();
+
+				// Si el juego no esta en pausa (evita que entre en pausa cuando inicia el juego y muestra
+				// las pirmera opciones antes de comenzar a jugar) && juego comenzo , lo que indica que 
+				// el menu solo se puede activar si se esta jugando (antes no) O si ya existe un resultado
+				// de gane de algun jugador o maquina u empate, solo asi se pude poner pausa al juego
+				if (!juegoEnPausa && comenzoJuego || juegoFinalizo) {
+					cout << "\n		J U E G O  P A U S A D O \n";
+					menuInicioActivo = true;
+					juegoEnPausa = true;
+				}
+				// Falso si presiona la tecla pausa pero ya se encuntra pausado && es durante la realización
+				// de un juego despuasa el juego y se sigue jugando.
+				else if (juegoEnPausa && comenzoJuego) {
+					cout << "\n		C O N T I N U A !! \n";
+					juegoEnPausa = false;
+					menuInicioActivo = false;
+					// Si el subnivel se activo mientras estaba en pausa y se desidio quitar la pausa oculta
+					// tambien el sub menu de los niveles contra la maquina.
+					if (subMenuNivelActivo) subMenuNivelActivo = false;
+
+				}
+				break;
+				// Tecla especial que se define para cerrar la ventana automaticamente!
+			case sf::Keyboard::F4:
+				system(0);
+				window.close();
+				break;
+
 				// Presiono tecla de arriba
 			case sf::Keyboard::Up:
 				system("cls");
@@ -297,7 +337,6 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 			case sf::Keyboard::Down:
 				system("cls");
 				cout << "\n::  A B A J O  ::\n";
-
 				// Mueve hacia abajo Si menu inicial o sub menu de niveles esta activo
 				// Si el menu inicial esta activo mueve entre la opciones del menu.
 				if (menuInicioActivo && !subMenuNivelActivo) {
@@ -446,7 +485,6 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					if (!ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
 						opcionesBotonesModoJuegoMaquina(window);
 					}
-					
 				}
 
 			}
@@ -467,7 +505,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
 					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
 					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
-					
+
 					// Este metodo para que la maquina pueda seleccionar su turno, tiene que verificar que no existe nigun
 					// resultado posible en el juego para que termine apropiadamente!
 					if (!ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
@@ -491,7 +529,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					// logro realizar una jugada valida y paso el turno a jugador 2 [  M A Q U I N A ] entonces se llama
 					// seguido al mismo metodo de opciones de botones modo juego vs maquina para que entre al metodo de 
 					// verificacion de jugada posible y en su turno y pueda generar su logica de jugada.
-					
+
 					// Este metodo para que la maquina pueda seleccionar su turno, tiene que verificar que no existe nigun
 					// resultado posible en el juego para que termine apropiadamente!
 					if (!ga.GetGanadorJ1() && !ga.GetGanadorJ2() && !ga.GetNoGanadorFinal()) {
@@ -520,7 +558,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { opcionesBotonesModoJuegoMaquina(window); }
+				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
 			}
 			// Falso si es el turno de la maquina y la dificultad de juego es medio
 			// Actualiza si la maquina puede realizar una jugada y de ser verdad cambiara su estado de turno de juego
@@ -533,7 +571,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { opcionesBotonesModoJuegoMaquina(window); }
+				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
 			}
 
 			// Falso si es el turno de la maquina y la dificultad de juego es dificil
@@ -546,7 +584,7 @@ void ventana::opcionesBotonesModoJuegoMaquina(sf::RenderWindow& window) {
 					turnoJugador1 = true;
 				}
 				// Falso si la verificación del turno de la maquina no puede realizar jugada vuelve a intentarlo
-				else { opcionesBotonesModoJuegoMaquina(window); }
+				else { turnoJugador2 = true;  opcionesBotonesModoJuegoMaquina(window); }
 			}
 		}// FIN TURNO JUGADOR 2 - [ M A Q U I N A ] 
 	}
@@ -579,13 +617,22 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 
 			else if (comenzoJuego && tipoJuego != "JugadorVsJugador") {
 				cout << "\n Ha seleccionado cambiar de tipo de juego... \nCargando nuevo tipo de juego!\n";
-				// se cambia el estado del menuInicial a falso
-				menuInicioActivo = false;
 				// Se asigna el nuevo tipo de juego selecionado
 				tipoJuego = "JugadorVsJugador";
-				// Se cambia el estado de juega maquina a falso
-				juegaMaquina = false;
+				// Realiza borrado de valores modificados en la clase ventana
+				resetGame();
+				m.reseteaValorSelected();
 			}
+			// Falso si se encuntra jugando y elige el mismo tipo de juego significa que el usuario
+			// quiere reiniciar la partida y se realiza la carga de un nuevo juego jugador vs jugador
+			else if (comenzoJuego && tipoJuego == "JugadorVsJugador") {
+				system("cls");
+				cout << "\n R E I N I C I A N D O  M O D O  D E  J U E G O  J U E G A D O R  V S  J U G A D O R !!\n\n";
+				// Realiza borrado de valores modificados en la clase ventana
+				resetGame();
+				m.reseteaValorSelected();
+			}
+
 		}// TERMNINA MENU DE JUEGO INICIAL ACTIVO
 
 
@@ -674,14 +721,26 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 			// la opcion 2 de jugador vs CPU reiniciara el juego y cargara
 			// el otro tipo de modo de juego.
 			else if (comenzoJuego && tipoJuego != "JugadorVsCPU") {
-				cout << "\n Ha seleccionado cambiar de tipo de juego... \nCargando nuevo tipo de juego!\n";
-				// se cambia el estado del menuInicial a falso
-				menuInicioActivo = false;
+				cout << "\n Ha seleccionado cambiar de tipo de juego... \nC a r g a n d o.. J U E G O  J U G A D O R  V S  C P U !\n";
 				// Se asigna el nuevo tipo de juego selecionado jugador vs cpu
 				tipoJuego = "JugadorVsCPU";
-				// Se cambia el estado de juega maquina a falso
-				juegaMaquina = true;
+				// Realiza borrado de valores modificados en la clase ventana
+				resetGame();
+				m.reseteaValorSelected();
 			}
+
+			// Falso si se encuntra jugando y elige el mismo tipo de juego significa que el usuario
+			// quiere reiniciar la partida y se realiza la carga de un nuevo juego jugador vs jugador
+			else if (comenzoJuego && tipoJuego == "JugadorVsCPU") {
+				system("cls");
+				cout << "\n R E I N I C I A N D O  M O D O  D E  J U E G O  V S  C P U  !!\n";
+				cout << "\n Seleccione otro nivel que sea jugar..\n\n";
+				// Realiza borrado de valores modificados en la clase ventana
+				resetGame();
+				m.reseteaValorSelected();
+			}
+
+
 
 		}// TERMNINA MENU DE JUEGO INICIAL ACTIVO
 
@@ -825,4 +884,36 @@ void ventana::actualizaEstadoImgJugador() {
 		ga.dibujarImagenEspecifica(window, 8);
 		ga.dibujarImagenEspecifica(window, 9);
 	}
+}
+
+// Metodo que se encarga se volver los valores de variables modificadad en el juego a su estado
+// inicial
+void ventana::resetGame() {
+
+	// se cambia el estado del menuInicial a falso
+	menuInicioActivo = false;
+
+	dificultad = "";
+	numeroJugador = 0;
+	letraSeleccionadaJugador1 = ' ';
+	letraSeleccionadaJugador2 = ' ';
+	comenzoJuego = false;
+	jugador1Eligio = false;
+	jugador2Eligio = false;
+	turnoJugador2 = false;
+	turnoJugador1 = true;
+
+	// Si el nuevo tipo de juego a cambiar es jugador vs jugador
+	if (tipoJuego == "JugadorVsJugador") {
+		subMenuNivelActivo = false; 
+		juegaMaquina = false;
+	}
+	else if (tipoJuego == "JugadorVsCPU") {
+		subMenuNivelActivo = true; 
+		juegaMaquina = true;
+	}
+	m.reseteaValorSelected();
+	// Destruye los datos de la clase gato
+	ga.resetGame();
+
 }

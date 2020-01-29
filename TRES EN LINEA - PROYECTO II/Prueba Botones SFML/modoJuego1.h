@@ -42,7 +42,7 @@ public:
 
 	vector<char> vectorGuardaMatriz();
 
-
+	void resetGame();
 private:
 
 	char matrizJuego[TAM_FILA][TAM_COLUMNA];
@@ -54,7 +54,7 @@ private:
 		verificacionMovimientoHorizontal(),
 		verificacionMovimientoVertical();
 
-	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego(), resetGame(),
+	void inicializarMatrizJuegoVacia(), limpiarMatrizJuego(),
 		mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 };
 #endif // !MODOJUEGO1_H

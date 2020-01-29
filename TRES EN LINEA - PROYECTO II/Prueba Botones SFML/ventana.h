@@ -63,7 +63,7 @@ public:
 
 	}
 
-	~ventana() {} // Destructor de la clase
+	~ventana() { resetGame(); } // Destructor de la clase
 	void iniciarPrograma();
 
 
@@ -103,6 +103,8 @@ private:
 	void actualizaEstadoImgJugador();
 	void verificacionJugadorLetra();
 	void verificaEstatusDelJuego(sf::RenderWindow& window);
+
+	void resetGame();
 
 };
 

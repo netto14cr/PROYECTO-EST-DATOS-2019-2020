@@ -595,3 +595,14 @@ bool nivelDificil::verificacionMovimientoHorizontal() {
 	else { auxGanaHorizontal = false; }
 	return auxGanaHorizontal;
 }
+
+
+// Metodo que borra los datos modificados en la clase nivel dificl y vuelve todos sus valores
+// al estado inicial.
+void nivelDificil::resetGame() {
+	// Inicialización de varibles
+	jugador1Gano = false; jugador2Gano = false; realizoJugada = false;
+	letraJugador1 = ' '; letraMaquina = ' ';
+	// Borra datos anteriores y llena la matriz de juego con espacios vacios
+	inicializarMatrizJuegoVacia();
+}

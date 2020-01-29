@@ -228,12 +228,6 @@ vector<char> modoJuego1::vectorGuardaMatriz()
 	return vectorAux;
 }
 
-// Metodo que vuelve a colocar los valores de las variables modificados 
-// a su valor original para comenzar un nuevo juego.
-void modoJuego1::resetGame() {
-	jugador1Gano, jugador2Gano, realizoJugada = false;
-	inicializarMatrizJuegoVacia();
-}
 
 // Verifica que se pueda agrgar un nuevo valor a la matriz de juego
 bool modoJuego1::asignarValorEnBotonMatriz(unsigned int nBoton, char letraAAgregar) {
@@ -272,3 +266,12 @@ void modoJuego1::limpiarMatrizJuego() {
 }
 
 
+// Metodo que borra los datos modificados en la clase modo de juego 1-  jugador vs jugador 
+// y vuelve todos sus valores al estado inicial.
+void modoJuego1::resetGame()
+{
+	jugador1Gano = false;
+	jugador2Gano = false;
+	realizoJugada = false;
+	inicializarMatrizJuegoVacia();
+}

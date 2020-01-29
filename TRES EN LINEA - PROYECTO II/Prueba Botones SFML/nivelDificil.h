@@ -76,6 +76,10 @@ public:// Declaración de metodos publicos
 	bool verificaGanadorJugador11(),
 		verificaGanadorJugador22();
 
+
+
+	void resetGame();
+
 private:// Declaración de metodos privados
 
 	// Declaracion de variables
