@@ -38,6 +38,19 @@ using std::stack;
 #define DIR_PAUSA "../sonido/EndofLine.wav"
 #define DIR_MUSICA_TECLAS "../sonido/confirm.wav"
 #define DIR_MUSICA_FONDO "../sonido/juego.wav"
+
+
+#define DIR_CANCION1 "../sonido/im_sorry.wav"
+#define DIR_CANCION2 "../sonido/lalala.wav"
+#define DIR_CANCION3 "../sonido/slow_down.wav"
+#define DIR_CANCION4 "../sonido/if_i_wouldnt_know.wav"
+
+
+
+
+
+
+
 // Defino la cambiada de botones a desmarcar
 #define CANT_BOTONES 9
 
@@ -59,9 +72,10 @@ public:
 		ganadorJugador1 = false;
 		ganadorJugador2 = false;
 		noGanadorFinal = false;
-
+		cont=1;
 		cargaDeTexturasJuego();
 		obtenerTamanioImgBotones();
+		cargarSonidos();
 	}
 	~gato() { resetGame(); } // Destrutor de la clase
 
@@ -101,7 +115,13 @@ public:
 
 	// Metodo que realiza el cambio de variables modificadas de la clase gato a su estado inicial
 	void resetGame();
+	// Metodo que cambia las canciones y pone la siguiente
+	void siguienteCancion();
+	// Metodo que retrocede a la cancion anterior
+	void anteriorCancion();
 
+	// Metodo que reproduce musica
+	void continuarMusica();
 
 	// Declaracion de metodos y variables de tipo privadas de la clase
 private:
@@ -124,7 +144,8 @@ private:
 	sf::Vector2i mousePos;
 
 	// Declaracion de carga de Buffer de sonidos SFML
-	sf::SoundBuffer musicaPausa, musicaTeclas, musicaFondo;
+	sf::SoundBuffer musicaPausa, musicaTeclas, musicaFondo, cancion1, cancion2, cancion3, 
+		cancion4, cancion5, cancion6;
 
 	// Declaracion de sonido
 	sf::Sound sonido;
@@ -142,7 +163,7 @@ private:
 		boton4Height, boton5Height, boton6Height, boton7Height, boton8Height, boton9Height;
 
 	// Declaracion de variables sin definir int 
-	unsigned int botonSeleccionado, nivelSelecionado, contarMoviRealizados;
+	unsigned int botonSeleccionado, nivelSelecionado, contarMoviRealizados, cont;
 
 	// Declaracion de varaibles tipo booleanas 
 	bool jugadaRealizada, ganadorJugador1, ganadorJugador2, noGanadorFinal;
@@ -175,6 +196,8 @@ private:
 		unsigned int numeroJugador, unsigned int movimientosRealizados);
 
 	
+	void reproduceLaCancionIndicada(unsigned int cont);
+
 };
 
 #endif // !GATO_H

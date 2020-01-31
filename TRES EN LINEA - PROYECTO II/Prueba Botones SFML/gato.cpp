@@ -576,9 +576,26 @@ void gato::cargarSonidos() {
 		//Error al cargar la musica del menu de teclas
 		cout << "\nHa ocurrido un error al cargar el archivo de musica de teclas\n\n";
 	}
-	if (!musicaFondo.loadFromFile(DIR_MUSICA_FONDO)) {
+
+
+	else if (!cancion1.loadFromFile(DIR_CANCION1)) {
 		//Error al cargar la musica del menu de fondo
-		cout << "\nHa ocurrido un error al cargar el archivo de musica de fondo\n\n";
+		cout << "\nHa ocurrido un error al cargar el archivo de cancion 1 \n\n";
+	}
+
+	else if (!cancion2.loadFromFile(DIR_CANCION2)) {
+		//Error al cargar la musica del menu de fondo
+		cout << "\nHa ocurrido un error al cargar el archivo de cancion 2 \n\n";
+	}
+
+	else if (!cancion3.loadFromFile(DIR_CANCION3)) {
+		//Error al cargar la musica del menu de fondo
+		cout << "\nHa ocurrido un error al cargar el archivo de cancion 3 \n\n";
+	}
+
+	else if (!cancion4.loadFromFile(DIR_CANCION4)) {
+		//Error al cargar la musica del menu de fondo
+		cout << "\nHa ocurrido un error al cargar el archivo de cancion 4 \n\n";
 	}
 }
 
@@ -594,7 +611,6 @@ void gato::reproducirSonido(int numeroSonido) {
 	}
 	else if (numeroSonido == 3) {
 		sonido.setBuffer(musicaFondo);
-		sonido.setLoop(true);
 		cout << "sonando musica del juego\n";
 	}
 	sonido.play(); // reproduce el numero de sonido seleccionado para el juego.
@@ -606,6 +622,16 @@ void gato::detenerSonido() {
 	sonido.stop();
 	musica.stop();
 }
+
+
+// Metodo que inicia o da play a la musica si esta pausada
+void gato::continuarMusica() {
+	detenerSonido();
+	reproduceLaCancionIndicada(cont);
+	sonido.play();
+}
+
+
 
 // Metodo que devuelve al estado inicial los valores modificados en la partida anterior
 // que se estaba realizando antes de cambiar de nivel!
@@ -628,3 +654,83 @@ void gato::resetGame() {
 	nD.resetGame();
 }
 
+
+// Metodo que reproduce una cancion con un nuemro indicado , el cual indica cual es 
+// la que se opcua o se solicita reproducir
+void gato::reproduceLaCancionIndicada(unsigned int cont) {
+
+
+	if (cont == 1) {
+		sonido.setBuffer(cancion1);
+		cout << "Reproduciendo ::::::::::::::::     Nando Fortunato - I'm Sorry \n";
+	}
+
+	else if (cont == 2) {
+		sonido.setBuffer(cancion2);
+		cout << "Reproduciendo ::::::::::::::::    September - La La La (Velchev & Dmitriy Rs Vs Snebastar Remix) \n";
+	}
+
+	else if (cont == 3) {
+		sonido.setBuffer(cancion3);
+		cout << "Reproduciendo ::::::::::::::::    Pascal Junior - Slow Down [Premiere] \n";
+	}
+
+	else if (cont == 4) {
+		sonido.setBuffer(cancion4);
+		cout << "Reproduciendo ::::::::::::::::    Pascal Junior - If I Wouldn't Know (Radio Edit) \n";
+	}
+}
+
+
+// Metodo con el que el usuario puede retroceder en al playlist de canciones de juego
+// y reproducir una cancion siguiente
+
+void gato::siguienteCancion() {
+	// Se detiene el sonido actual para cambiar otro
+	detenerSonido();
+
+	// Valida que si cuando se retrocedio el valor se puso por si se queria seguir retrocediento
+	// y el usaurio intenta adelantar no ponga un nuemero mayor a las opciones disponibles y lo pone
+	// al inicio en cont a 0
+	if (cont == 5 || cont==4) {
+		cont=0;
+	}
+
+	cont++;// se incrementa el valor de la variable auxiliar contador para cambiar hacai adelante las canciones!
+	// Cancion principal del programa
+	reproduceLaCancionIndicada(cont);
+
+	// activa el modo bucle infinito solo si el juegador cambia la cancion reproducira una 
+	// diferente
+	sonido.setLoop(true);
+	sonido.play(); // reproduce el numero de sonido seleccionado para el juego.
+
+}
+
+
+// Metodo con el que el usuario puede retroceder en al playlist de canciones de juego
+// y reproducir una cancion anterior
+void gato::anteriorCancion() {
+	// Se detiene el sonido actual para cambiar otro
+	detenerSonido();
+
+	// Valida que si se estaba adelantando y se puso el valor de cont a 0 que si de la atras
+	// no se exceda el valor de limites de canciones que existe en retorceder y por eso se 
+	// setea en 5 el cont para que caiaga la ultimo que es 4
+	if (cont == 0 || cont ==1 ) {
+		cont = 5;  // Como es la ultima cancion se valida que si aumenta 
+		// la cancion de nuevo vuelve al final de las  canciones disponibles.
+	}
+	cont--;// se incrementa el valor de la variable auxiliar contador para cambiar hacai adelante las canciones!
+	// Cancion principal del programa
+
+	reproduceLaCancionIndicada(cont);
+
+	// activa el modo bucle infinito solo si el juegador cambia la cancion reproducira una 
+	// diferente
+	sonido.setLoop(true);
+	sonido.play(); // reproduce el numero de sonido seleccionado para el juego.
+
+
+
+}

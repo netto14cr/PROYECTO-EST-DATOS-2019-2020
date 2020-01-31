@@ -20,9 +20,11 @@ void ventana::iniciarPrograma()
 {
 	// Se define la velocidad de actualizacion del frame en pantalla
 	window.setFramerateLimit(30);
+	ga.continuarMusica();
 	// se realiza el llamado del metodo que maneja todos los eventos del juego mientras
 	// la ventana del juego este abierta.
 	manejoEventosJuego(window);
+
 
 }
 
@@ -279,6 +281,10 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 					cout << "\n		J U E G O  P A U S A D O \n";
 					menuInicioActivo = true;
 					juegoEnPausa = true;
+
+					// Reproduce sonido de presionar teclas 
+					
+					ga.continuarMusica();
 				}
 				// Falso si presiona la tecla pausa pero ya se encuntra pausado && es durante la realización
 				// de un juego despuasa el juego y se sigue jugando.
@@ -292,6 +298,7 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 					// Cambia el estado del menu inicial dependiendo de la modificacion en la navegación
 				// del color y numero de index vuelve a 0.
 					m.actualizaColorEIndiceMenus();
+					ga.continuarMusica();
 
 				}
 				break;
@@ -310,7 +317,6 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 				// Si el menu inicial esta activo mueve entre la opciones del menu.
 				if (menuInicioActivo && !subMenuNivelActivo) {
 					m.moveUpMenu(1);
-					//ga.reproducirSonido(2);
 				}
 
 				// Falso si el sub menu de niveles esta activo navega entre la opciones del menu. 
@@ -332,8 +338,15 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 					else if (jugador1Eligio && !jugador2Eligio) {
 						m.moveUpSeleccionJugador(2);
 					}
-
 				}
+
+				// Si el juego esta en puasa reproduzca el sonido de cuando se presiona la
+				// tecla hacair arriba
+				if (juegoEnPausa) {
+					// Reproduce sonido de presionar teclas
+					//ga.continuarMusica();
+				}
+
 				break;
 
 				//  Presiono tecla de abajo
@@ -367,8 +380,26 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 						m.moveDownSeleccionJugador(2);
 					}
 				}
+
+
+				// Si el juego esta en puasa reproduzca el sonido de cuando se presiona la
+				// tecla hacair abajo
+				if (juegoEnPausa) {
+					// Reproduce sonido de presionar teclas
+					
+				}
 				break;
 
+
+			case sf::Keyboard::Left:
+				// Reporduce una cancion y cambia a una cancion siguiente
+				ga.siguienteCancion();
+				break;
+
+			case sf::Keyboard::Right:
+				// Reporduce una cancion y cambia a una cancion atras
+				ga.anteriorCancion();
+				break;
 
 			case sf::Keyboard::Return:
 
