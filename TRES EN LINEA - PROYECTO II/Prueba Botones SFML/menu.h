@@ -48,7 +48,7 @@ public:
 	void mostrarSubMenuNiveles(float width, float height);
 	void mostrarMenuJuego2(float width, float height);
 	void reseteaValorSelected() { selectedItemIndex = 0; }
-
+	void actualizaColorEIndiceMenus();
 
 private:	// Declaracion de atributos privados de la clase menu
 
@@ -61,6 +61,8 @@ private:	// Declaracion de atributos privados de la clase menu
 		menuSubNiveles[MAXIMO_OPCIONES], tituloJuego;
 
 	sf::Sprite obj;
+	float width1; 
+	float height1;
 
 
 	void cargarFuentes();

@@ -51,6 +51,8 @@ public:// Declaración de metodos publicos
 		// Inicialización de varibles
 		jugador1Gano, jugador2Gano, realizoJugada = false;
 		letraJugador1, letraMaquina = ' ';
+
+		mejorMarcador, puntajeJuego = 0;
 		// Cuando arranca la clase se asigna automaticamente los valores iniciales a la matriz de juego
 		inicializarMatrizJuegoVacia();
 	}
@@ -100,13 +102,20 @@ private:// Declaración de metodos privados
 		char matrizJuego[TAM_FILA][TAM_COLUMNA], char letraAAgregar,
 		int auxEstadoInicial, int auxPerdedor, int auxGanador);
 
+	pair<int, int> mejorMovimiento;
+	vector<pair<int, int>>camposDisponibles;
 	bool verificarJugadorGanador(vector<pair<int, int>>  obtenerLugaresOcupados);
 	bool matrizJuegoLlena(char matrizJuego[TAM_FILA][TAM_COLUMNA]);
 	int obtenerEstadoMatrizJuego(char matrizJuego[TAM_FILA][TAM_COLUMNA], char letraAAgregar);
 
 	char letraJugador1, letraMaquina;
 
+	int mejorMarcador, puntajeJuego;
+
 	vector<vector<pair<int, int>>> declaraPosiblesJugadas;
+	pair<int, pair<int, int>> movimientoMaquina;
+
+
 	// Declaracion de metodos que no retornan ningun valor
 	void inicializarMatrizJuegoVacia();
 	void mostrarValoresEnMatriz(char matrizJuego[TAM_FILA][TAM_COLUMNA]);

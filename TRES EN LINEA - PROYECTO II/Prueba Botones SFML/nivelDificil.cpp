@@ -30,11 +30,12 @@ bool nivelDificil::verificarPosibleJugada(unsigned int nBoton, unsigned int nume
 		obtenerEstadoMatrizJuego(matrizJuego, letraJugador1);
 		// Se realiza el cambio del estado de realizo movimiento en la jugada a verdadero
 		realizoJugada = true;
+
 	}
 	// Falso Si es el turno del jugador 1 realiza la comprobacion asignada de jugada de la maquina
 	else if (numeroJugador == 2) {
 		// Aqui se debe llamar al metodo para que juegue y valide la maquina
-		pair<int, pair<int, int>> movimientoMaquina = algoritmoMinimazaJuego(matrizJuego, LETRA_JUGADOR_O, ESTADO_INICIAL, PERDEDOR, GANADOR);
+		movimientoMaquina = algoritmoMinimazaJuego(matrizJuego, LETRA_JUGADOR_O, ESTADO_INICIAL, PERDEDOR, GANADOR);
 		matrizJuego[movimientoMaquina.second.first][movimientoMaquina.second.second] = letraAAgregar;
 		//verificaGanadorJugador2(letraAAgregar, matrizJuego);
 		// Llamado al metodo que muestra los valores de la matriz por consola
@@ -312,8 +313,7 @@ pair<int, pair<int, int>>nivelDificil::algoritmoMinimazaJuego(
 {
 
 	// Se asigna el movimiento correcto con valor de menos uno inicialmente
-	pair<int, int> mejorMovimiento = make_pair(-1, -1);
-
+	mejorMovimiento = make_pair(-1, -1);
 	int mejorMarcador = (letraAAgregar == letraMaquina) ? PERDEDOR : GANADOR;
 
 	// Verificacion si se llega a un estado terminal del nodo (hoja) se devuvle y retorna 
@@ -326,7 +326,7 @@ pair<int, pair<int, int>>nivelDificil::algoritmoMinimazaJuego(
 	}
 
 
-	vector<pair<int, int>> camposDisponibles = obtenerLugaresDisponibles(matrizJuego);
+	camposDisponibles = obtenerLugaresDisponibles(matrizJuego);
 
 	for (int i = 0; i < camposDisponibles.size(); i++)
 	{
@@ -337,8 +337,7 @@ pair<int, pair<int, int>>nivelDificil::algoritmoMinimazaJuego(
 		// Maquina minimiza las jugadas de jugador 1
 		if (letraAAgregar == letraMaquina)
 		{
-			int puntajeJuego;
-			puntajeJuego = 0;
+			
 			puntajeJuego = algoritmoMinimazaJuego(matrizJuego,
 				letraJugador1, auxEstadoInicial + 1, auxPerdedor, auxGanador).first;
 
@@ -364,8 +363,7 @@ pair<int, pair<int, int>>nivelDificil::algoritmoMinimazaJuego(
 		// Falso verifica el turno del jugador y analiza sus movimientos ------------
 		else
 		{
-			int puntajeJuego;
-			puntajeJuego = 0;
+			
 			puntajeJuego = algoritmoMinimazaJuego(matrizJuego,
 				LETRA_JUGADOR_O, auxEstadoInicial + 1, auxPerdedor, auxGanador).first;
 

@@ -7,14 +7,18 @@
 
 Menu::Menu(float width, float height)
 {
+	width1 = width;
+	height1 = height;
+
+
 
 	// Se realiza una carga previa de los metodos de los diferentes para que se escriban y
 	// se guarden sus valores respectivos.
 	cargarFuentes();
-	mostrarMenuInicial(width, height);
-	mostrarMenuSeleccionImgJugador1(width, height);
-	mostrarMenuSeleccionImgJugador2(width, height, 0);
-	mostrarSubMenuNiveles(width, height);
+	mostrarMenuInicial(width1, height1);
+	mostrarMenuSeleccionImgJugador1(width1, height1);
+	mostrarMenuSeleccionImgJugador2(width1, height1, 0);
+	mostrarSubMenuNiveles(width1, height1);
 }
 
 // Metodo que muestra en forma de menu inicial las opciones de tipo de juego en el program
@@ -267,5 +271,16 @@ void Menu::moveDownSeleccionJugador(int tipoJugador)
 		selectedItemIndex++;
 		menuSeleccionJugador1[selectedItemIndex].setFillColor(sf::Color::Cyan);
 	}
+
+}
+
+
+void Menu::actualizaColorEIndiceMenus() {
+
+	mostrarMenuInicial(width1, height1);
+	mostrarMenuSeleccionImgJugador1(width1, height1);
+	mostrarMenuSeleccionImgJugador2(width1, height1, 0);
+	mostrarSubMenuNiveles(width1, height1);
+
 
 }

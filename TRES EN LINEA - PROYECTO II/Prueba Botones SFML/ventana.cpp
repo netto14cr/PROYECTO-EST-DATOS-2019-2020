@@ -267,9 +267,9 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 				// mostrar el menu principal
 			case sf::Keyboard::Tab:
 
-				// Se cambia el estado de la variable index en menu para que sea en la posicion primera
-				// por si un cambio entre menu la dejo en otro lugar diferente
-				m.reseteaValorSelected();
+				// Cambia el estado del menu inicial dependiendo de la modificacion en la navegación
+				// del color y numero de index vuelve a 0.
+				m.actualizaColorEIndiceMenus();
 
 				// Si el juego no esta en pausa (evita que entre en pausa cuando inicia el juego y muestra
 				// las pirmera opciones antes de comenzar a jugar) && juego comenzo , lo que indica que 
@@ -289,6 +289,9 @@ void ventana::determinarTipoEvento(sf::RenderWindow& window) {
 					// Si el subnivel se activo mientras estaba en pausa y se desidio quitar la pausa oculta
 					// tambien el sub menu de los niveles contra la maquina.
 					if (subMenuNivelActivo) subMenuNivelActivo = false;
+					// Cambia el estado del menu inicial dependiendo de la modificacion en la navegación
+				// del color y numero de index vuelve a 0.
+					m.actualizaColorEIndiceMenus();
 
 				}
 				break;
@@ -610,6 +613,10 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				menuInicioActivo = false;
 				// Se asigna el tipo de juego 1
 				tipoJuego = "JugadorVsJugador";
+
+				// Cambia el estado del menu inicial dependiendo de la modificacion en la navegación
+				// del color y numero de index vuelve a 0.
+				m.actualizaColorEIndiceMenus();
 			}
 			// Falso si se encentra jugadondo contra la maquina y selecciona 
 			// la opcion 1 de jugador vs jugador reiniciara el juego y cargara
@@ -621,7 +628,6 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				tipoJuego = "JugadorVsJugador";
 				// Realiza borrado de valores modificados en la clase ventana
 				resetGame();
-				m.reseteaValorSelected();
 			}
 			// Falso si se encuntra jugando y elige el mismo tipo de juego significa que el usuario
 			// quiere reiniciar la partida y se realiza la carga de un nuevo juego jugador vs jugador
@@ -630,7 +636,7 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				cout << "\n R E I N I C I A N D O  M O D O  D E  J U E G O  J U E G A D O R  V S  J U G A D O R !!\n\n";
 				// Realiza borrado de valores modificados en la clase ventana
 				resetGame();
-				m.reseteaValorSelected();
+				
 			}
 
 		}// TERMNINA MENU DE JUEGO INICIAL ACTIVO
@@ -726,7 +732,6 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				tipoJuego = "JugadorVsCPU";
 				// Realiza borrado de valores modificados en la clase ventana
 				resetGame();
-				m.reseteaValorSelected();
 			}
 
 			// Falso si se encuntra jugando y elige el mismo tipo de juego significa que el usuario
@@ -737,7 +742,6 @@ void ventana::opcionesMenuJuego(sf::RenderWindow& window) {
 				cout << "\n Seleccione otro nivel que sea jugar..\n\n";
 				// Realiza borrado de valores modificados en la clase ventana
 				resetGame();
-				m.reseteaValorSelected();
 			}
 
 
