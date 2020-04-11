@@ -1,9 +1,2 @@
-# PROYECTO-EST-DATOS-2019-2020
-Codgio de fuente donde se encontraran los proyetos del curso de estructuras de datos verano 2019-2020
-
-
-Integrantes:
-
-              ----- Kislev Aleman Funes --- 
-              ----- Néstor Leiva Mora -----
-              ----- Josua Esquivel  -------
+# PROYECTO-EST-DATOS-2020
+Codgio de fuente donde se encontraran los proyetos del curso de estructuras de datos 2020
